@@ -12,6 +12,7 @@ import ComunicacaoCliente.ComCliente;
  */
 public class UIConfiguracoes extends javax.swing.JFrame {
 
+    User player;
     /**
      * Creates new form UIConfiguracoes
      */
@@ -21,6 +22,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
     
      public UIConfiguracoes(User Jogador) {
         initComponents();
+        player=Jogador;
     }
 
 
@@ -322,7 +324,8 @@ public class UIConfiguracoes extends javax.swing.JFrame {
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
         // TODO add your handling code here:
         
-        
+        String username =  player.getUsername();
+        String avatar = player.getAvatar();
         char[] Oldpassword = OldPasswordField.getPassword();
         char[] Newpassword = NewPasswordField.getPassword();
         char[] Confirmpassword = ConfirmPasswordField.getPassword();
@@ -335,9 +338,10 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         MD5Pwd enc = new MD5Pwd();
         String passEnc; 
         
-        
         xOldPassword.setVisible(false);
         xConfirmPassword.setVisible(false);
+        
+        passEnc = enc.encode(username,pass);
         
         
         if(!Newpassword.equals(Oldpassword)){
@@ -348,7 +352,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                     
                     try{
                         ComCliente com = ComCliente.getInstance();
-                        //com.mudarpass(username, passEnc);
+                        com.mudarConfig(username, passEnc, avatar);
                         this.SaveButton.setEnabled(false);
                     }catch (Exception e) {
                                 System.out.println("Accept failed: 4444");
@@ -361,21 +365,21 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                         this.OldPasswordField.setText("");
                         this.NewPasswordField.setText("");
                         this.ConfirmPasswordField.setText("");
-                }
+                     }
             }else{
                         this.ErrorLabel.setText("Error in old password");
                         this.xOldPassword.setVisible(true);
                         this.OldPasswordField.setText("");
                         this.NewPasswordField.setText("");
                         this.ConfirmPasswordField.setText("");
-            }
+                }
         }else{
                         this.ErrorLabel.setText("Error in new password");
                         this.xNewPassword.setVisible(true);
                         this.OldPasswordField.setText("");
                         this.NewPasswordField.setText("");
                         this.ConfirmPasswordField.setText("");
-        }
+            }
         
     }//GEN-LAST:event_SaveButtonActionPerformed
 

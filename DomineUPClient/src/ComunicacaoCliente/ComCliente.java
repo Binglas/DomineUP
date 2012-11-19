@@ -116,8 +116,25 @@ public class ComCliente {
     }
     
     
-    public void mudarpass(String username, String passEnc){
+    public void mudarConfig(String username, String passEnc, String avatar){
+       
+        ArrayList<Object> arguments = new ArrayList<>();
+        arguments.add(username);
+        arguments.add(passEnc);
+        arguments.add(avatar);
         
+        Message messageToServer = new Message("mudarConfig", arguments);
+        System.out.println(messageToServer.getTipoMensagem());
+        System.out.println(messageToServer.getArguments());
+        
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+        } catch (Exception ex) {
+            System.err.println("Comunicacao Login: escritor");
+        }
     }
     
     public void registar(String username, String passEnc, String email) {

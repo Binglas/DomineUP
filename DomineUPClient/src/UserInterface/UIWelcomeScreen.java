@@ -14,6 +14,8 @@ import Share.User;
 public class UIWelcomeScreen extends javax.swing.JFrame {
     
 
+            public static UIConfiguracoes optionScreen;
+    
     public  UIWelcomeScreen(){
         initComponents();
         
@@ -24,6 +26,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     public UIWelcomeScreen(User Jogador) {
         initComponents();
         this.UsernameLabel.setText(Jogador.getUsername());
+        optionScreen = new UIConfiguracoes(Jogador);
     }
 
     /**
@@ -142,7 +145,9 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void OptionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OptionsButtonActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:  
+        
+        
     }//GEN-LAST:event_OptionsButtonActionPerformed
 
     /**
