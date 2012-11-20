@@ -14,12 +14,49 @@ public class User implements Serializable {
     private String password;
     private String username;
     private String avatar;
-    private int id;
+    private int gamesplayed;
+    private int gameswon;
+    private int rank;
 
     
     /**
      * Contrutor da Classe User
      * @param id - valor a ser atribuito à variável
+     * @param email - valor a ser atribuito à variável
+     * @param password - valor a ser atribuito à variável
+     * @param username - valor a ser atribuito à variável
+     * @param avatar - valor a ser atribuito à variável
+     * @param gamesplayed - valor a ser atribuido à variável
+     * @param gameswon - valor a ser atribuido à variável
+     */
+    public User(String email, String password, String username, String avatar,int gamesplayed,int gameswon,int rank) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.avatar = avatar;
+        this.gameswon=gameswon;
+        this.gamesplayed=gamesplayed;
+        this.rank=rank; 
+    }
+     /**
+     * Contrutor da Classe User
+     * @param email - valor a ser atribuito à variável
+     * @param password - valor a ser atribuito à variável
+     * @param username - valor a ser atribuito à variável
+     * @param avatar - valor a ser atribuito à variável
+     * @param gamesplayed - valor a ser atribuido à variável
+     * @param gameswon - valor a ser atribuido à variável
+     */
+    public User(String email, String password, String username, String avatar,int gamesplayed,int gameswon) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.avatar = avatar;
+        this.gameswon=gameswon;
+        this.gamesplayed=gamesplayed;   
+    }
+     /**
+     * Contrutor da Classe User
      * @param email - valor a ser atribuito à variável
      * @param password - valor a ser atribuito à variável
      * @param username - valor a ser atribuito à variável
@@ -30,16 +67,28 @@ public class User implements Serializable {
         this.password = password;
         this.username = username;
         this.avatar = avatar;
-       // this.id = id;
-        
     }
   
   /**
      * Get genérico
-     * @return String id
+     * @return String gamesplayed
      */
-    public int getID() {
-        return id;
+    public int getgamesplayed() {
+        return gamesplayed;
+    }  
+   /**
+     * Get genérico
+     * @return String gameswon
+     */
+    public int getgameswon() {
+        return gameswon;
+    }  
+  /**
+     * Get genérico
+     * @return String rank
+     */
+    public int getRank() {
+        return rank;
     }
     /**
      * Get genérico

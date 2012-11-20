@@ -6,7 +6,8 @@ package UserInterface;
 
 import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.ClientStart;
-import LogicaNegocioCliente.MD5Pwd;
+import LogicaNegocioCliente.Language;
+import Share.MD5Pwd;
 import LogicaNegocioCliente.ValidateMail;
 import java.security.NoSuchAlgorithmException;
 import UserInterface.UIInitial;
@@ -15,7 +16,7 @@ import UserInterface.UIInitial;
  * @author Andre
  */
 public class UIRegister extends javax.swing.JFrame {
-
+    private String Lang = Language.getInstance().GetLanguage(); 
     /**
      * Cria instancia da classe UIRegister
      */
@@ -26,6 +27,8 @@ public class UIRegister extends javax.swing.JFrame {
         this.xName.setVisible(false);
         this.xEmail.setVisible(false);
         this.ErrorLabel.setText("");
+        System.out.println(Lang);
+        this.RegisterUserLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("UsernameLabel"));
     }
     public void enableConfirmButton() {
         this.ConfirmButton.setEnabled(true);

@@ -130,8 +130,8 @@ public class DataRead {
             rs = statement.executeQuery(QueryString2);
             
             if (rs.next()!=false){
-                User userdata = new User(rs.getString(3), rs.getString(7), rs.getString(2),rs.getString(4));
-                //User userdata = new User(rs.getString(3), rs.getString(7), rs.getString(2),rs.getString(4), rs.getInt(1));
+               User userdata = new User(rs.getString(3), rs.getString(6), 
+                        rs.getString(2),rs.getString(4),rs.getInt(8),rs.getInt(7));
                 return userdata;
             }else{
                 //received 0....
@@ -187,10 +187,11 @@ public class DataRead {
             //query de select e imprimir
             String QueryString2 = "select * from domineup.\"Users\" where Email='"+email+"'";
             rs = statement.executeQuery(QueryString2); 
-            
+             
             if (rs.next()!=false){
-                User userdata = new User(rs.getString(3), rs.getString(7), rs.getString(2),rs.getString(4));
-                //User userdata = new User(rs.getString(3), rs.getString(7), rs.getString(2),rs.getString(4), rs.getInt(1));
+                User userdata = new User(rs.getString(3), rs.getString(6), 
+                        rs.getString(2),rs.getString(4),rs.getInt(8),rs.getInt(7));
+                
                 return userdata;
             }else{
                 //received 0....

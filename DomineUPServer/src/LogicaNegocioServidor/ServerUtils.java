@@ -6,10 +6,14 @@ package LogicaNegocioServidor;
 import RecolhaDados.DataRead;
 import RecolhaDados.DataWrite;
 import Share.User;
+import Share.MD5Pwd;
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+
 
 /**
  * Classe que suporta todas as operações do servidor.
@@ -114,7 +118,7 @@ public class ServerUtils implements Serializable{
             DataRead DBreader = new DataRead();
             DataWrite DBwrite = new DataWrite();
             
-            User newUser = new User(email, password, username, "anonymous_person.png");
+            User newUser = new User(email, password, username, "avatar5.png",0,0);
             // verificar na DB se o username existe
            
             try{
@@ -155,7 +159,101 @@ public class ServerUtils implements Serializable{
         }
         
     }
-     
- 
     
+  /*
+     * Verifica se o username e a password existem na base de dados, caso não existam
+     * efectua o update aos dados pessoais, em caso contrário retorna erro.
+     * @param username do user a fazer update
+     * @param password do user a fazer update
+     * @param email do user a fazer update
+     * @param avatar do user a fazer update
+     * @return A função retorna uma string com o resultado do registo.
+     * success, usernameInUse são as possibilidades.
+     */
+   public String updateUser(String username, String password, String email, String avatar) throws SQLException {
+        synchronized (lockUserList) {
+            DataRead DBreader = new DataRead();
+            DataWrite DBwrite = new DataWrite();
+            
+            User newUser = new User(email, password, username, avatar);
+            //se email null então n altera email
+          /*
+            if (!email.equals("")){
+                // verificar na DB se o email existe
+                try{
+                    if (DBreader.SelectEmail(email)!=null){
+                        //emailInUse
+
+                        return "emailInUse";
+                    }  
+                }catch (SQLException ex){
+                    //erro...
+                    System.out.println("Exception: DBreader.SelectEmail() " + ex);
+                    return "error";
+                }
+            }
+           */
+            //inserir utilizador na DB (tratar das estatisticas e etc... apenas insere na tabela user)
+            
+            try{
+                DBwrite.UpdateUser(newUser);
+                return "success";
+            }catch (SQLException ex){
+                System.out.println("Exception: DBwrite.InsertUser() " + ex);
+                return "error";
+            }
+  
+        }
+        
+    }
+    /**
+     * Método que permite recuperar a password do utilizador gerando uma nova e 
+     * envia através de email para o seu endereço.
+     * @param Email
+     * @return o seu próprio User se for bem sucedido, ou null se estiver errado.
+     */
+    public User RecoverPass(String email) throws SQLException {
+        
+        DataRead DBreader = new DataRead();
+        DataWrite DBwrite = new DataWrite();
+        User user;
+        
+        synchronized (lockUserList) {
+            System.out.println(email);
+            try {
+                 
+                 user=DBreader.SelectEmail(email);
+                 if (user!=null){ //existe o email... logo fazer a alteração
+                     
+                     SecureRandom random = new SecureRandom();
+                     String newpass=new BigInteger(30, random).toString(32);
+                     MD5Pwd enc = new MD5Pwd();
+                     String encpass=enc.encode(user.getUsername(), newpass);
+                     
+                     try{
+                         System.out.println("antes de update...");
+                         DBwrite.UpdatePass(email, encpass);
+                         User result = new User(email,newpass , user.getUsername(), user.getAvatar());
+                         System.out.println(user.getPassword());
+                         System.out.println("depois do update...");
+                         return result;
+                     }catch (SQLException ex){
+                         //erro...
+                         System.out.println("Exception: updating pass DBwrite() " + ex);
+                         return null;
+                     }
+                    
+                 }else { // não existe o email na db...´~
+                      System.out.println("não encontra email...");
+                     return null;
+                 }
+           
+            }catch (SQLException ex){
+                //erro...
+                System.out.println("Exception: reading email.. " + ex);
+                return null;
+            }
+        }
+        
+    }
 }

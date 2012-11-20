@@ -116,12 +116,15 @@ public class ComCliente {
     }
     
     
-    public void mudarConfig(String username, String passEnc, String avatar){
+    public void mudarConfig(String username, String passEnc, String email,String avatar){
        
         ArrayList<Object> arguments = new ArrayList<>();
         arguments.add(username);
         arguments.add(passEnc);
+        arguments.add(email);
         arguments.add(avatar);
+        
+        
         
         Message messageToServer = new Message("mudarConfig", arguments);
         System.out.println(messageToServer.getTipoMensagem());
@@ -154,6 +157,31 @@ public class ComCliente {
             System.out.println("registar: error writing object");
         }
     }
+   
+     /**
+     * Trata de enviar para o servidor uma mensagem do tipo recoverPass, juntamente com
+     * o Email.
+     * @param Email Email do utilizador. 
+     */
+    public void  recoverPass(String Email) {
+
+        ArrayList<Object> arguments = new ArrayList<>();
+        arguments.add(Email);
+
+        Message messageToServer = new Message("recoverPass", arguments);
+        System.out.println(messageToServer.getTipoMensagem());
+        System.out.println(messageToServer.getArguments());
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+        } catch (Exception ex) {
+            System.err.println("Comunicacao Login: escritor");
+        }
+
+    }
+    
      /**
      * Estabelece o protocolo da ligação, analisa e trata as respostas vindas do servidor.
      * @return String que retorna o identificador da mensagem recebida.
@@ -190,6 +218,22 @@ public class ComCliente {
                     case "answrReg:usernameInUse":
                         System.out.println("answrReg:usernameInUse");
                         return "answrRegUsernameInUse";
+                        
+                    case "answrRecoverPass:success":
+                        System.out.println("answrRecoverPass:success");
+                        ReaderThread.password="A sua nova Password é: "+msg.getArguments().get(0).toString();
+                        return "RecoverPassSucess";
+                        
+                    case "answrRecoverPass:error":
+                        System.out.println("answrRecoverPass:error");
+                        return "RecoverPassError";
+                    case "answrMudarConfig:success":
+                        System.out.println("answrMudarConfig:success");
+                        return "MudarConfigSuccess";
+                    case "answrMudarConfig:error":
+                        System.out.println("answrMudarConfig:error");
+                        return "MudarConfigError";
+                        
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");
                         return "runtimeError";

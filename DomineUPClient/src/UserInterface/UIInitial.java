@@ -5,7 +5,7 @@
 package UserInterface;
 import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.Language;
-import LogicaNegocioCliente.MD5Pwd;
+import Share.MD5Pwd;
 import LogicaNegocioCliente.ReaderThread;
 
 /**
@@ -24,19 +24,30 @@ public class UIInitial extends javax.swing.JFrame {
      */
     public UIInitial() {
         initComponents();
+        UpdateLanguage();
         registerScreen = new UIRegister();
         recoverPassScreen = new UIRecoverPass();
         setLocationRelativeTo(null);
         this.ReconnectButton.setVisible(false);
         ConnectThread  t = new ConnectThread();
         new Thread(t). start ( );
-        
+
     }
+    
     public void UISetVisible(){
         this.setVisible(true);
     }
     private void UpdateLanguage(){
         Lang=Language.getInstance().GetLanguage();
+        if (Lang.equals("resources/Portugues_pt_PT_EURO")){
+             this.LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/uk.png")));
+             Language.getInstance().SetLanguageEN();
+             
+        }else{
+            this.LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pt.png")));
+            Language.getInstance().SetLanguagePT();
+            
+        }
         this.UsernameLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("UsernameLabel"));
       
     }
@@ -79,7 +90,7 @@ private class ConnectThread implements Runnable
                         this.LoginButton.setEnabled(true);
                         this.jProgressBar.setVisible(false);
                         this.ReconnectButton.setVisible(false);
-                        new ReaderThread(this,registerScreen).start();
+                        new ReaderThread(this,registerScreen,recoverPassScreen).start();
                         this.ServerStateQuery.setText(java.util.ResourceBundle.getBundle(Lang).getString("Connected"));
 
                     }

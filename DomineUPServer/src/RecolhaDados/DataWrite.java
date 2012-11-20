@@ -55,9 +55,115 @@ public class DataWrite {
         if (connection != null) {
             System.out.println("Connected to database!");
 
-            String QueryString = "INSERT INTO domineup.\"Users\" (username, email, password, avatar) \n" +
-            "VALUES ('"+user.getUsername()+"', '"+user.getEmail()+"', '"+user.getPassword()+"', 'anonymous_person.png')\n";
+            String QueryString = "INSERT INTO domineup.\"Users\" (username, email, password, "
+                    + "avatar, gameswon ,gamesplayed) \n" +
+            "VALUES ('"+user.getUsername()+"', '"+user.getEmail()+"', '"+user.getPassword()+"','"
+                    +user.getAvatar()+"',"+user.getgameswon()+","+user.getgamesplayed()+")\n";
                                                
+            updateQuery = statement.executeUpdate(QueryString);
+            return true;
+        } else {
+            System.out.println("Failed to make connection!");
+            throw new SQLException();
+        }
+        
+    }
+    
+    /**
+    * Método que faz a actualização dos dados do utilizador. 
+    * @return True se o utilizador for inserido correctamente, caso contrário false.
+    * @author andre
+    */
+    public boolean UpdateUser(User user) throws SQLException {
+        Statement statement = null;
+        ResultSet rs = null;
+        int updateQuery = 0;
+        
+        try {
+
+            Class.forName("org.postgresql.Driver");
+
+        } catch (ClassNotFoundException e) {
+
+            System.out.println("Where is your PostgreSQL JDBC Driver? " + "Include in your library path!");
+            e.printStackTrace();
+            throw new SQLException();
+        }
+
+        System.out.println("PostgreSQL JDBC Driver Registered!");
+        Connection connection = null;
+        
+        try {
+            connection = DriverManager.getConnection(
+                    "jdbc:postgresql://gnomo.fe.up.pt:5432/ee08251", "ee08251", "PtBfR2D5r");
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+            throw new SQLException();
+
+        }
+        
+        if (connection != null) {
+            System.out.println("Connected to database!");
+
+            String QueryString = "UPDATE domineup.\"Users\" SET password='"+user.getPassword()
+                    +"', "+"avatar='"+user.getAvatar()
+                    +"', email='"+user.getEmail()+"' WHERE username='"+user.getUsername()+"'";
+
+            updateQuery = statement.executeUpdate(QueryString);
+            return true;
+        } else {
+            System.out.println("Failed to make connection!");
+            throw new SQLException();
+        }
+        
+    }
+    
+    
+     /**
+    * Método que faz a actualização da password do utilizador. 
+    * @return True se o utilizador for inserido correctamente, caso contrário false.
+    * @author andre
+    */
+    public boolean UpdatePass(String Email,String Password) throws SQLException {
+        Statement statement = null;
+        ResultSet rs = null;
+        int updateQuery = 0;
+        
+        try {
+
+            Class.forName("org.postgresql.Driver");
+
+        } catch (ClassNotFoundException e) {
+
+            System.out.println("Where is your PostgreSQL JDBC Driver? " + "Include in your library path!");
+            e.printStackTrace();
+            throw new SQLException();
+        }
+
+        System.out.println("PostgreSQL JDBC Driver Registered!");
+        Connection connection = null;
+        
+        try {
+            connection = DriverManager.getConnection(
+                    "jdbc:postgresql://gnomo.fe.up.pt:5432/ee08251", "ee08251", "PtBfR2D5r");
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+            throw new SQLException();
+
+        }
+        
+        if (connection != null) {
+            System.out.println("Connected to database!");
+
+            String QueryString = "UPDATE domineup.\"Users\" SET password='"+Password
+                    +"' WHERE email='"+Email+"'";
+
             updateQuery = statement.executeUpdate(QueryString);
             return true;
         } else {

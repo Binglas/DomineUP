@@ -36,6 +36,7 @@ public class UIError extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         ErrorTittleLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         ErrorTittleLabel.setText("Error");

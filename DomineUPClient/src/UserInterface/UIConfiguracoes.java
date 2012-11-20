@@ -4,11 +4,14 @@
  */
 package UserInterface;
 import Share.User;
-import LogicaNegocioCliente.MD5Pwd;
+import Share.MD5Pwd;
 import ComunicacaoCliente.ComCliente;
+import javax.swing.ButtonGroup;
+import LogicaNegocioCliente.ReaderThread;
+
 /**
- *
- * @author andre
+ * 
+ * @author andre,luciano
  */
 public class UIConfiguracoes extends javax.swing.JFrame {
 
@@ -18,14 +21,42 @@ public class UIConfiguracoes extends javax.swing.JFrame {
      */
     public UIConfiguracoes() {
         initComponents();
+        groupButton();
+        ErrorLabel.setText("");
+        xNewPassword.setVisible(false);
+        xOldPassword.setVisible(false);
+        xNewEmail.setVisible(false);
+        xOldEmail.setVisible(false);
+    
     }
     
      public UIConfiguracoes(User Jogador) {
         initComponents();
+        groupButton();
         player=Jogador;
+        xNewPassword.setVisible(false);
+        xOldPassword.setVisible(false);
+        xNewEmail.setVisible(false);
+        xOldEmail.setVisible(false);
     }
+     public void SetLabel(String text){
+         this.ErrorLabel.setText(text);
+     }
+     public void SetConButton(){
+         this.SaveButton.setEnabled(true);
+     }
+    public void groupButton( ) {
 
+        ButtonGroup bg1 = new ButtonGroup( );
 
+        bg1.add(rbavatar1);
+        bg1.add(rbavatar2);
+        bg1.add(rbavatar3);
+        bg1.add(rbavatar4);
+        bg1.add(rbavatar5);
+        bg1.add(rbavatar6);
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,10 +68,6 @@ public class UIConfiguracoes extends javax.swing.JFrame {
 
         OptionsLabel = new javax.swing.JLabel();
         ImageSettingsLabel = new javax.swing.JLabel();
-        ChangePasswordLabel = new javax.swing.JLabel();
-        OldPasswordLabel = new javax.swing.JLabel();
-        NewPasswordLabel = new javax.swing.JLabel();
-        ConfirmaPasswordLabel = new javax.swing.JLabel();
         SoundEffectsLabel = new javax.swing.JLabel();
         MainVolmeLabel = new javax.swing.JLabel();
         MusicVolumeLabel = new javax.swing.JLabel();
@@ -52,41 +79,52 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         MusicVolumeSlider = new javax.swing.JSlider();
         SFXSoundSlider = new javax.swing.JSlider();
         AccountSettingsLabel1 = new javax.swing.JLabel();
-        UploadLinkLabel = new javax.swing.JLabel();
-        UploadLinkField = new javax.swing.JTextField();
-        UploadButton = new javax.swing.JButton();
-        LanguageLabel = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
         CancelButton = new javax.swing.JButton();
         SaveButton = new javax.swing.JButton();
-        xConfirmPassword = new javax.swing.JLabel();
-        xOldPassword = new javax.swing.JLabel();
         ErrorLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        avatar6 = new javax.swing.JLabel();
+        rbavatar6 = new javax.swing.JRadioButton();
+        avatar5 = new javax.swing.JLabel();
+        rbavatar5 = new javax.swing.JRadioButton();
+        rbavatar4 = new javax.swing.JRadioButton();
+        avatar4 = new javax.swing.JLabel();
+        rbavatar1 = new javax.swing.JRadioButton();
+        avatar1 = new javax.swing.JLabel();
+        avatar2 = new javax.swing.JLabel();
+        rbavatar2 = new javax.swing.JRadioButton();
+        rbavatar3 = new javax.swing.JRadioButton();
+        avatar3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        xOldPassword = new javax.swing.JLabel();
         NewPasswordField = new javax.swing.JPasswordField();
         ConfirmPasswordField = new javax.swing.JPasswordField();
-        OldPasswordField = new javax.swing.JPasswordField();
+        ConfirmaPasswordLabel = new javax.swing.JLabel();
+        NewPasswordLabel = new javax.swing.JLabel();
         xNewPassword = new javax.swing.JLabel();
+        OldPasswordLabel = new javax.swing.JLabel();
+        OldPasswordField = new javax.swing.JPasswordField();
+        ChangePasswordLabel = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        xOldEmail = new javax.swing.JLabel();
+        ConfirmaPasswordLabel2 = new javax.swing.JLabel();
+        NewPasswordLabel2 = new javax.swing.JLabel();
+        xNewEmail = new javax.swing.JLabel();
+        OldPasswordLabel2 = new javax.swing.JLabel();
+        ChangePasswordLabel2 = new javax.swing.JLabel();
+        OldEmailField = new javax.swing.JTextField();
+        NewEmailField = new javax.swing.JTextField();
+        ConfirmEmailField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setResizable(false);
 
         OptionsLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        OptionsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         OptionsLabel.setText("Options");
 
         ImageSettingsLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         ImageSettingsLabel.setText("Image Settings");
-
-        ChangePasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        ChangePasswordLabel.setText("Change Password");
-
-        OldPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        OldPasswordLabel.setText("Old Password");
-
-        NewPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        NewPasswordLabel.setText("New Password");
-
-        ConfirmaPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        ConfirmaPasswordLabel.setText("Confirm Password");
 
         SoundEffectsLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         SoundEffectsLabel.setText("Sound Effects");
@@ -107,20 +145,16 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         });
 
         AccountSettingsLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        AccountSettingsLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         AccountSettingsLabel1.setText("Account Settings");
-
-        UploadLinkLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        UploadLinkLabel.setText("Upload Link");
-
-        UploadButton.setText("Upload");
-
-        LanguageLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        LanguageLabel.setText("Language");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         CancelButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         CancelButton.setText("Cancel");
+        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelButtonActionPerformed(evt);
+            }
+        });
 
         SaveButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         SaveButton.setText("Save");
@@ -130,131 +164,310 @@ public class UIConfiguracoes extends javax.swing.JFrame {
             }
         });
 
-        xConfirmPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/redcross.png"))); // NOI18N
+        ErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ErrorLabel.setText("ERROR TEXT FIELD HERE");
+
+        avatar6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar6_min.png"))); // NOI18N
+
+        avatar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar1_min.png"))); // NOI18N
+
+        avatar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar4_min.png"))); // NOI18N
+
+        avatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar5_min.png"))); // NOI18N
+
+        avatar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar2_min.png"))); // NOI18N
+
+        avatar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar3_min.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(avatar4)
+                        .addGap(18, 18, 18)
+                        .addComponent(avatar5)
+                        .addGap(18, 18, 18)
+                        .addComponent(avatar6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(rbavatar1))
+                            .addComponent(avatar1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(avatar2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(rbavatar2)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(rbavatar3))
+                            .addComponent(avatar3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(rbavatar4)
+                        .addGap(49, 49, 49)
+                        .addComponent(rbavatar5)
+                        .addGap(47, 47, 47)
+                        .addComponent(rbavatar6))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(avatar2, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(avatar3))
+                    .addComponent(avatar1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(rbavatar1)
+                    .addComponent(rbavatar2)
+                    .addComponent(rbavatar3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(avatar6)
+                    .addComponent(avatar5)
+                    .addComponent(avatar4))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(rbavatar4)
+                    .addComponent(rbavatar5)
+                    .addComponent(rbavatar6)))
+        );
 
         xOldPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/redcross.png"))); // NOI18N
 
-        ErrorLabel.setText("ERROR TEXT FIELD HERE");
+        ConfirmaPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ConfirmaPasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ConfirmaPasswordLabel.setText("Confirm Password:");
 
-        NewPasswordField.setText("jPasswordField1");
-
-        ConfirmPasswordField.setText("jPasswordField1");
-
-        OldPasswordField.setText("jPasswordField1");
+        NewPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        NewPasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        NewPasswordLabel.setText("New Password:");
 
         xNewPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/redcross.png"))); // NOI18N
+
+        OldPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        OldPasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        OldPasswordLabel.setText("Old Password:");
+
+        ChangePasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ChangePasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ChangePasswordLabel.setText("Change Password");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(OldPasswordLabel)
+                    .addComponent(NewPasswordLabel)
+                    .addComponent(ConfirmaPasswordLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(OldPasswordField)
+                    .addComponent(NewPasswordField)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 1, Short.MAX_VALUE)
+                        .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(xNewPassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(xOldPassword, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ChangePasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(ChangePasswordLabel)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(OldPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(OldPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(xOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(xNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(NewPasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(NewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ConfirmaPasswordLabel))
+                .addContainerGap())
+        );
+
+        xOldEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/redcross.png"))); // NOI18N
+
+        ConfirmaPasswordLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ConfirmaPasswordLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ConfirmaPasswordLabel2.setText("Confirm New Email:");
+
+        NewPasswordLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        NewPasswordLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        NewPasswordLabel2.setText("New Email:");
+
+        xNewEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/redcross.png"))); // NOI18N
+
+        OldPasswordLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        OldPasswordLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        OldPasswordLabel2.setText("Old Email:");
+
+        ChangePasswordLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ChangePasswordLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ChangePasswordLabel2.setText("Change Email");
+
+        NewEmailField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NewEmailFieldActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ConfirmaPasswordLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(NewPasswordLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(OldPasswordLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(NewEmailField)
+                    .addComponent(OldEmailField)
+                    .addComponent(ConfirmEmailField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(xOldEmail, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(xNewEmail, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ChangePasswordLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(ChangePasswordLabel2)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(OldPasswordLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(xOldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(OldEmailField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NewPasswordLabel2)
+                    .addComponent(xNewEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NewEmailField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ConfirmaPasswordLabel2)
+                    .addComponent(ConfirmEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(SoundEffectsLabel)
-                        .addGap(163, 163, 163))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(275, 275, 275))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(OptionsLabel)
-                        .addGap(367, 367, 367))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ErrorLabel)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(ChangePasswordLabel)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
+                        .addGap(90, 90, 90)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(178, 178, 178)
+                        .addComponent(AccountSettingsLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(UploadLinkLabel)
-                                .addGap(26, 26, 26)
-                                .addComponent(UploadLinkField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(UploadButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(82, 82, 82)
-                                .addComponent(ImageSettingsLabel)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(LanguageLabel))
-                        .addGap(146, 146, 146))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ConfirmaPasswordLabel)
-                            .addComponent(NewPasswordLabel)
-                            .addComponent(OldPasswordLabel))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(xConfirmPassword))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(NewPasswordField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(OldPasswordField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(xOldPassword)
-                                    .addComponent(xNewPassword))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(SFXSoundCheck)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGap(18, 18, 18)
                                         .addComponent(SFXSoundLabel))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(MainVolumeCheck)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(MainVolmeLabel))))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(MainVolmeLabel))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(MusicVolumeCheck)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(MusicVolumeLabel)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(MainVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(SFXSoundSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(MusicVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(MusicVolumeCheck)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(MusicVolumeLabel)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MainVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SFXSoundSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MusicVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(80, 80, 80))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(186, 186, 186)
-                    .addComponent(AccountSettingsLabel1)
-                    .addContainerGap(509, Short.MAX_VALUE)))
+                                .addGap(134, 134, 134)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(163, 163, 163)
+                                .addComponent(SoundEffectsLabel)))
+                        .addGap(75, 75, 75))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(ImageSettingsLabel)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(292, 292, 292)
+                        .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(322, 322, 322)
+                        .addComponent(OptionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(342, 342, 342)
+                        .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addContainerGap()
                 .addComponent(OptionsLabel)
-                .addGap(72, 72, 72)
-                .addComponent(SoundEffectsLabel)
-                .addGap(17, 17, 17)
-                .addComponent(ChangePasswordLabel)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SoundEffectsLabel)
+                    .addComponent(AccountSettingsLabel1))
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(MainVolmeLabel)
-                                .addComponent(MainVolumeCheck))
+                            .addComponent(MainVolmeLabel)
+                            .addComponent(MainVolumeCheck)
                             .addComponent(MainVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,64 +478,30 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(SFXSoundSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(SFXSoundCheck)
-                            .addComponent(SFXSoundLabel))
-                        .addGap(30, 30, 30))
+                            .addComponent(SFXSoundLabel))))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(OldPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(11, 11, 11)
-                                .addComponent(NewPasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(OldPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(xOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(xNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(NewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(xConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(ConfirmaPasswordLabel)
-                                .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(25, 25, 25)))
-                .addComponent(ErrorLabel)
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(ErrorLabel)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ImageSettingsLabel)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(UploadLinkLabel)
-                            .addComponent(UploadLinkField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(UploadButton)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(LanguageLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(100, 100, 100)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(150, 150, 150)
-                    .addComponent(AccountSettingsLabel1)
-                    .addContainerGap(481, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SFXSoundCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SFXSoundCheckActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SFXSoundCheckActionPerformed
-
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-        // TODO add your handling code here:
+        
         
         String username =  player.getUsername();
         String avatar = player.getAvatar();
@@ -332,56 +511,178 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         this.OldPasswordField.setText("");
         this.NewPasswordField.setText("");
         this.ConfirmPasswordField.setText("");
-        String pass = new String(Newpassword);
+        String newpass = new String(Newpassword);
         String pConfirm = new String(Confirmpassword);
         String pOld = new String(Oldpassword);
         MD5Pwd enc = new MD5Pwd();
-        String passEnc; 
+        String passEnc=null; 
+        String OpassEnc=null; 
+        String CpassEnc=null; 
+        String NewEmail = this.NewEmailField.getText();
+        String OldEmail = this.OldEmailField.getText();
+        String NewEmailConf = this.ConfirmEmailField.getText();
         
-        xOldPassword.setVisible(false);
-        xConfirmPassword.setVisible(false);
+        if (rbavatar1.isSelected()) {
+            avatar="avatar1.png";
+        } else if (rbavatar2.isSelected()) {
+            avatar="avatar2.png";
+        } else if (rbavatar3.isSelected()) {
+            avatar="avatar3.png";
+        } else if (rbavatar4.isSelected()) {
+            avatar="avatar4.png";
+        } else if (rbavatar5.isSelected()) {
+            avatar="avatar5.png";
+        } else if (rbavatar6.isSelected()) {
+            avatar="avatar6.png";
+        }
+       
+        //SÓ MANDA EMAIL SE FOR PARA ALTERAR CASO CONTRARIO VAI NULL
+        //SÓ MANDA PASSWORD SE FOR PARA ALTERAR CASO CONTRARIO VAI NULL
+       int flag_pass = 0;
+       int flag_email = 0;
+       int flag_erro = 0;
         
-        passEnc = enc.encode(username,pass);
         
         
-        if(!Newpassword.equals(Oldpassword)){
+        if (!pOld.equals("")){ //existe alteracao da nova pass
             
-            if(!"".equals(Oldpassword)){
-                
-                if(Newpassword.equals(Confirmpassword) && !"".equals(Newpassword)){
+                if (newpass.equals(pConfirm)){ //novas passwords são iguals
+
+                    //encriptar a nova pass
+                    passEnc = enc.encode(username,newpass);
+                    OpassEnc = enc.encode(username,pOld);
                     
-                    try{
-                        ComCliente com = ComCliente.getInstance();
-                        com.mudarConfig(username, passEnc, avatar);
-                        this.SaveButton.setEnabled(false);
-                    }catch (Exception e) {
-                                System.out.println("Accept failed: 4444");
-                                System.exit(-1);
-                    } 
-                    
-                }else{
-                        this.ErrorLabel.setText("Error in confirm password");
-                        this.xConfirmPassword.setVisible(true);
-                        this.OldPasswordField.setText("");
-                        this.NewPasswordField.setText("");
-                        this.ConfirmPasswordField.setText("");
-                     }
-            }else{
-                        this.ErrorLabel.setText("Error in old password");
-                        this.xOldPassword.setVisible(true);
-                        this.OldPasswordField.setText("");
-                        this.NewPasswordField.setText("");
-                        this.ConfirmPasswordField.setText("");
-                }
-        }else{
-                        this.ErrorLabel.setText("Error in new password");
+                    if (!passEnc.equals(player.getPassword())){ //old and new pass foram diferentes ok!
+                        
+                        if (OpassEnc.equals(player.getPassword())){
+                            flag_pass=1; // change password approved
+                            flag_erro=1;
+
+                        }else{
+                            this.ErrorLabel.setText("Actual Password is Wrong");
+                            this.xOldPassword.setVisible(true);
+                            this.OldPasswordField.setText("");
+                            this.NewPasswordField.setText("");
+                            this.ConfirmPasswordField.setText("");
+                            flag_erro=1;
+                        } 
+                         
+                    }else{
+                        this.ErrorLabel.setText("New and old password are the same!");
                         this.xNewPassword.setVisible(true);
                         this.OldPasswordField.setText("");
                         this.NewPasswordField.setText("");
                         this.ConfirmPasswordField.setText("");
-            }
+                        flag_erro=1;
+                    }
+
+                }else{
+                    this.ErrorLabel.setText("New Password doesn't match");
+                    this.xNewPassword.setVisible(true);
+                    this.OldPasswordField.setText("");
+                    this.NewPasswordField.setText("");
+                    this.ConfirmPasswordField.setText("");
+                    flag_erro=1;
+                }
+        }
         
+        
+        if (!OldEmail.equals("")){ //existe alteracao de email
+            
+                if (!NewEmail.equals(NewEmailConf)){ //novos emails são iguais
+                                        
+                    if (!NewEmail.equals(OldEmail)){ //old and new email são foram diferentes ok!
+                        
+                        if (OldEmail.equals(player.getPassword())){ //old email igual..
+                            flag_email=1; // change email approved
+                            
+                        }else{
+                            this.ErrorLabel.setText("Actual Email is wrong!");
+                            this.xNewEmail.setVisible(true);
+                            this.OldEmailField.setText("");
+                            this.NewEmailField.setText("");
+                            this.ConfirmEmailField.setText("");
+                            flag_erro=1;
+                        }
+                         
+                    }else{
+                        this.ErrorLabel.setText("New and old email are the same!");
+                        this.xNewEmail.setVisible(true);
+                        this.OldEmailField.setText("");
+                        this.NewEmailField.setText("");
+                        this.ConfirmEmailField.setText("");
+                        flag_erro=1;
+                    }
+
+                }else{
+                    this.ErrorLabel.setText("New email doesn't match!");
+                    this.xNewEmail.setVisible(true);
+                    this.OldEmailField.setText("");
+                    this.NewEmailField.setText("");
+                    this.ConfirmEmailField.setText("");
+                    flag_erro=1;
+                    
+                }
+        }
+        
+        if (((flag_pass==1)&& (flag_email==1)&& (flag_erro!=0))){ //alterar pass e email
+            try{
+                ComCliente com = ComCliente.getInstance();
+                com.mudarConfig(username, passEnc, NewEmail, avatar);
+                this.SaveButton.setEnabled(false);
+                flag_email=0;
+                flag_pass=0;
+            }catch (Exception e) {
+                System.out.println("Accept failed: 4444");
+                System.exit(-1);
+            } 
+        }else if (flag_pass==1 && flag_email==0 && (flag_erro!=0)){ //só alterar a pass
+            try{
+                ComCliente com = ComCliente.getInstance();
+                com.mudarConfig(username, passEnc, player.getEmail(), avatar);
+                this.SaveButton.setEnabled(false);
+                flag_pass=0;
+            }catch (Exception e) {
+                System.out.println("Accept failed: 4444");
+                System.exit(-1);
+            } 
+        }else if (flag_pass==0 && flag_email==1 && flag_erro!=0){ //só alterar a email
+            try{
+                ComCliente com = ComCliente.getInstance();
+                com.mudarConfig(username,null , NewEmail, avatar);
+                this.SaveButton.setEnabled(false);
+                flag_email=0;
+            }catch (Exception e) {
+                System.out.println("Accept failed: 4444");
+                System.exit(-1);
+            }
+        }else if (flag_erro==0){ //não alterar nem email nem password
+                try{
+                    ComCliente com = ComCliente.getInstance();
+                    com.mudarConfig(username,null , null, avatar);
+                    this.SaveButton.setEnabled(false);
+                }catch (Exception e) {
+                    System.out.println("Accept failed: 4444");
+                    System.exit(-1);
+                }
+              }
+
+        flag_erro=0;
     }//GEN-LAST:event_SaveButtonActionPerformed
+
+    private void SFXSoundCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SFXSoundCheckActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SFXSoundCheckActionPerformed
+
+    private void NewEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewEmailFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NewEmailFieldActionPerformed
+
+    private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        ReaderThread.welcomescreen.UIWelcomeSetVisible();
+    }//GEN-LAST:event_CancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -421,33 +722,51 @@ public class UIConfiguracoes extends javax.swing.JFrame {
     private javax.swing.JLabel AccountSettingsLabel1;
     private javax.swing.JButton CancelButton;
     private javax.swing.JLabel ChangePasswordLabel;
+    private javax.swing.JLabel ChangePasswordLabel2;
+    private javax.swing.JTextField ConfirmEmailField;
     private javax.swing.JPasswordField ConfirmPasswordField;
     private javax.swing.JLabel ConfirmaPasswordLabel;
+    private javax.swing.JLabel ConfirmaPasswordLabel2;
     private javax.swing.JLabel ErrorLabel;
     private javax.swing.JLabel ImageSettingsLabel;
-    private javax.swing.JLabel LanguageLabel;
     private javax.swing.JLabel MainVolmeLabel;
     private javax.swing.JCheckBox MainVolumeCheck;
     private javax.swing.JSlider MainVolumeSlider;
     private javax.swing.JCheckBox MusicVolumeCheck;
     private javax.swing.JLabel MusicVolumeLabel;
     private javax.swing.JSlider MusicVolumeSlider;
+    private javax.swing.JTextField NewEmailField;
     private javax.swing.JPasswordField NewPasswordField;
     private javax.swing.JLabel NewPasswordLabel;
+    private javax.swing.JLabel NewPasswordLabel2;
+    private javax.swing.JTextField OldEmailField;
     private javax.swing.JPasswordField OldPasswordField;
     private javax.swing.JLabel OldPasswordLabel;
+    private javax.swing.JLabel OldPasswordLabel2;
     private javax.swing.JLabel OptionsLabel;
     private javax.swing.JCheckBox SFXSoundCheck;
     private javax.swing.JLabel SFXSoundLabel;
     private javax.swing.JSlider SFXSoundSlider;
     private javax.swing.JButton SaveButton;
     private javax.swing.JLabel SoundEffectsLabel;
-    private javax.swing.JButton UploadButton;
-    private javax.swing.JTextField UploadLinkField;
-    private javax.swing.JLabel UploadLinkLabel;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel xConfirmPassword;
+    private javax.swing.JLabel avatar1;
+    private javax.swing.JLabel avatar2;
+    private javax.swing.JLabel avatar3;
+    private javax.swing.JLabel avatar4;
+    private javax.swing.JLabel avatar5;
+    private javax.swing.JLabel avatar6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JRadioButton rbavatar1;
+    private javax.swing.JRadioButton rbavatar2;
+    private javax.swing.JRadioButton rbavatar3;
+    private javax.swing.JRadioButton rbavatar4;
+    private javax.swing.JRadioButton rbavatar5;
+    private javax.swing.JRadioButton rbavatar6;
+    private javax.swing.JLabel xNewEmail;
     private javax.swing.JLabel xNewPassword;
+    private javax.swing.JLabel xOldEmail;
     private javax.swing.JLabel xOldPassword;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,22 +13,38 @@ import Share.User;
  */
 public class UIWelcomeScreen extends javax.swing.JFrame {
     
-
-            public static UIConfiguracoes optionScreen;
+    
+    public static UIConfiguracoes optionScreen;
     
     public  UIWelcomeScreen(){
         initComponents();
         
      }
+    
     /**
      * Creates instancia da classe UIWelcomeScreen
      */
     public UIWelcomeScreen(User Jogador) {
         initComponents();
         this.UsernameLabel.setText(Jogador.getUsername());
+       
+        this.gamesplayed.setText(this.gamesplayed.getText()+" "+Integer.toString(Jogador.getgamesplayed()));
+        this.winGames.setText(this.winGames.getText()+" "+Integer.toString(Jogador.getgameswon()));
+        this.lostGames.setText(this.lostGames.getText()+" "+Integer.toString(
+                Jogador.getgamesplayed()-Jogador.getgameswon()));
+        this.ratio.setText(this.ratio.getText()+" "+Float.toString(
+                ((float)Jogador.getgameswon())/(float)Jogador.getgamesplayed()));
+        
+        this.avatarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/"+Jogador.getAvatar())));
+
         optionScreen = new UIConfiguracoes(Jogador);
     }
-
+    /**
+     * Creates instancia da classe UIWelcomeScreen
+     */
+    public void UIWelcomeSetVisible(){
+        this.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,13 +61,19 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         OptionsButton = new javax.swing.JButton();
         StatisticsLabel = new javax.swing.JLabel();
         WelcomeLabel = new javax.swing.JLabel();
-        avatar = new javax.swing.JLabel();
         VolumeLogoOn = new javax.swing.JLabel();
         VolumeLogoOff = new javax.swing.JLabel();
+        avatarLabel = new javax.swing.JLabel();
+        winGames = new javax.swing.JLabel();
+        lostGames = new javax.swing.JLabel();
+        RankLabel = new javax.swing.JLabel();
+        ratio = new javax.swing.JLabel();
+        gamesplayed = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1074, 670));
         setPreferredSize(new java.awt.Dimension(1074, 670));
+        setResizable(false);
 
         Tittle.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         Tittle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/final_logo.png"))); // NOI18N
@@ -69,48 +91,65 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         });
 
         StatisticsLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        StatisticsLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         StatisticsLabel.setText("Estatísticas:");
 
         WelcomeLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         WelcomeLabel.setText("Bem Vindo,");
 
-        avatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/anonymous_person.png"))); // NOI18N
-
         VolumeLogoOn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/soundon.png"))); // NOI18N
 
         VolumeLogoOff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/soundoff.png"))); // NOI18N
+
+        avatarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar5.png"))); // NOI18N
+
+        winGames.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        winGames.setText("Jogos Ganhos:");
+
+        lostGames.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lostGames.setText("Jogos Perdidos:");
+
+        RankLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        RankLabel.setText("Rank:");
+
+        ratio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ratio.setText("Rácio:");
+
+        gamesplayed.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        gamesplayed.setText("Jogos Realizados:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(WelcomeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Tittle)
+                        .addGap(166, 166, 166)
+                        .addComponent(VolumeLogoOff)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 256, Short.MAX_VALUE)
-                                .addComponent(Tittle)
-                                .addGap(18, 18, 18)
-                                .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
-                                .addComponent(VolumeLogoOff)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(WelcomeLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(avatar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(StatisticsLabel))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(avatarLabel)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(StatisticsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                            .addComponent(RankLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ratio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lostGames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(winGames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(gamesplayed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(VolumeLogoOn)
                 .addGap(14, 14, 14))
         );
@@ -122,10 +161,9 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(Tittle))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(VolumeLogoOn)
                             .addComponent(VolumeLogoOff))))
                 .addGap(26, 26, 26)
@@ -133,11 +171,24 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                     .addComponent(WelcomeLabel)
                     .addComponent(UsernameLabel))
                 .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(avatar)
-                    .addComponent(StatisticsLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
-                .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(StatisticsLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(RankLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(gamesplayed)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(winGames)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lostGames)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ratio))
+                    .addComponent(avatarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
 
@@ -146,7 +197,8 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
 
     private void OptionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OptionsButtonActionPerformed
         // TODO add your handling code here:  
-        
+        this.setVisible(false);
+        optionScreen.setVisible(true);
         
     }//GEN-LAST:event_OptionsButtonActionPerformed
 
@@ -187,6 +239,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Leave;
     private javax.swing.JButton OptionsButton;
+    private javax.swing.JLabel RankLabel;
     private javax.swing.JLabel StatisticsLabel;
     private javax.swing.JLabel Tittle;
     private javax.swing.JLabel UsernameLabel;
@@ -194,6 +247,10 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel VolumeLogoOff;
     private javax.swing.JLabel VolumeLogoOn;
     private javax.swing.JLabel WelcomeLabel;
-    private javax.swing.JLabel avatar;
+    private javax.swing.JLabel avatarLabel;
+    private javax.swing.JLabel gamesplayed;
+    private javax.swing.JLabel lostGames;
+    private javax.swing.JLabel ratio;
+    private javax.swing.JLabel winGames;
     // End of variables declaration//GEN-END:variables
 }

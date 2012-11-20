@@ -70,6 +70,9 @@ public class ComServer {
                        System.out.println(GetDate.now()+": "+thisClient + ": Error Login!");
                        return true;
                    }
+                case "loginAsGuest":
+                    //falta programar....
+                    return true;
                 case "registar":
                     System.out.println(GetDate.now()+"+"+thisClient +" trying to register");
                     if (registar(msg)==true){
@@ -79,6 +82,28 @@ public class ComServer {
                         System.out.println(GetDate.now()+": "+thisClient +" failed registration with "+msg.getArguments());
                         return true;
                     }
+                case "mudarConfig":
+                    System.out.println(GetDate.now()+"+"+thisClient +" trying to update personal data");
+                    if (updateinfo(msg)==true){
+                    
+                        return true;
+                    }else{
+                        System.out.println(GetDate.now()+"+"+thisClient +" failed to update personal data with"+msg.getArguments());
+                        return true;
+                    }
+                case "recoverPass":
+                    System.out.println(GetDate.now()+"+"+thisClient +" trying to recover Password");
+                    if (RecoverPass(msg)==true){
+                        System.out.println(GetDate.now()+"+"+thisClient +" Password recovered!! Email: "+msg.getArguments());
+                        return true;
+                    }else{
+                        System.out.println(GetDate.now()+"+"+thisClient +" failed to recover Password Email: "+msg.getArguments());
+                        return true;
+                    }
+                    
+
+                    
+            
             }
         } catch (Exception ex) {
             switch (ex.toString()) {
@@ -192,7 +217,102 @@ public class ComServer {
                    }
                }
     }
-    
+     /**
+     * Este método recebe a mensagem do utilizador e
+     * procede à alteração dos dados pessoais. É enviada uma mensagem ao cliente
+     * com o resultado da operação.
+     * @param msg é a mensagem recebida do cliente
+     * @return true se for bem sucedido, false se ocorrer algum erro.
+     */
+    private boolean updateinfo(Message msg) throws SQLException {
+        
+        ArrayList<Object> vec = new ArrayList<Object>();
+        
+        String username = (String) msg.getArguments().get(0);
+        String password = (String) msg.getArguments().get(1);
+        String email = (String) msg.getArguments().get(2);
+        String avatar = (String) msg.getArguments().get(3);
+        String resultreg;
+        
+        resultreg=state.updateUser(username, password, email,avatar);
+        
+        if (resultreg.equals("success")) {
+            Message answrMsg = new Message("answrMudarConfig:" + resultreg, vec);
+            try {
+                //responde ao cliente
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION FUNCTION writeMessage() 1: " + ex);
+                return false;
+            }
+        } else if (resultreg.equals("error")){
+                   
+                   System.out.println(GetDate.now()+": "+thisClient + ": Server Error..  ");
+                   Message answrMsg = new Message("runtimeError:" + resultreg, vec);
+                   System.out.println("runtimeError:" + resultreg);
+                   try {
+                       clientThread.writeMessage(answrMsg);
+                       return false;
+                   } catch (Exception ex) {
+                       System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION writemessage() 2: " + ex);
+                       return false;
+                   }
+               }else{
+                   System.out.println(GetDate.now()+": "+thisClient + ": Erro no update(). " + resultreg);
+                   Message answrMsg = new Message("answrMudarConfig:" + resultreg, vec);
+                   System.out.println("answrMudarConfig:" + resultreg);
+                   try {
+                       clientThread.writeMessage(answrMsg);
+                       return false;
+                   } catch (Exception ex) {
+                       System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION writemessage() 2: " + ex);
+                       return false;
+                   }
+               }
+    }
+
+   /**
+     * Este método recebe a mensagem do utilizador e
+     * procede à recuperação da password. É enviada uma mensagem ao cliente
+     * com o resultado da operação juntamente com a password.
+     * @param msg é a mensagem recebida do cliente
+     * @return true se for bem sucedido, false se ocorrer algum erro.
+     */
+    private boolean RecoverPass(Message msg) throws SQLException {
+        
+        ArrayList<Object> vec = new ArrayList<Object>();
+        
+        String email = (String) msg.getArguments().get(0);
+        
+        User resultreg;
+        
+        resultreg=state.RecoverPass(email);
+        if (resultreg!=null) { 
+            vec.clear();
+            vec.add(resultreg.getPassword());
+            Message answrMsg = new Message("answrRecoverPass:" + "success", vec);
+            try {
+                //responde ao cliente
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION FUNCTION writeMessage() 1: " + ex);
+                return false;
+            }
+        } else{
+                   System.out.println(GetDate.now()+": "+thisClient + ": Erro em recuperar a pass(). " + resultreg);
+                   Message answrMsg = new Message("answrRecoverPass:error" , null);
+                   System.out.println("answrRecoverPass:error");
+                   try {
+                       clientThread.writeMessage(answrMsg);
+                       return false;
+                   } catch (Exception ex) {
+                       System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION writemessage() 2: " + ex);
+                       return false;
+                   }
+               }
+    }
    
     
 }
