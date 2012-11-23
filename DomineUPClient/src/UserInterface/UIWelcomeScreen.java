@@ -4,6 +4,7 @@
  */
 package UserInterface;
 import Share.User;
+import ComunicacaoCliente.ComCliente;
 
 /**
  * Este é o interface após o utilizador ter realizado o login, contém dados do utilizador,
@@ -13,7 +14,7 @@ import Share.User;
  */
 public class UIWelcomeScreen extends javax.swing.JFrame {
     
-    
+    User player;
     public static UIConfiguracoes optionScreen;
     
     public  UIWelcomeScreen(){
@@ -26,6 +27,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
      */
     public UIWelcomeScreen(User Jogador) {
         initComponents();
+        player=Jogador;
         this.UsernameLabel.setText(Jogador.getUsername());
        
         this.gamesplayed.setText(this.gamesplayed.getText()+" "+Integer.toString(Jogador.getgamesplayed()));
@@ -79,6 +81,11 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         Tittle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/final_logo.png"))); // NOI18N
 
         Leave.setText("Logout");
+        Leave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LeaveActionPerformed(evt);
+            }
+        });
 
         UsernameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         UsernameLabel.setText("jLabel1");
@@ -201,6 +208,17 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         optionScreen.setVisible(true);
         dispose();
     }//GEN-LAST:event_OptionsButtonActionPerformed
+
+    private void LeaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeaveActionPerformed
+        // TODO add your handling code here:
+        try{
+            ComCliente com = ComCliente.getInstance();
+            com.logout(player);
+        }catch (Exception ex) {
+            System.out.println("Erro no logout");
+        }
+        
+    }//GEN-LAST:event_LeaveActionPerformed
 
     /**
      * @param args the command line arguments

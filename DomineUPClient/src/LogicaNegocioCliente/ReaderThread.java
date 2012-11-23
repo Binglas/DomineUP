@@ -70,6 +70,19 @@ public class ReaderThread extends Thread {
                         errorFrame.setVisible(true);
                         InitialScreen.setLoginButton();
                         break;
+                    
+                    case "logoutSuccess":
+                        try {
+                        com.getClientSocket().close();
+                        welcomescreen.dispose();
+                        //InitialScreen.setLoginButton();
+                        new UIInitial().setVisible(true);
+                       
+                    } catch (Exception ex) {
+                        System.out.println("logout: error closing socket");
+                    }
+                         break;
+                        
                     case "RegSuccess":
                         registerscreen.enableConfirmButton();
                         registerscreen.setClearFields();

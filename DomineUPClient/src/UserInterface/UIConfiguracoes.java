@@ -168,7 +168,6 @@ public class UIConfiguracoes extends javax.swing.JFrame {
 
         ErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ErrorLabel.setText("ERROR TEXT FIELD HERE");
 
         avatar6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar6_min.png"))); // NOI18N
 
@@ -442,16 +441,16 @@ public class UIConfiguracoes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(292, 292, 292)
-                        .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(322, 322, 322)
                         .addComponent(OptionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(342, 342, 342)
-                        .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(292, 292, 292)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(52, 52, 52)
+                                .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -485,7 +484,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                         .addComponent(ErrorLabel)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -624,7 +623,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         }else  if((pOld.equals("") && OldEmail.equals("") && !avatar.equals(""))){
             try{
             ComCliente com = ComCliente.getInstance();
-            com.mudarConfig(player.getUsername(), player.getPassword(), player.getEmail(), avatar);
+            com.mudarConfig(player.getUsername(), player.getPassword(), player.getEmail(), avatar, flag_email);
             this.SaveButton.setEnabled(false);
             flag_erro=1;
             }catch (Exception e) {
@@ -637,7 +636,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         if (((flag_pass==1)&& (flag_email==1)&& (flag_erro!=0))){ //alterar pass e email
             try{
                 ComCliente com = ComCliente.getInstance();
-                com.mudarConfig(username, passEnc, NewEmail, avatar);
+                com.mudarConfig(username, passEnc, NewEmail, avatar, flag_email);
                 this.SaveButton.setEnabled(false);
                 flag_email=0;
                 flag_pass=0;
@@ -648,7 +647,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         }else if (flag_pass==1 && flag_email==0 && (flag_erro!=0)){ //só alterar a pass
             try{
                 ComCliente com = ComCliente.getInstance();
-                com.mudarConfig(username, passEnc, player.getEmail(), avatar);
+                com.mudarConfig(username, passEnc, player.getEmail(), avatar, flag_email);
                 this.SaveButton.setEnabled(false);
                 flag_pass=0;
             }catch (Exception e) {
@@ -658,7 +657,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         }else if (flag_pass==0 && flag_email==1 && flag_erro!=0){ //só alterar a email
             try{
                 ComCliente com = ComCliente.getInstance();
-                com.mudarConfig(username,null , NewEmail, avatar);
+                com.mudarConfig(username,null , NewEmail, avatar, flag_email);
                 this.SaveButton.setEnabled(false);
                 flag_email=0;
             }catch (Exception e) {
@@ -668,7 +667,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         }else if (flag_erro==0){ //não alterar nem email nem password
                 try{
                     ComCliente com = ComCliente.getInstance();
-                    com.mudarConfig(username,null , null, avatar);
+                    com.mudarConfig(username,null , null, avatar, flag_email);
                     this.SaveButton.setEnabled(false);
                 }catch (Exception e) {
                     System.out.println("Accept failed: 4444");
@@ -677,10 +676,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
               }
 
         flag_erro=0;
-        welcomeScreen = new UIWelcomeScreen();
-        //welcomeScreen.setVisible(true);
-        ReaderThread.welcomescreen.UIWelcomeSetVisible();
-        this.setVisible(false);
+       ErrorLabel.setText("");
     }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void SFXSoundCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SFXSoundCheckActionPerformed

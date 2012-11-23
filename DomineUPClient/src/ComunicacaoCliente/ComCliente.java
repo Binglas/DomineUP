@@ -115,14 +115,30 @@ public class ComCliente {
 
     }
     
+    public void logout(User player){
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(player);
+        Message messageToServer = new Message("logout", arguments);
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+        } catch (Exception ex) {
+            System.out.println("requestPlayers: error writing object");
+        }
+        
+    }
     
-    public void mudarConfig(String username, String passEnc, String email,String avatar){
+    
+    public void mudarConfig(String username, String passEnc, String email,String avatar, int flag){
        
         ArrayList<Object> arguments = new ArrayList<>();
         arguments.add(username);
         arguments.add(passEnc);
         arguments.add(email);
         arguments.add(avatar);
+        arguments.add(flag);
         
         
         
@@ -207,6 +223,15 @@ public class ComCliente {
                     case "answrLoginGuest:successLoggedAsGuest":
                         //inserir codigo...
                         break;
+                        
+                    case "answerLogout:success":
+                        System.out.println("Logout Success!!!");
+                        return "logoutSuccess";
+                        
+                    case "answerLogout:error":
+                        System.out.println("Logout Error!!!");
+                        return "logoutError";
+                        
                     case "answrReg:success":
                         System.out.println("answrReg:success");
                         return "RegSuccess";

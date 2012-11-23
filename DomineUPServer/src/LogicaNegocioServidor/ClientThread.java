@@ -24,6 +24,7 @@ public class ClientThread extends Thread{
     final static Object lockSend = new Object();
     public ObjectOutputStream escritor = null;
     private ServerUtils state;
+    public boolean logout;
     
     /**
      * Este é o construtor da classe ClientThread, é atribuído
@@ -35,6 +36,7 @@ public class ClientThread extends Thread{
         this.client=client;
         this.serverSocket = serverSocket;
         this.run=true;
+        this.logout=false;
         
         
         try {
@@ -63,7 +65,9 @@ public class ClientThread extends Thread{
             }
         }
         ServerThread.nrClients--;
-        //logout
+        if(!logout){ // se não tiver sido feito o logout, faz agora
+            state.forceLogout(printClient);
+        }
     }
     
     /**
