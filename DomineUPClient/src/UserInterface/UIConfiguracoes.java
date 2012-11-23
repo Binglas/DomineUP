@@ -16,11 +16,13 @@ import LogicaNegocioCliente.ReaderThread;
 public class UIConfiguracoes extends javax.swing.JFrame {
 
     User player;
+    public static UIWelcomeScreen welcomeScreen;
     /**
      * Creates new form UIConfiguracoes
      */
     public UIConfiguracoes() {
         initComponents();
+        
         groupButton();
         ErrorLabel.setText("");
         xNewPassword.setVisible(false);
@@ -516,8 +518,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         String pOld = new String(Oldpassword);
         MD5Pwd enc = new MD5Pwd();
         String passEnc=null; 
-        String OpassEnc=null; 
-        String CpassEnc=null; 
+        String OpassEnc=null;
         String NewEmail = this.NewEmailField.getText();
         String OldEmail = this.OldEmailField.getText();
         String NewEmailConf = this.ConfirmEmailField.getText();
@@ -584,10 +585,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                     this.ConfirmPasswordField.setText("");
                     flag_erro=1;
                 }
-        }
-        
-        
-        if (!OldEmail.equals("")){ //existe alteracao de email
+        }else if (!OldEmail.equals("")){ //existe alteracao de email
             
                 if (!NewEmail.equals(NewEmailConf)){ //novos emails são iguais
                                         
@@ -623,8 +621,19 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                     flag_erro=1;
                     
                 }
+        }else  if((pOld.equals("") && OldEmail.equals("") && !avatar.equals(""))){
+            try{
+            ComCliente com = ComCliente.getInstance();
+            com.mudarConfig(player.getUsername(), player.getPassword(), player.getEmail(), avatar);
+            this.SaveButton.setEnabled(false);
+            flag_erro=1;
+            }catch (Exception e) {
+                System.out.println("Accept failed: 4444");
+                System.exit(-1);
+        }
         }
         
+
         if (((flag_pass==1)&& (flag_email==1)&& (flag_erro!=0))){ //alterar pass e email
             try{
                 ComCliente com = ComCliente.getInstance();
@@ -668,6 +677,10 @@ public class UIConfiguracoes extends javax.swing.JFrame {
               }
 
         flag_erro=0;
+        welcomeScreen = new UIWelcomeScreen();
+        //welcomeScreen.setVisible(true);
+        ReaderThread.welcomescreen.UIWelcomeSetVisible();
+        this.setVisible(false);
     }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void SFXSoundCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SFXSoundCheckActionPerformed

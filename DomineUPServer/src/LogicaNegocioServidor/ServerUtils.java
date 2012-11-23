@@ -176,6 +176,8 @@ public class ServerUtils implements Serializable{
             DataWrite DBwrite = new DataWrite();
             
             User newUser = new User(email, password, username, avatar);
+            
+            System.out.println("OLAAAA");
             //se email null então n altera email
           /*
             if (!email.equals("")){

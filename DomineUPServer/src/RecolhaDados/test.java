@@ -1,4 +1,4 @@
-package RecolhaDados;
+package ComunicacaoCliente;
 
 
 
@@ -15,18 +15,16 @@ public class test {
 	public static void main(String[] argv) throws SQLException {
             
             //Connection c = createConnection();
-
+             String password = "jasonelindo";
+             String email = "teste@fe.up.pt";
+             int avatar = 2;
+             String username = "teste";
+             
              Statement statement = null;
             // declare a resultset that uses as a table for output data from the table.
-             ResultSet rs = null;
-             int updateQuery = 0;
-                         
-             String username = "rebelo";
-             String email = "rebelo@fe.up.pt";
-             String password = "rebelo";
-             
-                     
-             
+            ResultSet rs = null;
+            int updateQuery = 0;
+  
  
 		System.out.println("-------- PostgreSQL "
 				+ "JDBC Connection Testing ------------");
@@ -65,41 +63,16 @@ public class test {
 		if (connection != null) {
 			System.out.println("You made it, take control your database now!");
                       
-                       /* //query de insert e imprimir
-                        String QueryString = "INSERT INTO domineup.\"Users\" (username, email, password, avatar, \"configuracoesID\", \"estatisticasID\") \n" +
-"	VALUES ('lucdawdisd', 'lucddadisdf2', 'lusssdsci3', NULL, NULL, NULL)\n";
-                                               
-                        updateQuery = statement.executeUpdate(QueryString);
-                        */
+                        /*String QueryString = "UPDATE domineup.\"Users\" SET password='"+password+"', "
+                                       + "avatar="+avatar+", email='"+email+"' "
+                                + "WHERE username='"+username+"'";*/
                         
-                      /** String QueryString = "INSERT INTO domineup.\"Users\" (username, email, password, avatar) \n" +
-            "VALUES ('"+username+"', '"+email+"', '"+password+"', NULL)\n";
-                                               
-                        updateQuery = statement.executeUpdate(QueryString);*/
+                        String QueryString = "UPDATE domineup.\"Users\" SET password='"+password
+                    +"' WHERE email='"+email+"'";
+
+                        updateQuery = statement.executeUpdate(QueryString);              
                         
-                        
-                        //QUERY DE UPDATE PARA MUDAR A PASS
-                        
-                        String QueryString = "UPDATE domineup.\"Users\" SET password='kakaka' WHERE username='andre'";
-                                               
-                        updateQuery = statement.executeUpdate(QueryString);
-                        
-                       /* if (updateQuery  != 0) {
-                        System.out.println("table is created successfully and " + rs + " row is inserted.");
-                        }*/
-                        
-                      //query de select e imprimir
-                        //String QueryString2 = "select * from domineup.\"Users\" ";
-                         /* String QueryString2 = "select * from domineup.\"Users\" WHERE username = 'chico' "   ;                 
-                        rs = statement.executeQuery(QueryString2);
-                        
-                        while (rs.next()) {
-                            System.out.println("iohsduosdf");
-                        System.out.println(rs.getString(2) + " " + rs.getString(2) + " " + rs.getString(3) +"\n");
-                         }*/
-                                         
-                        
-                        //rs.close();
+                       // rs.close();
                         statement.close();
                         connection.close();
 		} else {

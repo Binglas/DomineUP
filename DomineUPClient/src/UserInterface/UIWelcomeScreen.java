@@ -197,9 +197,9 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
 
     private void OptionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OptionsButtonActionPerformed
         // TODO add your handling code here:  
-        this.setVisible(false);
+        //this.setVisible(false);
         optionScreen.setVisible(true);
-        
+        dispose();
     }//GEN-LAST:event_OptionsButtonActionPerformed
 
     /**
@@ -232,6 +232,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+              
                 new UIWelcomeScreen().setVisible(true);
             }
         });
