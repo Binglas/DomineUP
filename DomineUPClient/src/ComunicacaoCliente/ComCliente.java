@@ -7,6 +7,7 @@ package ComunicacaoCliente;
 import LogicaNegocioCliente.ReaderThread;
 import Share.Message;
 import Share.User;
+import UserInterface.UIWelcomeScreen;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -115,30 +116,14 @@ public class ComCliente {
 
     }
     
-    public void logout(User player){
-        ArrayList<Object> arguments = new ArrayList<Object>();
-        arguments.add(player);
-        Message messageToServer = new Message("logout", arguments);
-        try {
-            escritor.reset();
-            escritor.writeObject(messageToServer);
-            escritor.flush();
-
-        } catch (Exception ex) {
-            System.out.println("requestPlayers: error writing object");
-        }
-        
-    }
     
-    
-    public void mudarConfig(String username, String passEnc, String email,String avatar, int flag){
+    public void mudarConfig(String username, String passEnc, String email,String avatar){
        
         ArrayList<Object> arguments = new ArrayList<>();
         arguments.add(username);
         arguments.add(passEnc);
         arguments.add(email);
         arguments.add(avatar);
-        arguments.add(flag);
         
         
         
@@ -214,6 +199,7 @@ public class ComCliente {
                     case "answrLogin:success":
                         System.out.println("answrLogin:success");
                         ReaderThread.player = (User) msg.getArguments().get(0);
+                        
                         return "loginsuccess";
                         
                     case "answrLogin:error":
@@ -223,15 +209,6 @@ public class ComCliente {
                     case "answrLoginGuest:successLoggedAsGuest":
                         //inserir codigo...
                         break;
-                        
-                    case "answerLogout:success":
-                        System.out.println("Logout Success!!!");
-                        return "logoutSuccess";
-                        
-                    case "answerLogout:error":
-                        System.out.println("Logout Error!!!");
-                        return "logoutError";
-                        
                     case "answrReg:success":
                         System.out.println("answrReg:success");
                         return "RegSuccess";
@@ -258,6 +235,11 @@ public class ComCliente {
                     case "answrMudarConfig:error":
                         System.out.println("answrMudarConfig:error");
                         return "MudarConfigError";
+                    case "answrRequestUsers:success":
+                        System.out.println("answrRequestUsers:success");
+                        UIWelcomeScreen.usersOnlineList = (ArrayList<User>) msg.getArguments().get(0);
+                        System.out.println(msg.getArguments().get(0));
+                        return "answrRequestUserSuccess";
                         
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");
@@ -278,6 +260,21 @@ public class ComCliente {
                 }
                 return "exitReadMessage";
             }
+        }
+    }
+
+    public void requestUsers() {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+
+        Message messageToServer = new Message("requestUsers", arguments);
+
+        try {
+            escritor.writeObject(messageToServer);
+            escritor.reset();
+            escritor.flush();
+        } catch (Exception ex) {
+            System.out.println("requestUsers: error writing object");
+            System.out.println("Exception Message:" + ex);
         }
     }
 
