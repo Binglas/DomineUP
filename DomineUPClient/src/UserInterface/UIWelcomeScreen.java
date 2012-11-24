@@ -5,6 +5,7 @@
 package UserInterface;
 import Share.User;
 import ComunicacaoCliente.ComCliente;
+import java.util.ArrayList;
 
 /**
  * Este é o interface após o utilizador ter realizado o login, contém dados do utilizador,
@@ -14,9 +15,10 @@ import ComunicacaoCliente.ComCliente;
  */
 public class UIWelcomeScreen extends javax.swing.JFrame {
     
-    User player;
-    public static UIConfiguracoes optionScreen;
     
+    public static UIConfiguracoes optionScreen;
+    public static ArrayList<User> usersOnlineList;
+    private static User player;
     public  UIWelcomeScreen(){
         initComponents();
         
@@ -71,6 +73,9 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         RankLabel = new javax.swing.JLabel();
         ratio = new javax.swing.JLabel();
         gamesplayed = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        UserList = new javax.swing.JTable();
+        StatisticsLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1074, 670));
@@ -125,6 +130,41 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         gamesplayed.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         gamesplayed.setText("Jogos Realizados:");
 
+        UserList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Username"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        UserList.setSelectionBackground(new java.awt.Color(204, 204, 255));
+        UserList.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(UserList);
+
+        StatisticsLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        StatisticsLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        StatisticsLabel1.setText("Jogadores Online:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,20 +172,24 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(WelcomeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Tittle)
-                        .addGap(166, 166, 166)
-                        .addComponent(VolumeLogoOff)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(WelcomeLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Tittle)
+                                .addGap(166, 166, 166)
+                                .addComponent(VolumeLogoOff)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(VolumeLogoOn)
+                        .addGap(14, 14, 14))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(avatarLabel)
                         .addGap(18, 18, 18)
@@ -156,9 +200,11 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                             .addComponent(lostGames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(winGames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(gamesplayed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(VolumeLogoOn)
-                .addGap(14, 14, 14))
+                        .addGap(90, 90, 90)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(StatisticsLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,23 +226,33 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(StatisticsLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(RankLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(gamesplayed)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(winGames)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lostGames)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ratio))
-                    .addComponent(avatarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                        .addComponent(avatarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(StatisticsLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(RankLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(StatisticsLabel1)
+                                .addGap(14, 14, 14)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(gamesplayed)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(winGames)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lostGames)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ratio))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(294, Short.MAX_VALUE))))
         );
 
         pack();
@@ -260,7 +316,9 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     private javax.swing.JButton OptionsButton;
     private javax.swing.JLabel RankLabel;
     private javax.swing.JLabel StatisticsLabel;
+    private javax.swing.JLabel StatisticsLabel1;
     private javax.swing.JLabel Tittle;
+    private javax.swing.JTable UserList;
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JSlider VolumeControl;
     private javax.swing.JLabel VolumeLogoOff;
@@ -268,8 +326,65 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JLabel avatarLabel;
     private javax.swing.JLabel gamesplayed;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lostGames;
     private javax.swing.JLabel ratio;
     private javax.swing.JLabel winGames;
     // End of variables declaration//GEN-END:variables
+
+
+
+     /**
+     * Actualiza o ecra do UIWelcomeScreen
+     * 
+     */
+    
+    public void updateScreen() {
+              
+         int numPlayers = UIWelcomeScreen.usersOnlineList.size(); 
+         int i;
+
+      /*   
+         for(int k=0; k<12;k++){
+             tableGameRooms.setValueAt("",k,0);
+             tableGameRooms.setValueAt("",k,1);
+             tableGameRooms.setValueAt("",k,2);
+             tableGameRooms.setValueAt("",k,3);
+             
+             UserList.setValueAt("",k,0);
+             
+         
+        }
+        */  
+         //clear jtable
+         for(i=0;i<numPlayers;i++){
+             UserList.setValueAt("",i,0);
+         }
+         //update UserList
+         for(i=0;i<numPlayers;i++){
+             UserList.setValueAt(usersOnlineList.get(i).getUsername(),i,0);
+         }
+         
+         //update personal data
+         for (i=0;i<numPlayers;i++){
+             
+             if (usersOnlineList.get(i).getUsername().equals(player.getUsername())){
+                 player=usersOnlineList.get(i);
+             }
+         }
+         
+         //Update User personal data
+         this.gamesplayed.setText("Jogos Realizados: "+" "+Integer.toString(player.getgamesplayed()));
+         this.winGames.setText("Jogos Vencidos: "+" "+Integer.toString(player.getgameswon()));
+         this.lostGames.setText("Jogos Perdidos: "+" "+Integer.toString(
+                player.getgamesplayed()-player.getgameswon()));
+         this.ratio.setText("Racio: "+" "+Float.toString(
+                ((float)player.getgameswon())/(float)player.getgamesplayed()));
+        
+         this.avatarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/"+player.getAvatar())));
+      
+        
+         
+    }
+    
 }

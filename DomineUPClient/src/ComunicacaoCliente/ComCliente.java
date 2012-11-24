@@ -7,6 +7,7 @@ package ComunicacaoCliente;
 import LogicaNegocioCliente.ReaderThread;
 import Share.Message;
 import Share.User;
+import UserInterface.UIWelcomeScreen;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -198,6 +199,26 @@ public class ComCliente {
 
     }
     
+    /**
+     * Envia para o servidor mensagem do tipo requestUser, solicitanto os jogadores que estao online
+     * @param
+     */
+    
+   public void requestUsers() {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+
+        Message messageToServer = new Message("requestUsers", arguments);
+
+        try {
+            escritor.writeObject(messageToServer);
+            escritor.reset();
+            escritor.flush();
+        } catch (Exception ex) {
+            System.out.println("requestUsers: error writing object");
+            System.out.println("Exception Message:" + ex);
+        }
+    }
+    
      /**
      * Estabelece o protocolo da ligação, analisa e trata as respostas vindas do servidor.
      * @return String que retorna o identificador da mensagem recebida.
@@ -258,6 +279,11 @@ public class ComCliente {
                     case "answrMudarConfig:error":
                         System.out.println("answrMudarConfig:error");
                         return "MudarConfigError";
+                        
+                    case "answrRequestUsers:success":
+                        System.out.println("answrRequestUsers:success");
+                        UIWelcomeScreen.usersOnlineList = (ArrayList<User>) msg.getArguments().get(0);
+                        return "answrRequestUserSuccess";
                         
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");

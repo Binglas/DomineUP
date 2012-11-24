@@ -61,7 +61,8 @@ public class ReaderThread extends Thread {
                         System.out.print("USER LOGGED");
                         //Send user simple data to the WelcomeScreen
                         welcomescreen = new UIWelcomeScreen(player);
-                        welcomescreen.setVisible(true);                                      
+                        welcomescreen.setVisible(true); 
+                        new UIupdate(welcomescreen).start();
                         break;
                     case "loginError":
                         System.out.println("Login failed");
@@ -75,13 +76,15 @@ public class ReaderThread extends Thread {
                         try {
                         com.getClientSocket().close();
                         welcomescreen.dispose();
-                        //InitialScreen.setLoginButton();
+                        new UIupdate(welcomescreen).stop();
                         new UIInitial().setVisible(true);
+                        break;
                        
                     } catch (Exception ex) {
                         System.out.println("logout: error closing socket");
+                        break;
                     }
-                         break;
+                         
                         
                     case "RegSuccess":
                         registerscreen.enableConfirmButton();
@@ -123,6 +126,8 @@ public class ReaderThread extends Thread {
                         errorFrame1.setTextErrorLabel("Servidor indisponível, tente mais tarde.");
                         errorFrame1.setVisible(true);
                         
+                        break;
+                    case "answrRequestUserSuccess":
                         break;
                         
                     default: 

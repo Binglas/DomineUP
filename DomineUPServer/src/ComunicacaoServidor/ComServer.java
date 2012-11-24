@@ -110,7 +110,12 @@ public class ComServer {
                         System.out.println(GetDate.now()+"+"+thisClient +" failed to recover Password Email: "+msg.getArguments());
                         return true;
                     }
+                case "requestUsers":
+                    System.out.println(GetDate.now()+"+"+thisClient +" Request looged users");
+                    if (UserList(msg)) {
+                    return true;
             
+            }
             }
         } catch (Exception ex) {
             switch (ex.toString()) {
@@ -349,6 +354,27 @@ public class ComServer {
                        return false;
                    }
                }
+    }
+    
+        /*
+    * Este metodo envia para o cliente uma lista de objectos com todos os 
+    * utilizadores em jogo.
+    * @return True se enviar, False se não enviar.
+    * @
+    */
+    private boolean UserList(Message msg) {
+        
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(state.getUsersList());
+        Message answrMsg = new Message("answrRequestUsers:success", arguments);
+        try {
+            clientThread.writeMessage(answrMsg);
+            return true;
+        } catch (Exception ex) {
+            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! ComServer.UserList(): !");
+            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+            return false;
+        }
     }
    
     

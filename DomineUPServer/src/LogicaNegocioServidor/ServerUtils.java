@@ -288,4 +288,14 @@ public class ServerUtils implements Serializable{
         }
         
     }
+    
+        /**
+    * Get default que retorna a lista de User's online
+    * @return lista de objectos User online
+    */
+    public ArrayList<User> getUsersList() {
+        synchronized (lockLoggedUsers) {
+            return loggedUsers;
+        }
+    }
 }
