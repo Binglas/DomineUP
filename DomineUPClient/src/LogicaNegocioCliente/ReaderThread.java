@@ -61,8 +61,7 @@ public class ReaderThread extends Thread {
                         System.out.print("USER LOGGED");
                         //Send user simple data to the WelcomeScreen
                         welcomescreen = new UIWelcomeScreen(player);
-                        welcomescreen.setVisible(true); 
-                        new UIupdate(welcomescreen).start();
+                        welcomescreen.setVisible(true);                                      
                         break;
                     case "loginError":
                         System.out.println("Login failed");
@@ -71,6 +70,19 @@ public class ReaderThread extends Thread {
                         errorFrame.setVisible(true);
                         InitialScreen.setLoginButton();
                         break;
+                    
+                    case "logoutSuccess":
+                        try {
+                        com.getClientSocket().close();
+                        welcomescreen.dispose();
+                        //InitialScreen.setLoginButton();
+                        new UIInitial().setVisible(true);
+                       
+                    } catch (Exception ex) {
+                        System.out.println("logout: error closing socket");
+                    }
+                         break;
+                        
                     case "RegSuccess":
                         registerscreen.enableConfirmButton();
                         registerscreen.setClearFields();
@@ -103,7 +115,6 @@ public class ReaderThread extends Thread {
                     case "MudarConfigSuccess":
                         welcomescreen.optionScreen.SetLabel("Alterações Efectuadas com sucesso");
                         welcomescreen.optionScreen.SetConButton();
-                        
                         break;
                         
                     case "runtimeError":

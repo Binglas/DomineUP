@@ -70,6 +70,16 @@ public class ComServer {
                        System.out.println(GetDate.now()+": "+thisClient + ": Error Login!");
                        return true;
                    }
+                case "logout":
+                   System.out.println(GetDate.now()+"+"+thisClient +" trying to logout");
+                   System.out.println(GetDate.now()+": "+thisClient + ": Logout request!");
+                if (logout(msg)) {
+                    System.out.println(GetDate.now()+": "+thisClient + ": Logout efectuado com sucesso!");
+                    return true;
+                } else {
+                    System.out.println(GetDate.now()+": "+thisClient + ": Ocorreu um erro durante o Logout!");
+                    return true;
+                }
                 case "loginAsGuest":
                     //falta programar....
                     return true;
@@ -100,17 +110,6 @@ public class ComServer {
                         System.out.println(GetDate.now()+"+"+thisClient +" failed to recover Password Email: "+msg.getArguments());
                         return true;
                     }
-                case "requestUsers":
-                    System.out.println(GetDate.now()+"+"+thisClient +" Request looged users");
-                    if (UserList(msg)) {
-                    return true;
-                } else {
-                    System.out.println(GetDate.now()+": "+thisClient + ": Erro a enviar a Player List!");
-                    return true;
-                }
-                    
-
-                    
             
             }
         } catch (Exception ex) {
@@ -170,6 +169,35 @@ public class ComServer {
             System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
             return false;
         }
+    }
+    
+    private boolean logout(Message msg) throws SQLException{
+        
+        User userLoggedOut = (User) msg.getArguments().get(0);
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.clear();
+        if (state.userLogout(userLoggedOut, clientThread)) {
+            try {
+                Message answrMsg = new Message("answerLogout:success", arguments);
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.logout(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        } else {
+            Message answrMsg = new Message("answerLogout:error", arguments);
+            try {
+                clientThread.writeMessage(answrMsg);
+                return false;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.logout(): 2!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        }
+        
     }
     
      /**
@@ -240,9 +268,10 @@ public class ComServer {
         String password = (String) msg.getArguments().get(1);
         String email = (String) msg.getArguments().get(2);
         String avatar = (String) msg.getArguments().get(3);
+        int flag = (int) msg.getArguments().get(4);
         String resultreg;
         
-        resultreg=state.updateUser(username, password, email,avatar);
+        resultreg=state.updateUser(username, password, email,avatar,flag);
         
         if (resultreg.equals("success")) {
             Message answrMsg = new Message("answrMudarConfig:" + resultreg, vec);
@@ -320,27 +349,6 @@ public class ComServer {
                        return false;
                    }
                }
-    }
-    
-    /*
-    * Este metodo envia para o cliente uma lista de objectos com todos os 
-    * utilizadores em jogo.
-    * @return True se enviar, False se não enviar.
-    * @
-    */
-    private boolean UserList(Message msg) {
-        
-        ArrayList<Object> arguments = new ArrayList<Object>();
-        arguments.add(state.getUsersList());
-        Message answrMsg = new Message("answrRequestUsers:success", arguments);
-        try {
-            clientThread.writeMessage(answrMsg);
-            return true;
-        } catch (Exception ex) {
-            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! ComServer.UserList(): !");
-            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
-            return false;
-        }
     }
    
     

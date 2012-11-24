@@ -103,6 +103,36 @@ public class ServerUtils implements Serializable{
         }
     }
     
+    public boolean userLogout(User userLoggedOut, ClientThread clientThread) throws SQLException{
+        synchronized (lockUserList) {
+            for (int i = 0; i < loggedUsers.size(); ++i) {
+                if (loggedUsers.get(i).getUsername().equals(userLoggedOut.getUsername())) {
+                    loggedUsers.set(i, userLoggedOut);
+                }
+            }
+
+            for (int j = 0; j < loggedUsers.size(); ++j) {
+                if (loggedUsers.get(j).getUsername().equals(userLoggedOut.getUsername())) {
+                    loggedUsers.remove(j);
+                    clientThread.logout = true;
+                    clientThread.run = false;
+                    return true;
+                }
+            }
+            return false;
+        }
+    } 
+    
+    public void forceLogout(String username) {
+        synchronized (lockLoggedUsers) {
+            for (int j = 0; j < loggedUsers.size(); ++j) {
+                if (loggedUsers.get(j).getUsername().equals(username)) {
+                    loggedUsers.remove(j);
+                }
+            }
+        }
+    }
+    
     
      /*
      * Verifica se o username e a password existem na base de dados, caso não existam
@@ -170,14 +200,17 @@ public class ServerUtils implements Serializable{
      * @return A função retorna uma string com o resultado do registo.
      * success, usernameInUse são as possibilidades.
      */
-   public String updateUser(String username, String password, String email, String avatar) throws SQLException {
+   public String updateUser(String username, String password, String email, String avatar, int flag) throws SQLException {
         synchronized (lockUserList) {
             DataRead DBreader = new DataRead();
             DataWrite DBwrite = new DataWrite();
             
-            User newUser = new User(email, password, username, avatar);           
-          /*
-            if (!email.equals("")){
+            User newUser = new User(email, password, username, avatar);
+            
+            System.out.println("OLAAAA");
+            //se email null então n altera email
+          
+            if (flag != 0){
                 // verificar na DB se o email existe
                 try{
                     if (DBreader.SelectEmail(email)!=null){
@@ -191,20 +224,11 @@ public class ServerUtils implements Serializable{
                     return "error";
                 }
             }
-           */
+           
             //inserir utilizador na DB (tratar das estatisticas e etc... apenas insere na tabela user)
             
             try{
                 DBwrite.UpdateUser(newUser);
-                //pesquisar loggedusers e fazer update nos loggedusers..
-                for (int j = 0; j < loggedUsers.size(); ++j) {
-                                if (loggedUsers.get(j).getUsername().equals(username)) 
-                                {
-                                    loggedUsers.remove(j);
-                                }
-                    }
-                    //ir buscar à db info do user
-                    loggedUsers.add(DBreader.SelectUser(username));
                 return "success";
             }catch (SQLException ex){
                 System.out.println("Exception: DBwrite.InsertUser() " + ex);
@@ -263,15 +287,5 @@ public class ServerUtils implements Serializable{
             }
         }
         
-    }
-    
-    /**
-    * Get default que retorna a lista de User's online
-    * @return lista de objectos User online
-    */
-    public ArrayList<User> getUsersList() {
-        synchronized (lockLoggedUsers) {
-            return loggedUsers;
-        }
     }
 }
