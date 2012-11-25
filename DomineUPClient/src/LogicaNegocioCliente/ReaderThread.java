@@ -134,11 +134,16 @@ public class ReaderThread extends Thread {
                         
                         break;
                     case "answrRequestUserSuccess":
+                        //não faz nada
                         break;
                         
                     default: 
                         System.out.println("Non sense Reading");
-                        
+                        UIError errorFrame2 = new UIError();
+                        errorFrame2.setErrorTitleLabel(java.util.ResourceBundle.getBundle(Lang).getString("ErrorLabel"));
+                        errorFrame2.setTextErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("RuntimeError"));
+                        errorFrame2.setVisible(true);
+                        this.run=false;
                         break;
                         
                 }    

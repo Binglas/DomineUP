@@ -51,6 +51,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
      public UIConfiguracoes(User Jogador) {
         initComponents();
         groupButton();
+        setLocationRelativeTo(null);
         player=Jogador;
         xNewPassword.setVisible(false);
         xOldPassword.setVisible(false);

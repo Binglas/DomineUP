@@ -38,7 +38,6 @@ public class ComCliente {
     }
     
     
-    
     /**
     * Este método cria a instancia ComCliente caso ainda não exista, por outro lado
     * retorna a instância já existente.
@@ -301,6 +300,7 @@ public class ComCliente {
 
                 } else {
                     System.out.println("Exception Message:" + ex);
+                    
                 }
                 return "exitReadMessage";
             }
