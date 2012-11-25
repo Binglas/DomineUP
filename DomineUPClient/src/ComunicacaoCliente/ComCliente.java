@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Esta classe processa toda a comunicação entre o servidor e o cliente, todas as   
  * mensagens enviadas para o servidor passam por esta classe. apenas existe uma 
  * instancia relativa a esta classe. 
- * @author Luciano
+ * @author Luciano, Andre
  */
 public class ComCliente {
      
@@ -115,6 +115,13 @@ public class ComCliente {
 
     }
     
+    
+    /**
+     * Trata de enviar para o servidor uma mensagem do tipo logout, juntamente com
+     * uma classe User.
+     * @param player  Utilizador que pretende efetuar o logout.
+     */
+    
     public void logout(User player){
         ArrayList<Object> arguments = new ArrayList<Object>();
         arguments.add(player);
@@ -130,6 +137,16 @@ public class ComCliente {
         
     }
     
+    
+    /**
+     * Trata de enviar para o servidor uma mensagem do tipo mudarConfig, juntamente com
+     * o Username, a palavra pass encriptada, passEnc, o avatar, o E-mail e uma flag.
+     * @param username nome do utilizador
+     * @param passEnc palavra passe do utilizador encriptada
+     * @param email Email do utilizador. 
+     * @param avatar Avatar a ser utilizado pelo cliente
+     * @param flag valor que indica uma mudança no email do utilizador
+     */
     
     public void mudarConfig(String username, String passEnc, String email,String avatar, int flag){
        
@@ -155,6 +172,14 @@ public class ComCliente {
             System.err.println("Comunicacao Login: escritor");
         }
     }
+    
+    /**
+     * Trata de enviar para o servidor uma mensagem do tipo registar, juntamente com
+     * o Username, a palavra pass encriptada, passEnc, e o E-mail.
+     * @param username nome do utilizador
+     * @param passEnc palavra passe do utilizador encriptada
+     * @param email Email do utilizador. 
+     */
     
     public void registar(String username, String passEnc, String email) {
         

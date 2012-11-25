@@ -16,7 +16,7 @@ import UserInterface.UIWelcomeScreen;
 /**
  * Fica à escuta de mensagens vindas do servidor, e trata das respostas 
  * de acordo com as mensagems descodificadas pelo método ReadMessage ComCliente.
- * @author Luciano
+ * @author Luciano, Andre
  */
 public class ReaderThread extends Thread {
     public static boolean run;

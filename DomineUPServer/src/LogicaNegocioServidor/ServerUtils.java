@@ -17,7 +17,7 @@ import java.util.Hashtable;
 
 /**
  * Classe que suporta todas as operações do servidor.
- * @author Luciano
+ * @author Luciano, Andre
  */
 public class ServerUtils implements Serializable{
     static final long serialVersionUID = 124L;
@@ -102,6 +102,15 @@ public class ServerUtils implements Serializable{
             
         }
     }
+    
+    
+         /**
+     * Método que compara o utilizador que pretende efetuar logout, com o conjunto de utilizadores 
+     * que efetuaram o login anteriormente
+     * @param userLoggedOut 
+     * @param clientThread
+     * @return true, caso exista utilizador no jogo, e false caso nao tenha sucesso.
+     */
     
     public boolean userLogout(User userLoggedOut, ClientThread clientThread) throws SQLException{
         synchronized (lockUserList) {
