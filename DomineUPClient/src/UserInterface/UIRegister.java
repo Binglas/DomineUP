@@ -7,16 +7,14 @@ package UserInterface;
 import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.ClientStart;
 import LogicaNegocioCliente.Language;
-import Share.MD5Pwd;
 import LogicaNegocioCliente.ValidateMail;
-import java.security.NoSuchAlgorithmException;
-import UserInterface.UIInitial;
+import Share.MD5Pwd;
 /**
  * Este interface permite aos utilizadores introduzirem campos necessário ao registo.
  * @author Andre
  */
 public class UIRegister extends javax.swing.JFrame {
-    private String Lang = Language.getInstance().GetLanguage(); 
+    public String Lang = Language.getInstance().GetLanguage(); 
     /**
      * Cria instancia da classe UIRegister
      */
@@ -26,9 +24,7 @@ public class UIRegister extends javax.swing.JFrame {
         this.xPassword.setVisible(false);
         this.xName.setVisible(false);
         this.xEmail.setVisible(false);
-        this.ErrorLabel.setText("");
-        System.out.println(Lang);
-        this.RegisterUserLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("UsernameLabel"));
+        this.ErrorLabel.setText("");        
     }
     public void enableConfirmButton() {
         this.ConfirmButton.setEnabled(true);
@@ -53,6 +49,16 @@ public class UIRegister extends javax.swing.JFrame {
         this.ConfirmPasswordField.setText("");
         this.ConfirmEmailField.setText("");
         
+    }
+    public void UpdateLanguage(){
+        Lang=Language.getInstance().GetLanguage();
+        this.UsernameLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("UsernameLabel"));
+        this.PasswordLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("PasswordLabel"));
+        this.CancelButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("CancelButton"));
+        this.ConfimPasswordLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("ConfirmPasswordLabel"));
+        this.ConfirmButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("ConfirmButton"));
+        this.ConfirmEmailLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("ConfirmEmailLabel"));
+        this.RegisterUserLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("RegisterUserLabel"));
     }
     
     /**
@@ -312,26 +318,26 @@ public class UIRegister extends javax.swing.JFrame {
                         
                     }else{            
 
-                        this.ErrorLabel.setText("Error in password confirmation");
+                        this.ErrorLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("PasswordConfirmError"));
                         this.xPassword.setVisible(true);
                         this.PasswordField.setText("");
                         this.ConfirmPasswordField.setText("");
                     }        
 
                 }else{
-                    this.ErrorLabel.setText("Insert Username");
+                    this.ErrorLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("InsertUsername"));
                     this.xName.setVisible(true);
                 }    
             }else{
 
-                    this.ErrorLabel.setText("Error in email confirmation");
+                    this.ErrorLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("EmailConfirmationError"));
                     this.EmailField.setText("");
                     this.ConfirmEmailField.setText("");
                     this.xEmail.setVisible(true);
 
                 }
         }else{
-                this.ErrorLabel.setText("Email Invalid");
+                this.ErrorLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("InvalidEmail"));
                 this.EmailField.setText("");
                 this.ConfirmEmailField.setText("");
                 this.xEmail.setVisible(true);

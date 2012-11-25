@@ -69,6 +69,15 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
   
+    public void clearUser() {
+        this.email = "";
+        this.password = "";
+        this.username = "";
+        this.avatar = "";
+        this.gameswon=0;
+        this.gamesplayed=0;
+        this.rank=0; 
+    }
   /**
      * Get genérico
      * @return String gamesplayed

@@ -17,10 +17,17 @@ public class UIError extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
+    
     public void setTextErrorLabel(String ErrorMessage){
         
         this.TextErrorLabel.setText(ErrorMessage);
     }
+    
+    public void setErrorTitleLabel(String ErrorMessage){
+        
+        this.ErrorTittleLabel.setText(ErrorMessage);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,7 +57,11 @@ public class UIError extends javax.swing.JFrame {
         });
 
         TextErrorLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        TextErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TextErrorLabel.setText("texto do erro...");
+        TextErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        TextErrorLabel.setInheritsPopupMenu(false);
+        TextErrorLabel.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/alert.png"))); // NOI18N
 
@@ -77,15 +88,12 @@ public class UIError extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(ErrorTittleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(TextErrorLabel)))
+                .addGap(22, 22, 22)
+                .addComponent(ErrorTittleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(TextErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))

@@ -5,8 +5,8 @@
 package UserInterface;
 import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.Language;
-import Share.MD5Pwd;
 import LogicaNegocioCliente.ReaderThread;
+import Share.MD5Pwd;
 
 /**
  * Interface Inicial da aplicação, aonde o utilizador posse aceder às funções
@@ -18,13 +18,12 @@ public class UIInitial extends javax.swing.JFrame {
 
     public static UIRegister registerScreen;
     public static UIRecoverPass recoverPassScreen;
-    private String Lang = Language.getInstance().GetLanguage(); 
+    public String Lang = Language.getInstance().GetLanguage(); 
     /**
      * Cria a instancia da classe UIInitial
      */
     public UIInitial() {
         initComponents();
-        UpdateLanguage();
         registerScreen = new UIRegister();
         recoverPassScreen = new UIRecoverPass();
         setLocationRelativeTo(null);
@@ -39,17 +38,21 @@ public class UIInitial extends javax.swing.JFrame {
     }
     private void UpdateLanguage(){
         Lang=Language.getInstance().GetLanguage();
-        if (Lang.equals("resources/Portugues_pt_PT_EURO")){
-             this.LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/uk.png")));
-             Language.getInstance().SetLanguageEN();
-             
-        }else{
-            this.LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pt.png")));
-            Language.getInstance().SetLanguagePT();
-            
-        }
+        registerScreen.Lang=Lang;        
+        registerScreen.UpdateLanguage();
+        recoverPassScreen.Lang=Lang;
+        recoverPassScreen.UpdateLanguage();
         this.UsernameLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("UsernameLabel"));
-      
+        this.PasswordLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("PasswordLabel"));
+        this.StartGameButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("StartGameButton"));
+        this.ExitButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("ExitGameButton"));
+        this.LoginButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("LoginButton"));
+        this.RegisterButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("RegisterButton"));
+        this.HelpButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("HelpButton"));
+        this.RecoverPassButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("RecoverPassButton"));
+        this.ReconnectButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("ReconnectButton"));
+        this.ServerStateLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("ServerStateLabel"));
+        this.ServerStateQuery.setText(java.util.ResourceBundle.getBundle(Lang).getString("Connected"));
     }
 /**
 * Implementa uma Thread que permite a ligação automática ao servidor quando a 
@@ -71,9 +74,11 @@ private class ConnectThread implements Runnable
                     ComCliente com = ComCliente.getInstance();
                     int checkConnection = com.connection();
                     System.out.println("checkConnection: " + checkConnection);
+                    this.ServerStateLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("ServerStateLabel"));
 
                     if(checkConnection!=1){
                         UIError errorFrame = new UIError();
+                        errorFrame.setErrorTitleLabel(java.util.ResourceBundle.getBundle(Lang).getString("ErrorLabel"));
                         errorFrame.setTextErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("ErrorIP"));
                         errorFrame.setVisible(true);
                         this.jProgressBar.setVisible(false);
@@ -359,7 +364,8 @@ private class ConnectThread implements Runnable
         if(username.equals("") || password.length==0){
               System.out.println("Invalid Username");
               UIError errorFrame = new UIError();
-              errorFrame.setTextErrorLabel("Invalid parameter!");
+              errorFrame.setErrorTitleLabel(java.util.ResourceBundle.getBundle(Lang).getString("ErrorLabel"));
+              errorFrame.setTextErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("InvalidParameter"));
               errorFrame.setVisible(true);
           } else{
               String pass = new String(password);

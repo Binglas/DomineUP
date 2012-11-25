@@ -3,9 +3,10 @@
  * and open the template in the editor.
  */
 package UserInterface;
-import Share.User;
 import ComunicacaoCliente.ComCliente;
+import Share.User;
 import java.util.ArrayList;
+import LogicaNegocioCliente.Language;
 
 /**
  * Este é o interface após o utilizador ter realizado o login, contém dados do utilizador,
@@ -19,9 +20,10 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     public static UIConfiguracoes optionScreen;
     public static ArrayList<User> usersOnlineList;
     private static User player;
+    public String Lang = Language.getInstance().GetLanguage(); 
     public  UIWelcomeScreen(){
         initComponents();
-        
+        setLocationRelativeTo(null);
      }
     
     /**
@@ -31,7 +33,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         initComponents();
         player=Jogador;
         this.UsernameLabel.setText(Jogador.getUsername());
-       
+        setLocationRelativeTo(null);
         this.gamesplayed.setText(this.gamesplayed.getText()+" "+Integer.toString(Jogador.getgamesplayed()));
         this.winGames.setText(this.winGames.getText()+" "+Integer.toString(Jogador.getgameswon()));
         this.lostGames.setText(this.lostGames.getText()+" "+Integer.toString(
@@ -43,6 +45,20 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
 
         optionScreen = new UIConfiguracoes(Jogador);
     }
+    
+    
+    
+    /**
+     * Este método permite atualizar todos os campos de texto para a linguagem definida 
+     * na interface inicial, com o auxílio da classe Language.java.
+     * @author João Machado
+     * 
+     */
+
+    
+    
+    
+    
     /**
      * Creates instancia da classe UIWelcomeScreen
      */
@@ -381,6 +397,8 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
          this.ratio.setText("Racio: "+" "+Float.toString(
                 ((float)player.getgameswon())/(float)player.getgamesplayed()));
         
+         this.avatarLabel.setIcon(null);
+         System.out.println(player.getAvatar());
          this.avatarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/"+player.getAvatar())));
       
         

@@ -267,7 +267,7 @@ public class ComCliente {
                         
                     case "answrRecoverPass:success":
                         System.out.println("answrRecoverPass:success");
-                        ReaderThread.password="A sua nova Password é: "+msg.getArguments().get(0).toString();
+                        ReaderThread.password=msg.getArguments().get(0).toString();
                         return "RecoverPassSucess";
                         
                     case "answrRecoverPass:error":

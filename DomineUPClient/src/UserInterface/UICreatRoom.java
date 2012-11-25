@@ -15,6 +15,7 @@ public class UICreatRoom extends javax.swing.JFrame {
      */
     public UICreatRoom() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

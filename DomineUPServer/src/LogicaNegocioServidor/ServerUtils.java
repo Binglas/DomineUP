@@ -207,7 +207,7 @@ public class ServerUtils implements Serializable{
             
             User newUser = new User(email, password, username, avatar);
             
-            System.out.println("OLAAAA");
+            
             //se email null então n altera email
           
             if (flag != 0){
@@ -229,6 +229,15 @@ public class ServerUtils implements Serializable{
             
             try{
                 DBwrite.UpdateUser(newUser);
+                //actualiza a info do loggedUser
+                for (int j = 0; j < loggedUsers.size(); ++j) {
+                                if (loggedUsers.get(j).getUsername().equals(username)) 
+                                {
+                                    loggedUsers.remove(j);
+                                    loggedUsers.add(DBreader.SelectUser(username));
+                                }
+                    }
+                    //ir buscar à db info do user
                 return "success";
             }catch (SQLException ex){
                 System.out.println("Exception: DBwrite.InsertUser() " + ex);
@@ -236,6 +245,7 @@ public class ServerUtils implements Serializable{
             }
   
         }
+        
         
     }
     /**

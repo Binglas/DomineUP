@@ -8,6 +8,7 @@ import Share.MD5Pwd;
 import ComunicacaoCliente.ComCliente;
 import javax.swing.ButtonGroup;
 import LogicaNegocioCliente.ReaderThread;
+import LogicaNegocioCliente.Language;
 
 /**
  * 
@@ -17,12 +18,14 @@ public class UIConfiguracoes extends javax.swing.JFrame {
 
     User player;
     public static UIWelcomeScreen welcomeScreen;
+    public String Lang = Language.getInstance().GetLanguage();
+    
     /**
      * Creates new form UIConfiguracoes
      */
     public UIConfiguracoes() {
         initComponents();
-        
+        setLocationRelativeTo(null);
         groupButton();
         ErrorLabel.setText("");
         xNewPassword.setVisible(false);
@@ -31,6 +34,19 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         xOldEmail.setVisible(false);
     
     }
+    
+  /*  public void UpdateLanguage(){
+        Lang=Language.getInstance().GetLanguage();
+        this.UsernameLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("UsernameLabel"));
+        this.PasswordLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("PasswordLabel"));
+        this.CancelButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("CancelButton"));
+        this.ConfimPasswordLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("ConfirmPasswordLabel"));
+        this.ConfirmButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("ConfirmButton"));
+        this.ConfirmEmailLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("ConfirmEmailLabel"));
+        this.RegisterUserLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("RegisterUserLabel"));
+    }*/
+    
+    
     
      public UIConfiguracoes(User Jogador) {
         initComponents();

@@ -6,6 +6,7 @@ package UserInterface;
 
 import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.ClientStart;
+import LogicaNegocioCliente.Language;
 import LogicaNegocioCliente.ValidateMail;
 
 
@@ -16,6 +17,8 @@ import LogicaNegocioCliente.ValidateMail;
  * @author Kira
  */
 public class UIRecoverPass extends javax.swing.JFrame {
+    
+    public String Lang = Language.getInstance().GetLanguage();
 
     /**
      * Cria uma instancia da classe RegisterUI.
@@ -26,12 +29,27 @@ public class UIRecoverPass extends javax.swing.JFrame {
         this.xEmail.setVisible(false);
         this.ErrorLabel.setText("");
     }
+     
+    /**
+     * Este método permite atualizar todos os campos de texto para a linguagem definida 
+     * na interface inicial, com o auxílio da classe Language.java.
+     * @author João Machado
+     * 
+     */
+        public void UpdateLanguage(){
+        Lang=Language.getInstance().GetLanguage();
+        this.CancelButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("CancelButton"));
+        this.ConfirmButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("ConfirmButton"));
+        this.RegisterUserLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("RecoverPassLabel"));
+    }
+    
+    
     /**
      * Set genérico
      * @param Text texto 
      */
     public void setLabel(String Text){
-        this.ErrorLabel.setText(Text);
+        this.ErrorLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("PasswordNew")+Text);
     }
     /**
      * Enable genérico
@@ -164,7 +182,7 @@ public class UIRecoverPass extends javax.swing.JFrame {
                                 System.exit(-1);
                         }   
         }else{
-                        this.ErrorLabel.setText("Invalid Email");
+                        this.ErrorLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("InvalidEmailRecover"));
                         this.xEmail.setVisible(true);
                         this.EmailField.setText("");
                         this.ConfirmButton.setEnabled(true);

@@ -28,6 +28,7 @@ public class ReaderThread extends Thread {
     private UIConfiguracoes optionScreen;
     private UIRecoverPass recoverpass;
     public static String password;
+    public String Lang = Language.getInstance().GetLanguage();
    
     
     /**
@@ -54,10 +55,11 @@ public class ReaderThread extends Thread {
         while (run) {
                 String answer = com.readMessage();
                 //System.out.println("RESPONSE: "+response);
+                Lang=this.InitialScreen.Lang;
                 
                 switch (answer){
                     case "loginsuccess":
-                        InitialScreen.setVisible(false);
+                        InitialScreen.dispose();
                         System.out.print("USER LOGGED");
                         //Send user simple data to the WelcomeScreen
                         welcomescreen = new UIWelcomeScreen(player);
@@ -67,7 +69,8 @@ public class ReaderThread extends Thread {
                     case "loginError":
                         System.out.println("Login failed");
                         UIError errorFrame = new UIError();
-                        errorFrame.setTextErrorLabel("Login failed, username or password wrong");
+                        errorFrame.setErrorTitleLabel(java.util.ResourceBundle.getBundle(Lang).getString("ErrorLabel"));
+                        errorFrame.setTextErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("LoginError"));
                         errorFrame.setVisible(true);
                         InitialScreen.setLoginButton();
                         break;
@@ -76,8 +79,10 @@ public class ReaderThread extends Thread {
                         try {
                         com.getClientSocket().close();
                         welcomescreen.dispose();
-                        new UIupdate(welcomescreen).stop();
-                        new UIInitial().setVisible(true);
+                        player.clearUser();
+                        UIupdate.run=false;
+                        InitialScreen=ClientStart.recreateUI();
+                        
                         break;
                        
                     } catch (Exception ex) {
@@ -89,17 +94,17 @@ public class ReaderThread extends Thread {
                     case "RegSuccess":
                         registerscreen.enableConfirmButton();
                         registerscreen.setClearFields();
-                        registerscreen.setErrorLabel("Registado com sucesso!");
+                        registerscreen.setErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("RegisterSucess"));
 
                         break;
                     case "RegEmailInUse":
-                        registerscreen.setErrorLabel("Email já em uso!");
+                        registerscreen.setErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("RegisterEmailInUse"));
                         registerscreen.setxEmail();
                         registerscreen.enableConfirmButton();
                         
                         break;
                     case "answrRegUsernameInUse":
-                        registerscreen.setErrorLabel("Nome Utilizador já em uso!");
+                        registerscreen.setErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("RegisterUsernameInUse"));
                         registerscreen.setxName();
                         registerscreen.enableConfirmButton();
 
@@ -111,19 +116,20 @@ public class ReaderThread extends Thread {
                     case "RecoverPassError":
                         recoverpass.setLabel("");
                         UIError errorFrame3 = new UIError();
-                        errorFrame3.setTextErrorLabel("Error to recover Password");
+                        errorFrame3.setTextErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("RecoverPassError"));
                         errorFrame3.setVisible(true);
                         recoverpass.EnableButton();
                         break;
                     case "MudarConfigSuccess":
-                        welcomescreen.optionScreen.SetLabel("Alterações Efectuadas com sucesso");
-                        welcomescreen.optionScreen.SetConButton();
+                        UIWelcomeScreen.optionScreen.SetLabel(java.util.ResourceBundle.getBundle(Lang).getString("MudarConfigSucess"));
+                        UIWelcomeScreen.optionScreen.SetConButton();
                         break;
                         
                     case "runtimeError":
                         System.out.println("Server RunTimeError ");
                         UIError errorFrame1 = new UIError();
-                        errorFrame1.setTextErrorLabel("Servidor indisponível, tente mais tarde.");
+                        errorFrame1.setErrorTitleLabel(java.util.ResourceBundle.getBundle(Lang).getString("ErrorLabel"));
+                        errorFrame1.setTextErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("RuntimeError"));
                         errorFrame1.setVisible(true);
                         
                         break;

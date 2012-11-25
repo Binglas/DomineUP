@@ -16,7 +16,14 @@ public class ClientStart {
  
     public static void main(String[] args) throws IOException{
         // TODO code application logic here  
-        uiinitial = new UIInitial();
+        uiinitial  = new UIInitial();
         uiinitial.setVisible(true);  
+    }
+    
+    public static UIInitial recreateUI(){
+       uiinitial.dispose();
+       uiinitial= new UIInitial();
+       uiinitial.setVisible(true); 
+        return uiinitial;
     }
 }
