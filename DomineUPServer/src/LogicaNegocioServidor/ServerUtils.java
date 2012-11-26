@@ -18,7 +18,6 @@ import java.util.Hashtable;
 /**
  * Classe que suporta todas as operações do servidor.
  * @author Luciano
- * @author Andre
  */
 public class ServerUtils implements Serializable{
     static final long serialVersionUID = 124L;
@@ -104,15 +103,6 @@ public class ServerUtils implements Serializable{
         }
     }
     
-    /**
-     * Método que compara o utilizador que pretende efetuar logout, com o conjunto de utilizadores 
-     * que efetuaram o login anteriormente
-     * @param userLoggedOut 
-     * @param clientThread
-     * @return true, caso exista utilizador no jogo, e false caso nao tenha sucesso.
-     */
-
-    
     public boolean userLogout(User userLoggedOut, ClientThread clientThread) throws SQLException{
         synchronized (lockUserList) {
             for (int i = 0; i < loggedUsers.size(); ++i) {
@@ -132,15 +122,6 @@ public class ServerUtils implements Serializable{
             return false;
         }
     } 
-    
-   /**
-     * Este método é chamado quando um cliente fecha a janela inesperadamente,
-     * sem sinalizar ao Servidor uma mensagem de Logout. Este retira-o da
-     * lista de Users com o login efectuado, e verifica se a sala de onde o
-     * User potencialmente saiu estava a jogar, e se ficou com apenas 1 jogador. 
-     * Se assim for o cliente é sinalizado com uma mensagem de erro.
-     * @param username
-     */
     
     public void forceLogout(String username) {
         synchronized (lockLoggedUsers) {

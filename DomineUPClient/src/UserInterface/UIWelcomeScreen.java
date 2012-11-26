@@ -122,8 +122,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         UsernameLabel.setText("jLabel1");
 
         VolumeControl.setMaximum(0);
-        VolumeControl.setMinimum(-80);
-        VolumeControl.setValue(0);
+        VolumeControl.setMinimum(-40);
         VolumeControl.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 VolumeControlStateChanged(evt);
@@ -336,19 +335,9 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         int volume = (int) VolumeControl.getValue();
         musica.musica_control((float)volume);        
-       // config.MusicVolumeSliderSetValue(volume);
+        
     }//GEN-LAST:event_VolumeControlStateChanged
 
-//    public int VolumeControlGetValue()
-//    {
-//        int valor_slider = VolumeControl.getValue();
-//        return valor_slider;
-//    };
-//    
-//    public void VolumeControlSetValue(int valor)
-//    {
-//        VolumeControl.setValue(valor);
-//    };
     /**
      * @param args the command line arguments
      */

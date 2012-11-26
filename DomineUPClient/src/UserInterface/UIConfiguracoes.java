@@ -16,13 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
 
- /**
- * Interface de configurações da aplicação, aonde o utilizador posse aceder às funções
- * de mudança de palavra passe, e-mail, assim como o avatar e ainda tratamento de som 
- * @author Andre
-  */
-
-
+/**
+ * 
+ * @author andre,luciano
+ */
 public class UIConfiguracoes extends javax.swing.JFrame {
 
     User player;
@@ -30,10 +27,9 @@ public class UIConfiguracoes extends javax.swing.JFrame {
     public static musica_fundo musica;
     public String Lang = Language.getInstance().GetLanguage();
     
-     /**
-      * Cria a instancia da classe UIConfigurações
+    /**
+     * Creates new form UIConfiguracoes
      */
-
     public UIConfiguracoes() {
         initComponents();
         setLocationRelativeTo(null);
@@ -99,13 +95,8 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         OptionsLabel = new javax.swing.JLabel();
         ImageSettingsLabel = new javax.swing.JLabel();
         SoundEffectsLabel = new javax.swing.JLabel();
-        MainVolmeLabel = new javax.swing.JLabel();
         MusicVolumeLabel = new javax.swing.JLabel();
         SFXSoundLabel = new javax.swing.JLabel();
-        MainVolumeCheck = new javax.swing.JCheckBox();
-        MusicVolumeCheck = new javax.swing.JCheckBox();
-        SFXSoundCheck = new javax.swing.JCheckBox();
-        MainVolumeSlider = new javax.swing.JSlider();
         MusicVolumeSlider = new javax.swing.JSlider();
         SFXSoundSlider = new javax.swing.JSlider();
         AccountSettingsLabel1 = new javax.swing.JLabel();
@@ -164,30 +155,15 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         SoundEffectsLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         SoundEffectsLabel.setText("Sound Effects");
 
-        MainVolmeLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        MainVolmeLabel.setText("Main Volume");
-
         MusicVolumeLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         MusicVolumeLabel.setText("Music Volume");
 
         SFXSoundLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         SFXSoundLabel.setText("SFX Sound");
 
-        MusicVolumeCheck.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MusicVolumeCheckMouseClicked(evt);
-            }
-        });
-
-        SFXSoundCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SFXSoundCheckActionPerformed(evt);
-            }
-        });
-
         MusicVolumeSlider.setMaximum(0);
-        MusicVolumeSlider.setMinimum(-80);
-        MusicVolumeSlider.setValue(0);
+        MusicVolumeSlider.setMinimum(-40);
+        MusicVolumeSlider.setValue(-20);
         MusicVolumeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 MusicVolumeSliderStateChanged(evt);
@@ -456,31 +432,20 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(SFXSoundCheck)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(SFXSoundLabel))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(MainVolumeCheck)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(MainVolmeLabel))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(MusicVolumeCheck)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(MusicVolumeLabel)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(MainVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(SFXSoundSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(MusicVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(134, 134, 134)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(163, 163, 163)
-                                .addComponent(SoundEffectsLabel)))
+                                .addComponent(SoundEffectsLabel))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(MusicVolumeLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(SFXSoundLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SFXSoundSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(MusicVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(75, 75, 75))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(163, 163, 163)
@@ -515,18 +480,11 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MainVolmeLabel)
-                            .addComponent(MainVolumeCheck)
-                            .addComponent(MainVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MusicVolumeLabel)
-                            .addComponent(MusicVolumeCheck)
-                            .addComponent(MusicVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(MusicVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MusicVolumeLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(SFXSoundSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SFXSoundCheck)
                             .addComponent(SFXSoundLabel))))
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -727,10 +685,6 @@ public class UIConfiguracoes extends javax.swing.JFrame {
        ErrorLabel.setText("");
     }//GEN-LAST:event_SaveButtonActionPerformed
 
-    private void SFXSoundCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SFXSoundCheckActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SFXSoundCheckActionPerformed
-
     private void NewEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewEmailFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NewEmailFieldActionPerformed
@@ -740,11 +694,8 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         dispose();
         ReaderThread.welcomescreen.UIWelcomeSetVisible();
     }//GEN-LAST:event_CancelButtonActionPerformed
-
-//    public void MusicVolumeSliderSetValue(int m)
-//    {
-//         MusicVolumeSlider.setValue(m);
-//    };
+    
+   
 
     
     private void MusicVolumeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_MusicVolumeSliderStateChanged
@@ -758,24 +709,6 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         // TODO add your handling code here:
 //        MusicVolumeSliderSetValue();
     }//GEN-LAST:event_formWindowOpened
-
-    private void MusicVolumeCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MusicVolumeCheckMouseClicked
-        // TODO add your handling code here:
-        Object[] selectedObjects = MusicVolumeCheck.getSelectedObjects(); 
-        System.out.print(selectedObjects+"\n");
-        if ( selectedObjects == null )
-        {   try {
-                musica.music();
-            } catch (IOException ex) {
-                Logger.getLogger(UIConfiguracoes.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (LineUnavailableException ex) {
-                Logger.getLogger(UIConfiguracoes.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        else {if (selectedObjects != null){
-            musica.music_stop();          
-            }}
-    }//GEN-LAST:event_MusicVolumeCheckMouseClicked
 
     /**
      * @param args the command line arguments
@@ -822,10 +755,6 @@ public class UIConfiguracoes extends javax.swing.JFrame {
     private javax.swing.JLabel ConfirmaPasswordLabel2;
     private javax.swing.JLabel ErrorLabel;
     private javax.swing.JLabel ImageSettingsLabel;
-    private javax.swing.JLabel MainVolmeLabel;
-    private javax.swing.JCheckBox MainVolumeCheck;
-    private javax.swing.JSlider MainVolumeSlider;
-    private javax.swing.JCheckBox MusicVolumeCheck;
     private javax.swing.JLabel MusicVolumeLabel;
     private javax.swing.JSlider MusicVolumeSlider;
     private javax.swing.JTextField NewEmailField;
@@ -837,7 +766,6 @@ public class UIConfiguracoes extends javax.swing.JFrame {
     private javax.swing.JLabel OldPasswordLabel;
     private javax.swing.JLabel OldPasswordLabel2;
     private javax.swing.JLabel OptionsLabel;
-    private javax.swing.JCheckBox SFXSoundCheck;
     private javax.swing.JLabel SFXSoundLabel;
     private javax.swing.JSlider SFXSoundSlider;
     private javax.swing.JButton SaveButton;

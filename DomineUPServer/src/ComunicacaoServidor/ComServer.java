@@ -19,7 +19,6 @@ import java.util.ArrayList;
  * Classe responsável pela ligação do Servidor com o cliente, processa todas as 
  * mensagens vindas do cliente.
  * @author Luciano
- * @author Andre
  */
 public class ComServer {
     
@@ -177,13 +176,6 @@ public class ComServer {
         }
     }
     
-    /**
-     * Este é o metodo responsável por informar o cliente se o logout foi realizado
-     * ou não com sucesso, sendo enviada para o cliente uma mensagem.
-     * @param msg
-     * @return true se for bem sucedido, caso contrário false.
-     */
-
     private boolean logout(Message msg) throws SQLException{
         
         User userLoggedOut = (User) msg.getArguments().get(0);
