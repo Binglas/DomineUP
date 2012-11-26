@@ -9,21 +9,31 @@ import ComunicacaoCliente.ComCliente;
 import javax.swing.ButtonGroup;
 import LogicaNegocioCliente.ReaderThread;
 import LogicaNegocioCliente.Language;
+import resources.musica_fundo;
+import UserInterface.UIWelcomeScreen;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
 
-/**
+ /**
  * Interface de configurações da aplicação, aonde o utilizador posse aceder às funções
  * de mudança de palavra passe, e-mail, assim como o avatar e ainda tratamento de som 
  * @author Andre
- */
+  */
+
+
 public class UIConfiguracoes extends javax.swing.JFrame {
 
     User player;
     public static UIWelcomeScreen welcomeScreen;
+    public static musica_fundo musica;
     public String Lang = Language.getInstance().GetLanguage();
     
-    /**
-     * Cria a instancia da classe UIConfigurações
+     /**
+      * Cria a instancia da classe UIConfigurações
      */
+
     public UIConfiguracoes() {
         initComponents();
         setLocationRelativeTo(null);
@@ -138,6 +148,11 @@ public class UIConfiguracoes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         OptionsLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         OptionsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -158,9 +173,24 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         SFXSoundLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         SFXSoundLabel.setText("SFX Sound");
 
+        MusicVolumeCheck.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MusicVolumeCheckMouseClicked(evt);
+            }
+        });
+
         SFXSoundCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SFXSoundCheckActionPerformed(evt);
+            }
+        });
+
+        MusicVolumeSlider.setMaximum(0);
+        MusicVolumeSlider.setMinimum(-80);
+        MusicVolumeSlider.setValue(0);
+        MusicVolumeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                MusicVolumeSliderStateChanged(evt);
             }
         });
 
@@ -710,6 +740,42 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         dispose();
         ReaderThread.welcomescreen.UIWelcomeSetVisible();
     }//GEN-LAST:event_CancelButtonActionPerformed
+
+//    public void MusicVolumeSliderSetValue(int m)
+//    {
+//         MusicVolumeSlider.setValue(m);
+//    };
+
+    
+    private void MusicVolumeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_MusicVolumeSliderStateChanged
+        // TODO add your handling code here:
+        int volume_opçoes = (int) MusicVolumeSlider.getValue();
+        musica.musica_control((float)volume_opçoes);   
+        //welcomeScreen.VolumeControlSetValue(volume_opçoes);
+    }//GEN-LAST:event_MusicVolumeSliderStateChanged
+    
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+//        MusicVolumeSliderSetValue();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void MusicVolumeCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MusicVolumeCheckMouseClicked
+        // TODO add your handling code here:
+        Object[] selectedObjects = MusicVolumeCheck.getSelectedObjects(); 
+        System.out.print(selectedObjects+"\n");
+        if ( selectedObjects == null )
+        {   try {
+                musica.music();
+            } catch (IOException ex) {
+                Logger.getLogger(UIConfiguracoes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(UIConfiguracoes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {if (selectedObjects != null){
+            musica.music_stop();          
+            }}
+    }//GEN-LAST:event_MusicVolumeCheckMouseClicked
 
     /**
      * @param args the command line arguments

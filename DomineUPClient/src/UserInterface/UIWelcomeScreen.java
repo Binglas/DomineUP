@@ -7,6 +7,12 @@ import ComunicacaoCliente.ComCliente;
 import Share.User;
 import java.util.ArrayList;
 import LogicaNegocioCliente.Language;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.LineUnavailableException;
+import resources.musica_fundo;
+import UserInterface.UIConfiguracoes;
 
 /**
  * Este é o interface após o utilizador ter realizado o login, contém dados do utilizador,
@@ -21,6 +27,8 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     public static UICreateRoom createRoomScreen;
     public static ArrayList<User> usersOnlineList;
     private static User player;
+    public static UIConfiguracoes config;
+    public static musica_fundo musica;
     public String Lang = Language.getInstance().GetLanguage();
     
     public  UIWelcomeScreen(){
@@ -94,6 +102,11 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(1074, 670));
         setPreferredSize(new java.awt.Dimension(1074, 670));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         Tittle.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         Tittle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/final_logo.png"))); // NOI18N
@@ -107,6 +120,15 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
 
         UsernameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         UsernameLabel.setText("jLabel1");
+
+        VolumeControl.setMaximum(0);
+        VolumeControl.setMinimum(-80);
+        VolumeControl.setValue(0);
+        VolumeControl.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                VolumeControlStateChanged(evt);
+            }
+        });
 
         OptionsButton.setText("Opções");
         OptionsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -291,7 +313,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         }catch (Exception ex) {
             System.out.println("Erro no logout");
         }
-        
+        musica.music_stop();        
     }//GEN-LAST:event_LeaveActionPerformed
 
     private void CreateRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateRoomButtonActionPerformed
@@ -301,6 +323,32 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         createRoomScreen.setVisible(true);
     }//GEN-LAST:event_CreateRoomButtonActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+         try {
+            musica.music();
+        } catch (IOException | LineUnavailableException ex) {
+            Logger.getLogger(UIInitial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void VolumeControlStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_VolumeControlStateChanged
+        // TODO add your handling code here:
+        int volume = (int) VolumeControl.getValue();
+        musica.musica_control((float)volume);        
+       // config.MusicVolumeSliderSetValue(volume);
+    }//GEN-LAST:event_VolumeControlStateChanged
+
+//    public int VolumeControlGetValue()
+//    {
+//        int valor_slider = VolumeControl.getValue();
+//        return valor_slider;
+//    };
+//    
+//    public void VolumeControlSetValue(int valor)
+//    {
+//        VolumeControl.setValue(valor);
+//    };
     /**
      * @param args the command line arguments
      */
@@ -414,5 +462,6 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         
          
     }
+
     
 }

@@ -8,6 +8,9 @@
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -216,6 +219,9 @@
     <Component class="javax.swing.JCheckBox" name="MainVolumeCheck">
     </Component>
     <Component class="javax.swing.JCheckBox" name="MusicVolumeCheck">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MusicVolumeCheckMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="SFXSoundCheck">
       <Events>
@@ -225,6 +231,13 @@
     <Component class="javax.swing.JSlider" name="MainVolumeSlider">
     </Component>
     <Component class="javax.swing.JSlider" name="MusicVolumeSlider">
+      <Properties>
+        <Property name="maximum" type="int" value="0"/>
+        <Property name="minimum" type="int" value="-80"/>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="MusicVolumeSliderStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSlider" name="SFXSoundSlider">
     </Component>

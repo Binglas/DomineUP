@@ -16,14 +16,15 @@ import UserInterface.UIWelcomeScreen;
 /**
  * Fica à escuta de mensagens vindas do servidor, e trata das respostas 
  * de acordo com as mensagems descodificadas pelo método ReadMessage ComCliente.
- * @author Luciano, Andre
+ * @author Luciano
+ * @author Andre
  */
 public class ReaderThread extends Thread {
     public static boolean run;
     public static User player;
     public static UIWelcomeScreen welcomescreen;
     private ComCliente com;
-    public UIInitial InitialScreen;
+    public static UIInitial InitialScreen;
     private UIRegister registerscreen;
     private UIConfiguracoes optionScreen;
     private UIRecoverPass recoverpass;
@@ -82,7 +83,6 @@ public class ReaderThread extends Thread {
                         player.clearUser();
                         UIupdate.run=false;
                         InitialScreen=ClientStart.recreateUI();
-                        
                         break;
                        
                     } catch (Exception ex) {
