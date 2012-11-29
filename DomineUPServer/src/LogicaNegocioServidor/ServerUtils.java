@@ -7,26 +7,32 @@ import RecolhaDados.DataRead;
 import RecolhaDados.DataWrite;
 import Share.User;
 import Share.MD5Pwd;
+import Share.Message;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import share.GameRoom;
 
 
 /**
  * Classe que suporta todas as operações do servidor.
  * @author Luciano
+ * @author Andre
  */
 public class ServerUtils implements Serializable{
     static final long serialVersionUID = 124L;
     private ArrayList<User> loggedUsers;
+    private ArrayList<GameRoom> roomsOnline;
     private static ServerUtils instance;
     private Hashtable<String, ClientThread> userConnections;
     private final Object lockFile = new Object();
     private final Object lockUserList = new Object();
     private final Object lockLoggedUsers = new Object();
+    private final Object locktoBroadcastUsers = new Object();
+    private final Object lockRoomsOnline = new Object();
     
      /**
      * Este método retorna o nº utilizadores logados.
@@ -42,7 +48,8 @@ public class ServerUtils implements Serializable{
      */
     protected ServerUtils() throws Exception {
         
-        loggedUsers = new ArrayList<User>();        
+        loggedUsers = new ArrayList<User>(); 
+        roomsOnline = new ArrayList<GameRoom>();
         userConnections = new Hashtable<String, ClientThread>();
     }
       /**
@@ -103,6 +110,13 @@ public class ServerUtils implements Serializable{
         }
     }
     
+    /**
+     * Método que compara o utilizador que pretende efetuar logout, com o conjunto de utilizadores 
+     * que efetuaram o login anteriormente
+     * @param userLoggedOut 
+     * @param clientThread
+     * @return true, caso exista utilizador no jogo, e false caso nao tenha sucesso.
+     */
     public boolean userLogout(User userLoggedOut, ClientThread clientThread) throws SQLException{
         synchronized (lockUserList) {
             for (int i = 0; i < loggedUsers.size(); ++i) {
@@ -245,8 +259,6 @@ public class ServerUtils implements Serializable{
             }
   
         }
-        
-        
     }
     /**
      * Método que permite recuperar a password do utilizador gerando uma nova e 
@@ -307,5 +319,92 @@ public class ServerUtils implements Serializable{
         synchronized (lockLoggedUsers) {
             return loggedUsers;
         }
+    }
+    
+        /**
+     * Este método, se o nome da sala pretendida já não estiver em uso, é 
+     * adicionada ao ArrayList de salas online
+     * @param newRoom é a sala a ser adicionada
+     * @return true se for bem sucedido e false se o nome já estiver em uso
+     */
+    public boolean createRoom(GameRoom newRoom) {
+        
+        int exists = 0;
+        exists = findRoom(newRoom.getName());
+        System.out.print("EXISTS: " +exists+ "\n");
+        if (exists != 0) {
+            return false;
+        }
+        synchronized (lockRoomsOnline) {
+            roomsOnline.add(newRoom);
+            return true;
+        }
+    }
+    
+        /**
+     * Este método retorna o índice do Array de salas online que tem a sala com 
+     * nome roomName.
+     * @param roomName é o nome da sala da qual se quer o índice
+     * @return Retorna o índice da sala, no Array de salas online
+     */
+    public int findRoom(String roomName) {
+        synchronized (lockRoomsOnline) {
+            for (int i = 0; i < roomsOnline.size(); i++) {
+                if (roomsOnline.get(i).getName().equals(roomName)) {
+                    return i;
+                }
+            }
+            return 0;
+        }
+    }
+
+    /**
+     * Este método recebe uma mensagem que será broadcasted para todos os 
+     * utilizadores.
+     * @param sourceUser é o Utilizador de origem
+     * @param message é a mensagem que ele quer enviar aos outros jogadores
+     * @return true se o broadcast tiver tido sucesso, e false se tiver tido alguma 
+     * exceção
+     */
+    public boolean roomChat(User sourceUser, String message) {
+        synchronized (locktoBroadcastUsers) {
+            ArrayList<Object> arguments = new ArrayList<>();
+            ArrayList<User> toBroadcast = new ArrayList<>();
+            System.out.println("SIZE: \n" + loggedUsers.size());
+            for (int i = 0; i < loggedUsers.size(); i++) {
+                    toBroadcast.add(loggedUsers.get(i));
+                    System.out.println("Boradcast to: \n" + toBroadcast.get(i).getUsername());
+            }
+            arguments.add(sourceUser.getUsername());
+            arguments.add(message);
+            Message answrMsg = new Message("answrupdateChatsuccess", arguments);
+            if (broadcast(answrMsg, toBroadcast)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    
+    
+    /**
+     * Este método recebe a mensagem a enviar e a lista de users para quem tem 
+     * que a enviar. É uma função genérica porque é usada várias vezes a partir
+     * do momento em que se inicia o jogo.
+     * @param msg a enviar
+     * @param users a receber a mensagem
+     * @return true se for bem sucedida, false se houver alguma exceção
+     */
+    private boolean broadcast(Message answrMsg, ArrayList<User> users) {
+        for (int i = 0; i < (users.size()); ++i) {
+            ClientThread clientThread = userConnections.get(users.get(i).getUsername());
+            try {
+                clientThread.writeMessage(answrMsg);
+            } catch (Exception ex) {
+                System.out.println("ERRO NO BROADCAST! Exception: " + ex);
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -8,12 +8,19 @@ import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.Language;
 import UserInterface.UIWelcomeScreen;
 import LogicaNegocioCliente.ReaderThread;
+import Share.MD5Pwd;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import share.GameRoom;
 /**
  * Este interface permite aos utilizadores introduzirem campos necessário ao registo.
  * @author Andre
  */
 public class UICreateRoom extends javax.swing.JFrame {
     public String Lang = Language.getInstance().GetLanguage(); 
+    private ArrayList<Object> players;
+
     /**
      * Cria instancia da classe UICreateRoom
      */
@@ -242,7 +249,7 @@ public class UICreateRoom extends javax.swing.JFrame {
 
     private void ConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmButtonActionPerformed
        
-        String roomName = RoomNameLabel.getText();
+      /*  String roomName = RoomNameLabel.getText();
         char[] password = PasswordField.getPassword();
         String pass = new String(password);
         int numplayers=Integer.parseInt(NumPlayers.getSelectedItem().toString());
@@ -253,7 +260,40 @@ public class UICreateRoom extends javax.swing.JFrame {
             
             try{
                 ComCliente com = ComCliente.getInstance();
-                //com.createRoom(roomName,pass,numPlayers,tipoJogo);
+                com.createRoom(roomName,pass,numPlayers,tipoJogo);
+                this.ConfirmButton.setEnabled(false);
+
+            }catch (Exception e) {
+                    System.out.println("Accept failed: 4444");
+                    System.exit(-1);
+            }   
+                        
+        }else{
+                this.ErrorLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("InvalidRoomName"));
+                this.RoomNameLabel.setText("");
+                this.xName.setVisible(true);
+        }*/
+    
+    String roomName = RoomNameLabel.getText();
+    char[] password = PasswordField.getPassword();
+    String pass = new String(password);
+    int numplayers=Integer.parseInt(NumPlayers.getSelectedItem().toString());
+    String tipoJogo=DominoType.getSelectedItem().toString();
+ 
+        
+    xName.setVisible(false);
+    
+    ArrayList<Object> players = new ArrayList<Object>();
+    players.add(this.players);
+    
+    GameRoom room = new GameRoom(roomName, pass, numplayers, players);
+            
+    if (!roomName.equals("")){
+            
+            try{
+                ComCliente com = ComCliente.getInstance();
+                com.createRoom(room);
+                //com.createRoom(roomName,pass,numplayers,tipoJogo);
                 this.ConfirmButton.setEnabled(false);
 
             }catch (Exception e) {

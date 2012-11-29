@@ -16,9 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
 
-/**
- * 
- * @author andre,luciano
+ /**
++ * Interface de configurações da aplicação, aonde o utilizador posse aceder às funções
++ * de mudança de palavra passe, e-mail, assim como o avatar e ainda tratamento de som 
++ * @author Andre
  */
 public class UIConfiguracoes extends javax.swing.JFrame {
 
@@ -28,7 +29,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
     public String Lang = Language.getInstance().GetLanguage();
     
     /**
-     * Creates new form UIConfiguracoes
+     * Cria a instancia da classe UIConfigurações
      */
     public UIConfiguracoes() {
         initComponents();

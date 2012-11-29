@@ -14,11 +14,13 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import share.GameRoom;
 
 /**
  * Classe responsável pela ligação do Servidor com o cliente, processa todas as 
  * mensagens vindas do cliente.
  * @author Luciano
+ * @author Andre
  */
 public class ComServer {
     
@@ -114,8 +116,27 @@ public class ComServer {
                     System.out.println(GetDate.now()+"+"+thisClient +" Request looged users");
                     if (UserList(msg)) {
                     return true;
+                    }
+                    
+                case "createRoom":
+                    if (createRoom(msg)) {
+                    GameRoom room = (GameRoom) msg.getArguments().get(0);
+                    System.out.println(GetDate.now()+": "+thisClient + " created room '"+room.getName()+"' successfully!");
+                    return true;
+                    } else {
+                    System.out.println(GetDate.now()+": "+thisClient + ": Erro a criar a Room!");
+                    return true;
+                    }
+                    
+                case "roomChat":
+                    if (roomChat(msg)) {      
+                    return true;
+                } else {
+                    System.out.println(GetDate.now()+": "+thisClient + ": Error sending chat message!");
+                    return true;
+                }
+                    
             
-            }
             }
         } catch (Exception ex) {
             switch (ex.toString()) {
@@ -175,6 +196,14 @@ public class ComServer {
             return false;
         }
     }
+    
+    /**
+     * Este é o metodo responsável por informar o cliente se o logout foi realizado
+     * ou não com sucesso, sendo enviada para o cliente uma mensagem.
+     * @param msg
+     * @return true se for bem sucedido, caso contrário false.
+     */
+
     
     private boolean logout(Message msg) throws SQLException{
         
@@ -376,6 +405,62 @@ public class ComServer {
             return false;
         }
     }
-   
+
+    /**
+     * Este método descodifica os argumentos enviados pelo cliente e chama o método
+     * createRoom da classe ServerState. É enviada uma mensagem ao cliente
+     * que depende do decorrer da criação da sala.
+     * @param msg é a mensagem recebida do cliente
+     * @return return true se for bem sucedido e false se ocorrer um erro ou
+     * exceção
+     */
+    
+    private boolean createRoom(Message msg) {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        GameRoom newRoom = (GameRoom) msg.getArguments().get(0);
+       // String roomName = (String) msg.getArguments().get(0);
+       // String pass = (String) msg.getArguments().get(1);
+       // String tipoJogo = (String) msg.getArguments().get(3);
+       // int numplayers = (int) msg.getArguments().get(2);
+        System.out.print("THIS::::: "+msg.getTipoMensagem()+ "\n");
+        System.out.print("NEW ROOM: " + newRoom.getName()+ "\n");
+        
+        System.out.print("AHAHAHAH: " + state.createRoom(newRoom)+ "\n");
+        if (state.createRoom(newRoom)==true){
+            System.out.print("::::HERE:::::");
+            try {
+                Message answrMsg = new Message("answerCreateRoom:success", arguments);
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.createRoom(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        }
+        try {
+            Message answrMsg = new Message("answerCreateRoom:error", arguments);
+            clientThread.writeMessage(answrMsg);
+            return false;
+        } catch (Exception ex) {
+            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.createRoom(): 2!");
+            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+            return false;
+        }
+    }
+
+    /**
+     * Este método descodifica os argumentos enviados pelo cliente e chama o método
+     * roomChat da classe ServerState.
+     * @param msg é a mensagem recebida do cliente
+     * @return Retorna true se for bem sucedido ou false se ocorrer um erro
+     */
+    private boolean roomChat(Message msg) {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.clear();
+        User sourceUser = (User) msg.getArguments().get(0);
+        String message = (String) msg.getArguments().get(1);
+        return state.roomChat(sourceUser, message);
+    }
     
 }

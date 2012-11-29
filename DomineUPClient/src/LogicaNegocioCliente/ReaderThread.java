@@ -11,12 +11,14 @@ import UserInterface.UIError;
 import UserInterface.UIInitial;
 import UserInterface.UIRecoverPass;
 import UserInterface.UIRegister;
+import UserInterface.UIWaitingRoom;
 import UserInterface.UIWelcomeScreen;
 
 /**
  * Fica à escuta de mensagens vindas do servidor, e trata das respostas 
  * de acordo com as mensagems descodificadas pelo método ReadMessage ComCliente.
  * @author Luciano
+ * @author Andre
  */
 public class ReaderThread extends Thread {
     public static boolean run;
@@ -29,6 +31,7 @@ public class ReaderThread extends Thread {
     private UIRecoverPass recoverpass;
     public static String password;
     public String Lang = Language.getInstance().GetLanguage();
+    public static String chatMessage;
    
     
     /**
@@ -39,6 +42,7 @@ public class ReaderThread extends Thread {
        this.InitialScreen=initialScreen;
        this.registerscreen=registerScreen;
        this.recoverpass=recoverScreen;
+       this.chatMessage = new String();
        
        
     }
@@ -82,7 +86,6 @@ public class ReaderThread extends Thread {
                         player.clearUser();
                         UIupdate.run=false;
                         InitialScreen=ClientStart.recreateUI();
-                        
                         break;
                        
                     } catch (Exception ex) {
@@ -125,6 +128,18 @@ public class ReaderThread extends Thread {
                         UIWelcomeScreen.optionScreen.SetConButton();
                         break;
                         
+                    case "createRoomSuccess":
+                        UIWelcomeScreen.createRoomScreen.setVisible(false);
+                        UIWaitingRoom waitingroom = new UIWaitingRoom();
+                        waitingroom.setVisible(true);
+                        welcomescreen.setVisible(false);
+                        break;
+                    case "createRoomError":
+                        UIError error = new UIError();
+                        error.setTextErrorLabel("Room name in use");
+                        error.setVisible(true);
+                        break;
+                        
                     case "runtimeError":
                         System.out.println("Server RunTimeError ");
                         UIError errorFrame1 = new UIError();
@@ -135,6 +150,10 @@ public class ReaderThread extends Thread {
                         break;
                     case "answrRequestUserSuccess":
                         //não faz nada
+                        break;
+                        
+                    case "receivedmessage":
+                        welcomescreen.updateChat(chatMessage);
                         break;
                         
                     default: 

@@ -11,11 +11,13 @@ import UserInterface.UIWelcomeScreen;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import share.GameRoom;
 /**
  * Esta classe processa toda a comunicação entre o servidor e o cliente, todas as   
  * mensagens enviadas para o servidor passam por esta classe. apenas existe uma 
  * instancia relativa a esta classe. 
  * @author Luciano
+ * @author Andre
  */
 public class ComCliente {
      
@@ -115,6 +117,13 @@ public class ComCliente {
 
     }
     
+    /**
+     * Trata de enviar para o servidor uma mensagem do tipo logout, juntamente com
+     * uma classe User.
+     * @param player  Utilizador que pretende efetuar o logout.
+     */
+
+    
     public void logout(User player){
         ArrayList<Object> arguments = new ArrayList<Object>();
         arguments.add(player);
@@ -130,6 +139,16 @@ public class ComCliente {
         
     }
     
+    /**
+     * Trata de enviar para o servidor uma mensagem do tipo mudarConfig, juntamente com
+     * o Username, a palavra pass encriptada, passEnc, o avatar, o E-mail e uma flag.
+     * @param username nome do utilizador
+     * @param passEnc palavra passe do utilizador encriptada
+     * @param email Email do utilizador. 
+     * @param avatar Avatar a ser utilizado pelo cliente
+     * @param flag valor que indica uma mudança no email do utilizador
+     */
+
     
     public void mudarConfig(String username, String passEnc, String email,String avatar, int flag){
        
@@ -156,6 +175,13 @@ public class ComCliente {
         }
     }
     
+    /**
+     * Trata de enviar para o servidor uma mensagem do tipo registar, juntamente com
+     * o Username, a palavra pass encriptada, passEnc, e o E-mail.
+     * @param username nome do utilizador
+     * @param passEnc palavra passe do utilizador encriptada
+     * @param email Email do utilizador. 
+     */
     public void registar(String username, String passEnc, String email) {
         
         ArrayList<Object> vec = new ArrayList<Object>();
@@ -216,6 +242,57 @@ public class ComCliente {
             System.out.println("requestUsers: error writing object");
             System.out.println("Exception Message:" + ex);
         }
+    }
+   
+   
+         /**
+       * Envia uma mensagem para o servidor com a mensagem introduzida pelo jogador no chat da sala de jogo
+       * e que deve ficar visivel para todos os outros jogadores da sala.
+       * @param player objeto da classe User com as informações do jogador que introduziu a mensagem
+       */
+       public void roomChat(User player, String message){
+        
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(player);
+        arguments.add(message);
+
+        Message messageToServer = new Message("roomChat", arguments);
+
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+        } catch (Exception ex) {
+            System.err.println("chatRoom: error writing object");
+        }
+        
+    }
+   
+   
+    /**
+     * Envia uma mensagem para o servidor a solicitar a criação de uma nova sala de jogo.
+     * @param room objeto da classe GameRoom com as informações da nova sala a criar.
+     */
+    public void createRoom(GameRoom room) {
+
+        ArrayList<Object> arguments = new ArrayList<>();
+        arguments.add(room);
+        // arguments.add(roomName);
+        // arguments.add(pass);
+        //  arguments.add(numplayers);
+        //  arguments.add(tipoJogo);
+        
+        Message messageToServer = new Message("createRoom", arguments);
+        try {
+            System.out.println("THIS:::::"+messageToServer.getTipoMensagem());
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+        } catch (IOException ex) {
+            System.out.println("requestPlayers: error writing object");
+        }
+
     }
     
      /**
@@ -284,6 +361,18 @@ public class ComCliente {
                         UIWelcomeScreen.usersOnlineList = (ArrayList<User>) msg.getArguments().get(0);
                         return "answrRequestUserSuccess";
                         
+                    case "answerCreateRoom:success":
+                        System.out.println("Create Room Success!");
+                        return "createRoomSuccess";
+                        
+                    case "answerCreateRoom:error":
+                        System.out.println("Create Room Error!");
+                    return "createRoomError"; 
+                        
+                    case "answrupdateChatsuccess":
+                        ReaderThread.chatMessage = (msg.getArguments().get(0) + ": " + msg.getArguments().get(1));
+                        return "receivedmessage";
+                        
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");
                         return "runtimeError";
@@ -306,6 +395,8 @@ public class ComCliente {
             }
         }
     }
+
+
 
     
 }
