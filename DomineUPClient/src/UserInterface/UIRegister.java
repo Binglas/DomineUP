@@ -26,21 +26,39 @@ public class UIRegister extends javax.swing.JFrame {
         this.xEmail.setVisible(false);
         this.ErrorLabel.setText("");        
     }
+    /*
+     * Set genérico
+     */
     public void enableConfirmButton() {
         this.ConfirmButton.setEnabled(true);
     }
+    /*
+     * Set genérico
+     */
     public void setxEmail() {
         this.xEmail.setVisible(true);
     }
+    /*
+     * Set genérico
+     */
     public void setxName() {
         this.xName.setVisible(true);
     }
+    /*
+     * Set genérico
+     */
     public void setxPassword() {
         this.xPassword.setVisible(true);
     }
+    /*
+     * Set genérico
+     */
     public void setErrorLabel(String text){
         this.ErrorLabel.setText(text);
     }
+    /*
+     * Set genérico
+     */
     public void setClearFields(){
         this.ErrorLabel.setText("");
         this.EmailField.setText("");
@@ -50,6 +68,13 @@ public class UIRegister extends javax.swing.JFrame {
         this.ConfirmEmailField.setText("");
         
     }
+    
+     /**
+     * Este método permite atualizar todos os campos de texto para a linguagem definida 
+     * na interface inicial, com o auxílio da classe Language.java.
+     * @author João Machado
+     * 
+     */
     public void UpdateLanguage(){
         Lang=Language.getInstance().GetLanguage();
         this.UsernameLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("UsernameLabel"));

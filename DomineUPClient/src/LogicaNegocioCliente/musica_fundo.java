@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package resources;
+package LogicaNegocioCliente;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 /**
- *
+ * Classe relativa a implementação  do som no jogo.
  * @author vasco
  */
 public class musica_fundo {
@@ -25,7 +25,7 @@ public class musica_fundo {
     {
         try{
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
-            new File("Russian Folk Music-Kalinka (balalaika)2.wav"));
+            new File("folk.wav"));
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(1000);
@@ -37,11 +37,16 @@ public class musica_fundo {
             }
     };
      
+     /*
+      * Set genérico que permite para a música.
+      */
       public static void music_stop()
      {
             clip.stop();
      };
-     
+      /*
+      * Set genérico que permite alterar o volume da música.
+      */
      public static void musica_control(float n)
      {        
             FloatControl gainControl =  (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

@@ -36,6 +36,12 @@ public class UIInitial extends javax.swing.JFrame {
     public void UISetVisible(){
         this.setVisible(true);
     }
+     /**
+     * Este método permite atualizar todos os campos de texto para a linguagem definida 
+     * com o auxílio da classe Language.java.
+     * @author João Machado
+     * 
+     */
     private void UpdateLanguage(){
         Lang=Language.getInstance().GetLanguage();
         registerScreen.Lang=Lang;        
@@ -44,7 +50,6 @@ public class UIInitial extends javax.swing.JFrame {
         recoverPassScreen.UpdateLanguage();
         this.UsernameLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("UsernameLabel"));
         this.PasswordLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("PasswordLabel"));
-        this.StartGameButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("StartGameButton"));
         this.ExitButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("ExitGameButton"));
         this.LoginButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("LoginButton"));
         this.RegisterButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("RegisterButton"));
@@ -66,6 +71,10 @@ private class ConnectThread implements Runnable
        ServerConnect();
     }
 }
+   
+   /*
+    * Metodo que faz um pedido de ligação ao servidor.
+    */
    private void ServerConnect(){
        
         //connect server
@@ -87,7 +96,6 @@ private class ConnectThread implements Runnable
 
                     }else{
                         
-                        this.StartGameButton.setEnabled(true);
                         this.UsernameField.setEnabled(true);
                         this.PasswordField.setEnabled(true);
                         this.RecoverPassButton.setEnabled(true);
@@ -119,7 +127,6 @@ private class ConnectThread implements Runnable
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        StartGameButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
         HelpButton = new javax.swing.JButton();
         Logo = new javax.swing.JLabel();
@@ -141,10 +148,6 @@ private class ConnectThread implements Runnable
         setTitle(bundle.getString("AppTitle")); // NOI18N
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
-
-        StartGameButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        StartGameButton.setText(bundle.getString("StartGameButton")); // NOI18N
-        StartGameButton.setEnabled(false);
 
         ExitButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         ExitButton.setText(bundle.getString("ExitGameButton")); // NOI18N
@@ -234,11 +237,9 @@ private class ConnectThread implements Runnable
                         .addGap(251, 251, 251)
                         .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(StartGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
+                        .addGap(219, 219, 219)
                         .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addGap(18, 18, 18)
                         .addComponent(HelpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(356, 356, 356)
@@ -312,12 +313,9 @@ private class ConnectThread implements Runnable
                 .addGap(18, 18, 18)
                 .addComponent(ReconnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(StartGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(HelpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(HelpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
 
@@ -454,7 +452,6 @@ private class ConnectThread implements Runnable
     private javax.swing.JButton RegisterButton;
     private javax.swing.JLabel ServerStateLabel;
     private javax.swing.JLabel ServerStateQuery;
-    private javax.swing.JButton StartGameButton;
     private javax.swing.JTextField UsernameField;
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JProgressBar jProgressBar;

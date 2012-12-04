@@ -14,7 +14,7 @@ import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import share.GameRoom;
+import Share.GameRoom;
 
 
 /**
@@ -329,32 +329,54 @@ public class ServerUtils implements Serializable{
      */
     public boolean createRoom(GameRoom newRoom) {
         
-        int exists = 0;
-        exists = findRoom(newRoom.getName());
-        System.out.print("EXISTS: " +exists+ "\n");
-        if (exists != 0) {
+        if ( findRoom(newRoom.getName()) == true) {
             return false;
+        }else{
+            synchronized (lockRoomsOnline) {
+                newRoom.getPlayer(0);
+                roomsOnline.add(newRoom);
+               // System.out.println("ADFIJHFDIHFDGHI: " +newRoom.getPlayer(0));
+                return true;
+            }
         }
-        synchronized (lockRoomsOnline) {
-            roomsOnline.add(newRoom);
-            return true;
-        }
+       
     }
     
-        /**
+   /**
      * Este método retorna o índice do Array de salas online que tem a sala com 
      * nome roomName.
      * @param roomName é o nome da sala da qual se quer o índice
-     * @return Retorna o índice da sala, no Array de salas online
+     * @return Retorna o true se exitir false se não existir
      */
-    public int findRoom(String roomName) {
+    public boolean findRoom(String roomName) {
         synchronized (lockRoomsOnline) {
             for (int i = 0; i < roomsOnline.size(); i++) {
                 if (roomsOnline.get(i).getName().equals(roomName)) {
-                    return i;
+                    return true;
                 }
             }
-            return 0;
+            return false;
+        }
+    }
+    
+    
+        /**
+    * Get default que retorna a lista de User's online
+    * e testa se existem jogadores numa determinada sala
+    * @return lista de objectos User online
+    */
+    public ArrayList<GameRoom> getRoomList() {
+        synchronized (lockRoomsOnline) {
+            
+            //se não existir jogadores apaga a sala
+            for (int i=0;i<roomsOnline.size();i++){
+                
+                if (roomsOnline.get(i).getCurPlayers()==0){
+                    roomsOnline.remove(i);
+                }
+            }
+            
+            return roomsOnline;
         }
     }
 

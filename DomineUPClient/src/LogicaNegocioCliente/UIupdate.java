@@ -4,8 +4,6 @@
  */
 package LogicaNegocioCliente;
 import ComunicacaoCliente.ComCliente;
-import java.util.ArrayList;
-import Share.User;
 import UserInterface.UIWelcomeScreen;
 
 /**
@@ -40,8 +38,9 @@ public class UIupdate extends Thread{
             try {
 
                 com = ComCliente.getInstance();
-                //com.requestRooms();
+
                 com.requestUsers();
+                com.requestRooms();
                       
                 screen.updateScreen();
                               

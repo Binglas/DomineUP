@@ -4,18 +4,31 @@
  */
 package LogicaNegocioServidor;
 
+import RecolhaDados.DataFile;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import javax.swing.SwingUtilities;
+
 /**
  * Interface do Servidor, permite ligar e desligar o servidor.
  * @author Luciano
  */
 public class Interface extends javax.swing.JFrame {
-
+    FileOutputStream log;
+    DataFile saveLog;
     /**
      * Creates new form Interface
      */
     public Interface() {
         initComponents();
-        
+        try {
+            log = new FileOutputStream("log_" + GetDate.now() + ".txt", true);
+        } catch (Exception ex) {
+            System.out.println("Error starting log file... Exception: " + ex);
+        }
+        saveLog = new DataFile();
         
     }
     private ServerThread serverThread;
@@ -94,11 +107,42 @@ public class Interface extends javax.swing.JFrame {
         this.serverThread = new ServerThread(4444);
         this.serverThread.start();
         this.StartButton.setEnabled(false);
-        //redirectSystemStreams();
+        redirectSystemStreams();
         System.out.println(GetDate.now()+": Server Started.");
-       // this.statusShow.setText("RUNNING");
+       
+        
     }//GEN-LAST:event_StartButtonActionPerformed
+    private void updateTextArea(final String text) {
+        
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                saveLog.saveLogs(text, log);
+            }
+        });
+        }
+    private void redirectSystemStreams() {
+        
+        OutputStream out = new OutputStream() {
+        
+            @Override
+            public void write(int b) throws IOException {
+                updateTextArea(String.valueOf((char) b));
+            }
 
+            @Override
+
+            public void write(byte[] b, int off, int len) throws IOException {
+                updateTextArea(new String(b, off, len));
+            }
+            @Override
+            public void write(byte[] b) throws IOException {
+                write(b, 0, b.length);
+            }
+        };
+        System.setOut(new PrintStream(out, true));
+        System.setErr(new PrintStream(out, true));
+    }
     /**
      * @param args the command line arguments
      */

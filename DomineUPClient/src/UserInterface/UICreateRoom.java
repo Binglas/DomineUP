@@ -9,12 +9,14 @@ import LogicaNegocioCliente.Language;
 import UserInterface.UIWelcomeScreen;
 import LogicaNegocioCliente.ReaderThread;
 import Share.MD5Pwd;
+import Share.User;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import share.GameRoom;
+import Share.GameRoom;
 /**
- * Este interface permite aos utilizadores introduzirem campos necessário ao registo.
+ * Este interface permite aos utilizadores introduzirem campos necessário para 
+ * a criação de salas
  * @author Andre
  */
 public class UICreateRoom extends javax.swing.JFrame {
@@ -31,16 +33,27 @@ public class UICreateRoom extends javax.swing.JFrame {
         this.xName.setVisible(false);
         this.ErrorLabel.setText("");        
     }
+    /*
+    * Set genérico
+    */
     public void enableConfirmButton() {
         this.ConfirmButton.setEnabled(true);
     }
-
+    /*
+    * Set genérico
+    */
     public void setxName() {
         this.xName.setVisible(true);
     }
+    /*
+    * Set genérico
+    */
     public void setErrorLabel(String text){
         this.ErrorLabel.setText(text);
     }
+    /*
+    * Set genérico
+    */
     public void setClearFields(){
         this.ErrorLabel.setText("");
         this.RoomNameLabel.setText("");
@@ -74,14 +87,12 @@ public class UICreateRoom extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         RoomNameLabel = new javax.swing.JTextField();
         PasswordField = new javax.swing.JPasswordField();
-        EmailLabel = new javax.swing.JLabel();
         ConfimPasswordLabel = new javax.swing.JLabel();
         UsernameLabel = new javax.swing.JLabel();
         PasswordLabel = new javax.swing.JLabel();
         xName = new javax.swing.JLabel();
         ErrorLabel = new javax.swing.JLabel();
         NumPlayers = new javax.swing.JComboBox();
-        DominoType = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resources/Portugues_pt_PT_EURO"); // NOI18N
@@ -118,10 +129,6 @@ public class UICreateRoom extends javax.swing.JFrame {
             }
         });
 
-        EmailLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        EmailLabel.setText("Tipo Domino:");
-        EmailLabel.setAlignmentY(0.0F);
-
         ConfimPasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ConfimPasswordLabel.setText(bundle.getString("ConfirmPasswordLabel")); // NOI18N
         ConfimPasswordLabel.setAlignmentY(0.0F);
@@ -141,22 +148,17 @@ public class UICreateRoom extends javax.swing.JFrame {
 
         NumPlayers.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "3", "4" }));
 
-        DominoType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Duplo 6", "Duplo 12", " " }));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(EmailLabel)
-                            .addComponent(ConfimPasswordLabel))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(ConfimPasswordLabel)
                         .addGap(17, 17, 17))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(UsernameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(PasswordLabel, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -167,9 +169,6 @@ public class UICreateRoom extends javax.swing.JFrame {
                         .addComponent(RoomNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(xName))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(DominoType, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NumPlayers, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
@@ -190,13 +189,9 @@ public class UICreateRoom extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ConfimPasswordLabel)
                     .addComponent(NumPlayers, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DominoType, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EmailLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(ErrorLabel)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,26 +199,26 @@ public class UICreateRoom extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 153, Short.MAX_VALUE)
                 .addComponent(ConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(240, 240, 240))
+                .addGap(141, 141, 141))
             .addGroup(layout.createSequentialGroup()
-                .addGap(308, 308, 308)
+                .addGap(217, 217, 217)
                 .addComponent(CreateGameRoomLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(46, 46, 46)
                 .addComponent(CreateGameRoomLabel)
-                .addGap(42, 42, 42)
+                .addGap(47, 47, 47)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -249,44 +244,19 @@ public class UICreateRoom extends javax.swing.JFrame {
 
     private void ConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmButtonActionPerformed
        
-      /*  String roomName = RoomNameLabel.getText();
-        char[] password = PasswordField.getPassword();
-        String pass = new String(password);
-        int numplayers=Integer.parseInt(NumPlayers.getSelectedItem().toString());
-        String tipoJogo=DominoType.getSelectedItem().toString();
-        xName.setVisible(false);
-
-        if (!roomName.equals("")){
-            
-            try{
-                ComCliente com = ComCliente.getInstance();
-                com.createRoom(roomName,pass,numPlayers,tipoJogo);
-                this.ConfirmButton.setEnabled(false);
-
-            }catch (Exception e) {
-                    System.out.println("Accept failed: 4444");
-                    System.exit(-1);
-            }   
-                        
-        }else{
-                this.ErrorLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("InvalidRoomName"));
-                this.RoomNameLabel.setText("");
-                this.xName.setVisible(true);
-        }*/
-    
     String roomName = RoomNameLabel.getText();
     char[] password = PasswordField.getPassword();
     String pass = new String(password);
     int numplayers=Integer.parseInt(NumPlayers.getSelectedItem().toString());
-    String tipoJogo=DominoType.getSelectedItem().toString();
- 
-        
+    
+    RoomNameLabel.setText("");
+    PasswordField.setText("");
     xName.setVisible(false);
     
-    ArrayList<Object> players = new ArrayList<Object>();
-    players.add(this.players);
+    ArrayList<User> players = new ArrayList<>();
+    players.add(UIWelcomeScreen.player);
     
-    GameRoom room = new GameRoom(roomName, pass, numplayers, players);
+    GameRoom room = new GameRoom(roomName,0,pass, numplayers, ReaderThread.welcomescreen.player.getUsername(),players);
             
     if (!roomName.equals("")){
             
@@ -348,8 +318,6 @@ public class UICreateRoom extends javax.swing.JFrame {
     private javax.swing.JLabel ConfimPasswordLabel;
     private javax.swing.JButton ConfirmButton;
     private javax.swing.JLabel CreateGameRoomLabel;
-    private javax.swing.JComboBox DominoType;
-    private javax.swing.JLabel EmailLabel;
     private javax.swing.JLabel ErrorLabel;
     private javax.swing.JComboBox NumPlayers;
     private javax.swing.JPasswordField PasswordField;

@@ -5,13 +5,13 @@
 package ComunicacaoCliente;
 
 import LogicaNegocioCliente.ReaderThread;
+import Share.GameRoom;
 import Share.Message;
 import Share.User;
 import UserInterface.UIWelcomeScreen;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import share.GameRoom;
 /**
  * Esta classe processa toda a comunicação entre o servidor e o cliente, todas as   
  * mensagens enviadas para o servidor passam por esta classe. apenas existe uma 
@@ -243,6 +243,26 @@ public class ComCliente {
             System.out.println("Exception Message:" + ex);
         }
     }
+    /**
+     * Envia para o servidor mensagem do tipo requestRoom, solicitanto as salas
+     * disponíveis.
+     * @param
+     */
+    
+   public void requestRooms() {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+
+        Message messageToServer = new Message("requestRooms", arguments);
+
+        try {
+            escritor.writeObject(messageToServer);
+            escritor.reset();
+            escritor.flush();
+        } catch (Exception ex) {
+            System.out.println("requestUsers: error writing object");
+            System.out.println("Exception Message:" + ex);
+        }
+    }
    
    
          /**
@@ -278,14 +298,9 @@ public class ComCliente {
 
         ArrayList<Object> arguments = new ArrayList<>();
         arguments.add(room);
-        // arguments.add(roomName);
-        // arguments.add(pass);
-        //  arguments.add(numplayers);
-        //  arguments.add(tipoJogo);
-        
+
         Message messageToServer = new Message("createRoom", arguments);
         try {
-            System.out.println("THIS:::::"+messageToServer.getTipoMensagem());
             escritor.reset();
             escritor.writeObject(messageToServer);
             escritor.flush();
@@ -360,12 +375,17 @@ public class ComCliente {
                         System.out.println("answrRequestUsers:success");
                         UIWelcomeScreen.usersOnlineList = (ArrayList<User>) msg.getArguments().get(0);
                         return "answrRequestUserSuccess";
+                    case "answrRequestRooms:success":
+                        System.out.println("answrRequestRooms:success");
+                        UIWelcomeScreen.roomsOnlineList = (ArrayList<GameRoom>) msg.getArguments().get(0);
+                        return "answrRequestRoomsSuccess";
                         
-                    case "answerCreateRoom:success":
+                    case "answrCreateRoom:success":
                         System.out.println("Create Room Success!");
+                       
                         return "createRoomSuccess";
                         
-                    case "answerCreateRoom:error":
+                    case "answrCreateRoom:error":
                         System.out.println("Create Room Error!");
                     return "createRoomError"; 
                         
@@ -395,6 +415,8 @@ public class ComCliente {
             }
         }
     }
+
+   
 
 
 

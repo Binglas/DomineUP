@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package share;
+package Share;
 
+import Share.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,10 +16,11 @@ import java.util.ArrayList;
 public class GameRoom implements Serializable{
     static final long serialVersionUID = 121L;
     private String name;
-    //private String state;
+    private int state; //0= waiting 1=ligado
     private String password;
+    private String creator;
     private int numPlayers;
-    private ArrayList<Object> players;
+    private ArrayList<User> players;
 
     /**
      * Construtor genérico com argumentos
@@ -26,15 +28,16 @@ public class GameRoom implements Serializable{
      * @param state
      * @param password
      * @param numPlayers
+     * @param creator
      * @param players 
      */
-    public GameRoom(String name, String password, int numPlayers,ArrayList<Object> players) {
+    public GameRoom(String name,int state ,String password, int numPlayers,String creator,ArrayList<User> players) {
         this.name = name;
-        //this.state = state;
+        this.state = state;
         this.password = password;
         this.players = players;
         this.numPlayers = numPlayers;
-        this.players = new ArrayList<>();
+        this.creator = creator;
     }
 
     /**
@@ -58,6 +61,13 @@ public class GameRoom implements Serializable{
      */
     public int getNumPlayers() {
         return numPlayers;
+    }
+     /**
+     * Get genérico
+     * @return int máximo de players na sala
+     */
+    public int getState() {
+        return state;
     }
 
     /**
@@ -96,7 +106,7 @@ public class GameRoom implements Serializable{
      * Get genérico
      * @return ArrayList<User> players
      */
-    public ArrayList<Object> getBroadcast(){
+    public ArrayList<User> getBroadcast(){
         return players;
     }
     
@@ -104,7 +114,7 @@ public class GameRoom implements Serializable{
         this.password = password;
     }
 
-    public void updatePlayer(int index,Object newUser){
+    public void updatePlayer(int index,User newUser){
         this.players.set(index, newUser);
     }
     
@@ -116,11 +126,11 @@ public class GameRoom implements Serializable{
         return players.size();
     }
 
-    public void setPlayers(ArrayList<Object> players) {
+    public void setPlayers(ArrayList<User> players) {
         this.players = players;
     }
     
-    public void addPlayers(Object player){
+    public void addPlayers(User player){
         this.players.add(player);
     }
 
@@ -142,11 +152,8 @@ public class GameRoom implements Serializable{
         return false;
     }*/
 
-  /*  public String getState() {
-        return state;
-    }
 
-    public void setState(String state) {
+    public void setState(int state) {
         this.state = state;
-    }*/
+    }
 }

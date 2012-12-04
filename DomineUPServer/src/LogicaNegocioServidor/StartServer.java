@@ -5,7 +5,7 @@
 package LogicaNegocioServidor;
 
 /**
- *
+ * Classe inicial do servidor
  * @author Luciano
  */
 public class StartServer {

@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import share.GameRoom;
+import Share.GameRoom;
 
 /**
  * Classe responsável pela ligação do Servidor com o cliente, processa todas as 
@@ -115,17 +115,17 @@ public class ComServer {
                 case "requestUsers":
                     System.out.println(GetDate.now()+"+"+thisClient +" Request looged users");
                     if (UserList(msg)) {
-                    return true;
+                        return true;
                     }
                     
                 case "createRoom":
                     if (createRoom(msg)) {
-                    GameRoom room = (GameRoom) msg.getArguments().get(0);
-                    System.out.println(GetDate.now()+": "+thisClient + " created room '"+room.getName()+"' successfully!");
-                    return true;
+                        GameRoom room = (GameRoom) msg.getArguments().get(0);
+                        System.out.println(GetDate.now()+": "+thisClient + " created room '"+room.getName()+"' successfully!");
+                        return true;
                     } else {
-                    System.out.println(GetDate.now()+": "+thisClient + ": Erro a criar a Room!");
-                    return true;
+                        System.out.println(GetDate.now()+": "+thisClient + ": Erro a criar a Sala!");
+                        return true;
                     }
                     
                 case "roomChat":
@@ -135,6 +135,12 @@ public class ComServer {
                     System.out.println(GetDate.now()+": "+thisClient + ": Error sending chat message!");
                     return true;
                 }
+                   
+                case "requestRooms":
+                        System.out.println(GetDate.now()+"+"+thisClient +" Request looged users");
+                    if (RoomList(msg)) {
+                        return true;
+                    }
                     
             
             }
@@ -389,7 +395,6 @@ public class ComServer {
     * Este metodo envia para o cliente uma lista de objectos com todos os 
     * utilizadores em jogo.
     * @return True se enviar, False se não enviar.
-    * @
     */
     private boolean UserList(Message msg) {
         
@@ -405,7 +410,26 @@ public class ComServer {
             return false;
         }
     }
-
+    
+    /*
+    * Este metodo envia para o cliente uma lista de objectos com todas as
+    * salas de jogo disponívies.
+    * @return True se enviar, False se não enviar.
+    */
+    private boolean RoomList(Message msg) {
+        
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(state.getRoomList());
+        Message answrMsg = new Message("answrRequestRooms:success", arguments);
+        try {
+            clientThread.writeMessage(answrMsg);
+            return true;
+        } catch (Exception ex) {
+            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! ComServer.UserList(): !");
+            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+            return false;
+        }
+    }
     /**
      * Este método descodifica os argumentos enviados pelo cliente e chama o método
      * createRoom da classe ServerState. É enviada uma mensagem ao cliente
@@ -418,18 +442,11 @@ public class ComServer {
     private boolean createRoom(Message msg) {
         ArrayList<Object> arguments = new ArrayList<Object>();
         GameRoom newRoom = (GameRoom) msg.getArguments().get(0);
-       // String roomName = (String) msg.getArguments().get(0);
-       // String pass = (String) msg.getArguments().get(1);
-       // String tipoJogo = (String) msg.getArguments().get(3);
-       // int numplayers = (int) msg.getArguments().get(2);
-        System.out.print("THIS::::: "+msg.getTipoMensagem()+ "\n");
-        System.out.print("NEW ROOM: " + newRoom.getName()+ "\n");
-        
-        System.out.print("AHAHAHAH: " + state.createRoom(newRoom)+ "\n");
+        arguments.add(newRoom);
         if (state.createRoom(newRoom)==true){
-            System.out.print("::::HERE:::::");
+            
             try {
-                Message answrMsg = new Message("answerCreateRoom:success", arguments);
+                Message answrMsg = new Message("answrCreateRoom:success", arguments);
                 clientThread.writeMessage(answrMsg);
                 return true;
             } catch (Exception ex) {
@@ -437,16 +454,18 @@ public class ComServer {
                 System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
                 return false;
             }
+        }else{
+            try {
+                Message answrMsg = new Message("answrCreateRoom:error", arguments);
+                clientThread.writeMessage(answrMsg);
+                return false;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.createRoom(): 2!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
         }
-        try {
-            Message answrMsg = new Message("answerCreateRoom:error", arguments);
-            clientThread.writeMessage(answrMsg);
-            return false;
-        } catch (Exception ex) {
-            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.createRoom(): 2!");
-            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
-            return false;
         }
+        
     }
 
     /**

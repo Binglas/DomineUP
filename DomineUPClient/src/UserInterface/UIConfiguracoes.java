@@ -9,7 +9,7 @@ import ComunicacaoCliente.ComCliente;
 import javax.swing.ButtonGroup;
 import LogicaNegocioCliente.ReaderThread;
 import LogicaNegocioCliente.Language;
-import resources.musica_fundo;
+import LogicaNegocioCliente.musica_fundo;
 import UserInterface.UIWelcomeScreen;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -17,9 +17,9 @@ import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
 
  /**
-+ * Interface de configurações da aplicação, aonde o utilizador posse aceder às funções
-+ * de mudança de palavra passe, e-mail, assim como o avatar e ainda tratamento de som 
-+ * @author Andre
+ * Interface de configurações da aplicação, aonde o utilizador posse aceder às funções
+ * de mudança de palavra passe, e-mail, assim como o avatar e ainda tratamento de som 
+ * @author Andre, Luciano
  */
 public class UIConfiguracoes extends javax.swing.JFrame {
 
@@ -54,7 +54,10 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         this.RegisterUserLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("RegisterUserLabel"));
     }*/
     
-    
+     /**
+     * Cria a instancia da classe UIConfigurações
+     * @param Jogador do tipo user
+     */
     
      public UIConfiguracoes(User Jogador) {
         initComponents();
@@ -66,12 +69,21 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         xNewEmail.setVisible(false);
         xOldEmail.setVisible(false);
     }
-     public void SetLabel(String text){
+     /*
+      * Set genérico
+      */
+    public void SetLabel(String text){
          this.ErrorLabel.setText(text);
-     }
-     public void SetConButton(){
+    }
+     /*
+      * Set genérico
+      */
+    public void SetConButton(){
          this.SaveButton.setEnabled(true);
-     }
+    }
+     /*
+      * Set genérico
+      */
     public void groupButton( ) {
 
         ButtonGroup bg1 = new ButtonGroup( );

@@ -7,6 +7,7 @@ package LogicaNegocioCliente;
 import ComunicacaoCliente.ComCliente;
 import Share.User;
 import UserInterface.UIConfiguracoes;
+import UserInterface.UICreateRoom;
 import UserInterface.UIError;
 import UserInterface.UIInitial;
 import UserInterface.UIRecoverPass;
@@ -129,15 +130,15 @@ public class ReaderThread extends Thread {
                         break;
                         
                     case "createRoomSuccess":
-                        UIWelcomeScreen.createRoomScreen.setVisible(false);
                         UIWaitingRoom waitingroom = new UIWaitingRoom();
+                        welcomescreen.createRoomScreen.setVisible(false);
                         waitingroom.setVisible(true);
-                        welcomescreen.setVisible(false);
                         break;
                     case "createRoomError":
                         UIError error = new UIError();
                         error.setTextErrorLabel("Room name in use");
                         error.setVisible(true);
+                        welcomescreen.createRoomScreen.enableConfirmButton();
                         break;
                         
                     case "runtimeError":
@@ -146,12 +147,15 @@ public class ReaderThread extends Thread {
                         errorFrame1.setErrorTitleLabel(java.util.ResourceBundle.getBundle(Lang).getString("ErrorLabel"));
                         errorFrame1.setTextErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("RuntimeError"));
                         errorFrame1.setVisible(true);
-                        
+                        welcomescreen.createRoomScreen.enableConfirmButton();
                         break;
                     case "answrRequestUserSuccess":
                         //não faz nada
                         break;
-                        
+                    case "answrRequestRoomsSuccess":
+                        //não faz nada
+                        break;
+                          
                     case "receivedmessage":
                         welcomescreen.updateChat(chatMessage);
                         break;
