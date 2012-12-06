@@ -146,7 +146,7 @@ class GameState {
 
     /**
      * Este método inicializa todas as mãos dos jogadores duma sala, chamando o 
-     * método DrawTile() 14 vezes para as tantas peças com que cada User começa, e 
+     * método DrawTile() 6 vezes para as tantas peças com que cada User começa, e 
      * inicializando as restantes com valores em branco. 
      * @param players é o Array de Users que irão ter as suas mãos sorteadas.
      */

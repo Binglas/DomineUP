@@ -10,7 +10,7 @@ package Share;
 import java.io.Serializable;
 
 /**
- * A classe Piece contém as informações de cada peça, necessárias para a sua
+ * A classe Pieces contém as informações de cada peça, necessárias para a sua
  * apresentação na UI do jogo
  * @author Andre
  */
@@ -21,7 +21,7 @@ public class Pieces implements Serializable {
     private int number;
     private int posX = 0;
     private int posY = 0;
-    private int tileCode;
+    private int pieceCode;
 
     /**
      * Construtor da classe Tile
@@ -29,19 +29,19 @@ public class Pieces implements Serializable {
     public Pieces() {
         this.color = "";
         this.number = 0;
-        this.tileCode = 0;
+        this.pieceCode = 0;
     }
 
     /**
-     * Contrutor da classe Tile com atributos
+     * Contrutor da classe Pieces com atributos
      * @param color
      * @param number
      * @param tileCode 
      */
-    public Pieces(String color, int number, int tileCode) {
+    public Pieces(String color, int number, int pieceCode) {
         this.color = color;
         this.number = number;
-        this.tileCode = tileCode;
+        this.pieceCode = pieceCode;
     }
 
     /**
@@ -49,15 +49,15 @@ public class Pieces implements Serializable {
      * @return int tileCode
      */
     public int getTileCode() {
-        return tileCode;
+        return pieceCode;
     }
 
     /**
      * Set genérico
      * @param tileCode 
      */
-    public void setTileCode(int tileCode) {
-        this.tileCode = tileCode;
+    public void setTileCode(int pieceCode) {
+        this.pieceCode = pieceCode;
     }
 
     /**
@@ -122,18 +122,5 @@ public class Pieces implements Serializable {
      */
     public void setNumber(int number) {
         this.number = number;
-    }
-
-    /**
-     * Este método avalia se o objeto está com algum tile verdadeiro, ou com
-     * os valores vazios com que foi inicializado
-     * @return true se estiver vazio e false se tiver um Tile jogável
-     */
-    public boolean isEmpty() {
-        if (color.equals("preto") || color.equals("vermelho") || color.equals("amarelo") || color.equals("azul") || color.equals("joker")) {
-            return false;
-        } else {
-            return true;
-        }
     }
 }
