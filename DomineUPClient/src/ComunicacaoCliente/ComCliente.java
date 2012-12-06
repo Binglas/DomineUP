@@ -8,6 +8,7 @@ import LogicaNegocioCliente.ReaderThread;
 import Share.GameRoom;
 import Share.Message;
 import Share.User;
+import UserInterface.UIWaitingRoom;
 import UserInterface.UIWelcomeScreen;
 import java.io.*;
 import java.net.*;
@@ -27,6 +28,7 @@ public class ComCliente {
      private ObjectInputStream leitor = null;
      private final Object lock = new Object();
      private static ComCliente instance;
+     public static Message msgx;
     
     /**
     * Cria um novo objeto da classe ComCliente. Garante a existência apenas de uma
@@ -317,9 +319,11 @@ public class ComCliente {
     public String readMessage() {
         synchronized (lock) {
             Share.Message msg;
+            
             try {
 
                 msg = (Share.Message) leitor.readObject();
+                msgx=msg; 
                 System.out.println("Received: "+msg.getTipoMensagem()+" "+msg.getArguments());
                 
                 switch (msg.getTipoMensagem()){
@@ -381,17 +385,37 @@ public class ComCliente {
                         return "answrRequestRoomsSuccess";
                         
                     case "answrCreateRoom:success":
+                        ReaderThread.room = (GameRoom) msg.getArguments().get(0);
                         System.out.println("Create Room Success!");
-                       
+                        
                         return "createRoomSuccess";
                         
                     case "answrCreateRoom:error":
                         System.out.println("Create Room Error!");
-                    return "createRoomError"; 
+                    return "createRoomError";
+                        
+                    case "answerLeaveRoom:success":
+                        System.out.println("answerLeaveRoom:success");
+                        return "leaveRoom:success";
+                        
+                    case "answerLeaveRoom:error":
+                        System.out.println("answerLeaveRoom:error");
+                        return "leaveRoom:error";
+                        
+                    case "answerJoinRoom:success":
+                        System.out.println("answerJoinRoom:success");
+                        UIWaitingRoom.roomJoined = (GameRoom) msg.getArguments().get(0);
+                        return "joinRoom:success";
+                    case "answerJoinRoom:error":
+                        System.out.println("answerJoinRoom:error");
+                        return "joinRoom:error";
                         
                     case "answrupdateChatsuccess":
                         ReaderThread.chatMessage = (msg.getArguments().get(0) + ": " + msg.getArguments().get(1));
                         return "receivedmessage";
+                    case "answrInvitePlayer:success":
+                        System.out.println("answrInvitePlayer:success");
+                        return "answrInvitePlayer";
                         
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");
@@ -416,11 +440,73 @@ public class ComCliente {
         }
     }
 
-   
+/**
+     * Envia uma mensagem ao servidor a solicitar a saída da sala de jogo em que o jogador se encontra.
+     * @param roomName nome da sala de jogo da qual o jogador pretende sair.
+     * @param player objeto da classe User com as informações do jogador que pretende abandonar a sala.
+     */
+    public void leaveRoom(String roomName, User player) {
+
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(roomName);
+        arguments.add(player);
+
+        Message messageToServer = new Message("leaveRoom", arguments);
+
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
 
 
+        } catch (Exception ex) {
+            System.err.println("leaveRoom: error writing object");
+        }
+    } 
 
-    
+/**
+     * Envia para o servidor uma mensagem a solicitar a entrada numa determianda sala de jogo.
+     * @param roomName nome da sala de jogo a que o jogador se pretende juntar.
+     * @param player objeto da classe User com as informações do jogador que solicita a junção à sala.
+     */
+    public void joinRoom(String roomName, User player) {
+
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(roomName);
+        arguments.add(player);
+        System.out.println("player username: " + player.getUsername());
+
+        Message messageToServer = new Message("joinRoom", arguments);
+
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+
+        } catch (Exception ex) {
+            System.err.println("joinRoom: error writing object");
+        }
+      
+    }
+
+    public void invitePlayer(String Roomname, String UsernamePlayer) {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(Roomname);
+        arguments.add(UsernamePlayer);
+        
+        Message messageToServer = new Message("invitePlayer", arguments);
+
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+
+        } catch (Exception ex) {
+            System.err.println("joinRoom: error writing object");
+        }
+    }
 }
 
    

@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import Share.GameRoom;
+import Share.Hand;
 
 
 /**
@@ -26,6 +27,9 @@ public class ServerUtils implements Serializable{
     static final long serialVersionUID = 124L;
     private ArrayList<User> loggedUsers;
     private ArrayList<GameRoom> roomsOnline;
+    private ArrayList<GameState> runningGames;
+    private ArrayList<String> invite;
+    private Hashtable<String, GameState> gameStats;
     private static ServerUtils instance;
     private Hashtable<String, ClientThread> userConnections;
     private final Object lockFile = new Object();
@@ -51,6 +55,9 @@ public class ServerUtils implements Serializable{
         loggedUsers = new ArrayList<User>(); 
         roomsOnline = new ArrayList<GameRoom>();
         userConnections = new Hashtable<String, ClientThread>();
+        invite = new ArrayList<String>();
+        runningGames = new ArrayList<GameState>();
+        gameStats = new Hashtable<String, GameState>();
     }
       /**
      * Este método retorna a instance do Servidor.
@@ -142,6 +149,16 @@ public class ServerUtils implements Serializable{
             for (int j = 0; j < loggedUsers.size(); ++j) {
                 if (loggedUsers.get(j).getUsername().equals(username)) {
                     loggedUsers.remove(j);
+                    //procurar jogador nas sala e eliminar
+                    for(int i=0;i<roomsOnline.size();i++){
+                        ArrayList<User> player= roomsOnline.get(j).getBroadcast();
+                        for(int ii=0;i<roomsOnline.get(i).getCurPlayers();ii++){
+                            
+                            if(player.get(ii).getUsername().equals(username)){
+                                roomsOnline.get(i).removePlayers(username);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -428,5 +445,154 @@ public class ServerUtils implements Serializable{
             }
         }
         return true;
+    }
+    
+    private boolean broadcastinvite(Message answrMsg, ArrayList<String> users) {
+        for (int i = 0; i < (users.size()); ++i) {
+            ClientThread clientThread = userConnections.get(users.get(i));
+            try {
+                clientThread.writeMessage(answrMsg);
+            } catch (Exception ex) {
+                System.out.println("ERRO NO BROADCAST! Exception: " + ex);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Este método remove um jogador duma sala que ainda esteja em espera.
+     * @param roomName é o nome da sala de onde o User será retirado
+     * @param remUser é o utilizador a retirar
+     * @return true se for bem sucedido, false se a sala não existir
+     */
+    public boolean leaveRoom(String roomName, User remUser) {
+        synchronized (lockRoomsOnline) {
+            boolean exists = false;
+            ArrayList<User> toBroadcast = new ArrayList<>();
+            ArrayList<Object> arguments = new ArrayList<>();
+            for (int i = 0; i < roomsOnline.size(); ++i) {
+                if (roomsOnline.get(i).getName().equals(roomName)) {
+                    exists = true;
+                    }
+                }
+            if (exists == true) {
+                for (int i = 0; i < roomsOnline.size(); ++i) {
+                     if (roomsOnline.get(i).getName().equals(roomName)) {
+                            roomsOnline.get(i).removePlayers(remUser.getUsername());
+                            return true;
+                        }else {
+                 return false;
+                        }
+                    }
+            }
+        }
+        return false;
+    }
+
+/**
+     * Método que insere o newUser na sala roomName, caso exista e não esteja
+     * full.
+     * @param roomName
+     * @param newUser
+     * @return Retorna o objeto da GameRoom onde o newUser entrou, se for bem 
+     * sucedido, ou null se a sala já estiver cheia ou não existir.
+     */
+    public GameRoom joinRoom(String roomName, User newUser) {
+        synchronized (lockRoomsOnline) {
+            int exists = -1;
+            for (int i = 0; i < roomsOnline.size(); ++i) {
+                if (roomsOnline.get(i).getName().equals(roomName)) {
+                    exists = i;
+                    roomsOnline.get(exists).addPlayers(newUser);
+                    return roomsOnline.get(exists);
+                }else {
+                    System.out.println(GetDate.now() + ": " + "Room requested to join does not exist.");
+                    return null;
+                }
+
+            }
+        }
+        return null;
+    }
+
+/**
+     * Este método inicia o jogo em si, fazendo broadcast para todos os seus
+     * jogadores (que neste momento já se encontram todos em estado Ready) para
+     * iniciarem a UI da sala de jogo. Modifica o objecto GameRoom e atualiza-o
+     * nos Arrays em que ele aparece, criando também um objeto da classe 
+     * GameState e inserindo-o num array de salas em jogo, porque para que as 
+     * informações do jogo possam ser modificadas.
+     * @param roomName é o nome do objecto da classe GameRoom a iniciar
+     * @return true se for bem sucedido, ou false se já estiver Playing
+     */
+    public boolean startGame(String roomName) {
+        synchronized (lockRoomsOnline) {
+            GameRoom startingRoom = new GameRoom();
+            int roomIndex = 0;
+            for (int i=0; i<roomsOnline.size();i++){
+                if (roomsOnline.get(i).getName().equals(roomName)){
+                    roomIndex = i;
+                    }
+                }
+            if (roomsOnline.get(roomIndex).getState()==1) {
+                return false;
+            } else {
+                roomsOnline.get(roomIndex).setState(1);
+                startingRoom = roomsOnline.get(roomIndex);
+            }
+            
+            GameState tempRoom = new GameState(startingRoom);
+            ArrayList<User> players = new ArrayList<User>();
+            
+            for (int i = 0; i < startingRoom.getCurPlayers(); ++i) {
+                players.add(startingRoom.getPlayer(i));
+            }
+            
+            Hashtable<String, Hand> userHand = new Hashtable<String, Hand>();
+            tempRoom.DrawHand(players);
+            userHand = tempRoom.getPlayerHands();
+            ArrayList<Object> arg = new ArrayList<Object>();
+            ArrayList<User> toBroadcast = new ArrayList<User>();
+            Hashtable<Integer, String> positions = tempRoom.getPositions();
+            
+            for (int i = 0; i < startingRoom.getCurPlayers(); ++i) {
+                toBroadcast.clear();
+                arg.clear();
+                arg.add(userHand.get(startingRoom.getPlayer(i).getUsername()));
+                arg.add(positions);
+                toBroadcast.add(startingRoom.getPlayer(i));
+                Message msg = new Message("startGame", arg);
+                if (!broadcast(msg, toBroadcast)) {
+                    System.out.println(GetDate.now() + ": " + "Error broadcasting to " + startingRoom.getPlayer(i).getUsername());
+                    return false;
+                }
+            }
+            runningGames.add(tempRoom);
+            roomsOnline.set(roomIndex, startingRoom);
+            gameStats.put(roomName, tempRoom);
+            return true;
+        } 
+    }
+
+    public boolean Invite(String nome_sala, String newUser) {
+        synchronized (locktoBroadcastUsers) {
+            ArrayList<Object> arguments = new ArrayList<>();
+            ArrayList<String> toBroadcast = new ArrayList<>();
+            for (int i = 0; i < loggedUsers.size(); i++) {
+                    if(loggedUsers.get(i).getUsername().equals(newUser)) {
+                        toBroadcast.add(newUser);
+                        System.out.println("Boradcast to: \n" + toBroadcast.get(i));
+                    }
+            }
+            arguments.add(nome_sala);
+            arguments.add(newUser);
+            Message answrMsg = new Message("answrInvitePlayer:success", arguments);
+            if (broadcastinvite(answrMsg, toBroadcast)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

@@ -5,6 +5,8 @@
 package LogicaNegocioCliente;
 
 import ComunicacaoCliente.ComCliente;
+import Share.GameRoom;
+import Share.Message;
 import Share.User;
 import UserInterface.UIConfiguracoes;
 import UserInterface.UICreateRoom;
@@ -14,6 +16,10 @@ import UserInterface.UIRecoverPass;
 import UserInterface.UIRegister;
 import UserInterface.UIWaitingRoom;
 import UserInterface.UIWelcomeScreen;
+import UserInterface.UIWaitingRoom;
+import UserInterface.UIinvite;
+import UserInterface.UIinvited;
+
 
 /**
  * Fica à escuta de mensagens vindas do servidor, e trata das respostas 
@@ -24,15 +30,18 @@ import UserInterface.UIWelcomeScreen;
 public class ReaderThread extends Thread {
     public static boolean run;
     public static User player;
+    public static GameRoom room;
     public static UIWelcomeScreen welcomescreen;
     private ComCliente com;
     public UIInitial InitialScreen;
     private UIRegister registerscreen;
     private UIConfiguracoes optionScreen;
+    private UIWaitingRoom waitingRoom;
     private UIRecoverPass recoverpass;
     public static String password;
     public String Lang = Language.getInstance().GetLanguage();
     public static String chatMessage;
+    
    
     
     /**
@@ -130,9 +139,10 @@ public class ReaderThread extends Thread {
                         break;
                         
                     case "createRoomSuccess":
-                        UIWaitingRoom waitingroom = new UIWaitingRoom();
+                        welcomescreen.waitingRoomScreen = new UIWaitingRoom(room);
+                        welcomescreen.waitingRoomScreen.setVisible(true);
                         welcomescreen.createRoomScreen.setVisible(false);
-                        waitingroom.setVisible(true);
+                        
                         break;
                     case "createRoomError":
                         UIError error = new UIError();
@@ -155,9 +165,37 @@ public class ReaderThread extends Thread {
                     case "answrRequestRoomsSuccess":
                         //não faz nada
                         break;
+                        
+                    case "leaveRoom:success":
+                        welcomescreen.waitingRoomScreen.dispose();
+                        welcomescreen.setCreateRoomButton();
+                        welcomescreen.setRoomButton();
+                        break;
+                    case "leaveRoom:error":
+                        UIError errorFrame4 = new UIError();
+                        errorFrame4.setTextErrorLabel("Leave Room Error!");
+                        errorFrame4.setVisible(true);
+                        break;
+                        
+                    case "joinRoom:success":
+                        welcomescreen.waitingRoomScreen = new UIWaitingRoom();
+                        welcomescreen.waitingRoomScreen.setVisible(true);
+                        welcomescreen.waitingRoomScreen.updateScreen();
+                        break;
+                        
+                    case "joinRoom:error":
+                       UIError errorFrame5 = new UIError();
+                       errorFrame5.setTextErrorLabel("Não é possível juntar à sala.");
+                       errorFrame5.setVisible(true); 
+                       break; 
                           
                     case "receivedmessage":
                         welcomescreen.updateChat(chatMessage);
+                        break;
+                    case "answrInvitePlayer":
+                       
+                        welcomescreen.uiinvited = new UIinvited(ComCliente.msgx.getArguments().get(0).toString(),ComCliente.msgx.getArguments().get(1).toString()); 
+                        welcomescreen.uiinvited.setVisible(true);
                         break;
                         
                     default: 

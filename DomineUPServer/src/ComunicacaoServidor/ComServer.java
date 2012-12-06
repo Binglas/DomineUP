@@ -128,11 +128,46 @@ public class ComServer {
                         return true;
                     }
                     
+                case "joinRoom":
+                    if (joinRoom(msg)) {
+                    return true;
+                    } else {
+                    System.out.println(GetDate.now()+": "+thisClient + ": Erro a fazer Join na Room desejada!");
+                    return true;
+                    }
+                    
+                case "leaveRoom":
+                    if (leaveRoom(msg)) {
+                    System.out.println(GetDate.now()+": "+thisClient + ": Leave Room efetuado com sucesso!");
+                    return true;
+                    } else {
+                    System.out.println(GetDate.now()+": "+thisClient + ": Erro a fazer leave Room desejada!");
+                    return true;
+                    }
+                    
                 case "roomChat":
                     if (roomChat(msg)) {      
                     return true;
-                } else {
+                    } else {
                     System.out.println(GetDate.now()+": "+thisClient + ": Error sending chat message!");
+                    return true;
+                    }
+                    
+                case "invitePlayer":
+                    if (invitePlayer(msg)){
+                        return true;
+                    }else{
+                        System.out.println(GetDate.now()+": "+thisClient + ": Error inviting player!");
+                        return true; 
+                    }
+                    
+                case "startGame":
+                    System.out.println(GetDate.now()+": "+thisClient + ": Requested the Start of the Game!");
+                if (startGame(msg)) {
+                    System.out.println(GetDate.now()+": "+thisClient + " started the game!");
+                    return true;
+                } else {
+                    System.out.println(GetDate.now()+": "+thisClient + ": Error starting the game!");
                     return true;
                 }
                    
@@ -481,5 +516,150 @@ public class ComServer {
         String message = (String) msg.getArguments().get(1);
         return state.roomChat(sourceUser, message);
     }
-    
+
+    /**
+     * Este método descodifica os argumentos enviados pelo cliente e chama o método
+     * leaveRoom da classe ServerState. É enviada uma mensagem ao cliente
+     * que depende do decorrer a saída da sala.
+     * @param msg é a mensagem recebida do cliente
+     * @return return true se for bem sucedido e false se ocorrer um erro ou
+     * exceção
+     */
+    private boolean leaveRoom(Message msg) {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.clear();
+        String roomName = (String) msg.getArguments().get(0);
+        User remUser = (User) msg.getArguments().get(1);
+        if (state.leaveRoom(roomName, remUser)) {
+            Message answrMsg = new Message("answerLeaveRoom:success", arguments);
+            try {
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.leaveRoom(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        } else {
+            Message answrMsg = new Message("answerLeaveRoom:error", arguments);
+            try {
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.leaveRoom(): 2!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        }
+    }
+
+/**
+     * Este método descodifica os argumentos enviados pelo cliente e chama o método
+     * joinRoom da classe ServerState. É enviada uma mensagem ao cliente
+     * que depende de como correr a junção à GameRoom pretendida.
+     * @param msg é a mensagem recebida do cliente
+     * @return return true se for bem sucedido e false se ocorrer um erro ou
+     * exceção
+     */
+    private boolean joinRoom(Message msg) {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.clear();
+        String nome_sala = (String) msg.getArguments().get(0);
+        User newUser = (User) msg.getArguments().get(1);
+        GameRoom roomRequested = state.joinRoom(nome_sala, newUser);
+        if (roomRequested != null) {
+            arguments.add(roomRequested);
+            Message answrMsg = new Message("answerJoinRoom:success", arguments);
+            try {
+                clientThread.writeMessage(answrMsg);
+                System.out.println(GetDate.now()+": "+thisClient + ": joined room '"+roomRequested.getName()+"'.");
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.loginRoom(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        } else {
+            Message answrMsg = new Message("answerJoinRoom:error", arguments);
+            try {
+                clientThread.writeMessage(answrMsg);
+                return false;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.loginRoom(): 2!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        }
+    }
+
+    private boolean invitePlayer(Message msg) {
+        /*ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.clear();
+        String nome_sala = (String) msg.getArguments().get(0);
+        String newUser = (String) msg.getArguments().get(1);
+        arguments.add(nome_sala);
+        arguments.add(newUser);
+        if (state.Invite(arguments, clientThread)){
+        Message answrMsg = new Message("answrInvitePlayer:success", arguments);
+            try {
+                clientThread.writeMessage(answrMsg);
+                System.out.println(GetDate.now()+": "+thisClient + ": invite '" + arguments.get(1)+ " to " + arguments.get(0) +"'.");
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.loginRoom(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+                }
+            } else{
+            Message answrMsg = new Message("answerInvitePlayer:error", arguments);
+            try {
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.loginRoom(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+                }
+            }*/
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.clear();
+        String nome_sala = (String) msg.getArguments().get(0);
+        String newUser = (String) msg.getArguments().get(1);
+        return state.Invite(nome_sala, newUser);
+        }
+
+/**
+     * Este método descodifica os argumentos enviados pelo cliente e chama o método
+     * startGame da classe ServerState. É enviada uma mensagem ao cliente
+     * que depende do decorrer do startGame.
+     * @param msg é a mensagem recebida do cliente
+     * @return Retorna a String "error" se houver um erro, ou o nome da GameRoom
+     * inicializada, se for bem sucedido
+     */
+    private boolean startGame(Message msg) {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.clear();
+        String roomName = (String) msg.getArguments().get(0);
+        if (state.startGame(roomName)) {
+            Message answrMsg = new Message("answerStartGame:success", arguments);
+            try {
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.startGame(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        } else {
+            Message answrMsg = new Message("answerStartGame:error", arguments);
+            try {
+                clientThread.writeMessage(answrMsg);
+                return false;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.startGame(): 2!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        }
+    }
 }

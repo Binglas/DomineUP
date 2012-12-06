@@ -20,7 +20,8 @@ import Share.GameRoom;
  * @author Andre
  */
 public class UICreateRoom extends javax.swing.JFrame {
-    public String Lang = Language.getInstance().GetLanguage(); 
+    public String Lang = Language.getInstance().GetLanguage();
+    
     private ArrayList<Object> players;
 
     /**
@@ -116,7 +117,7 @@ public class UICreateRoom extends javax.swing.JFrame {
         });
 
         CreateGameRoomLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        CreateGameRoomLabel.setText(bundle.getString("RegisterUserLabel")); // NOI18N
+        CreateGameRoomLabel.setText("Criar Sala de Jogo\n");
 
         RoomNameLabel.setAlignmentY(0.0F);
         RoomNameLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -130,7 +131,7 @@ public class UICreateRoom extends javax.swing.JFrame {
         });
 
         ConfimPasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        ConfimPasswordLabel.setText(bundle.getString("ConfirmPasswordLabel")); // NOI18N
+        ConfimPasswordLabel.setText("Nº Jogadores\n");
         ConfimPasswordLabel.setAlignmentY(0.0F);
 
         UsernameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -239,7 +240,7 @@ public class UICreateRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
        this.setVisible(false);
        ReaderThread.welcomescreen.setCreateRoomButton();
- 
+       ReaderThread.welcomescreen.setRoomButton(); 
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void ConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmButtonActionPerformed

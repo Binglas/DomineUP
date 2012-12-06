@@ -1,0 +1,5 @@
+05122012_033205: Server Started.
+05122012_033208: Client 1 connected.
+login[lucianojss, bab176419a14bbf6]
+05122012_033214: Client 1 is Logging in!
+PostgreSQL JDBC Driver Registered!

@@ -1,0 +1,718 @@
+05122012_104611: Server Started.
+05122012_104614: Client 1 connected.
+login[ze, a9d829c31bd22c48]
+05122012_104617: Client 1 is Logging in!
+PostgreSQL JDBC Driver Registered!
+Connected to database!
+Autenticado
+PostgreSQL JDBC Driver Registered!
+Connected to database!
+Sending message to the server: answrLogin:success
+05122012_104617: User ze Logged in!
+requestUsers[]
+05122012_104617+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104617+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104617+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104617+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104618+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+createRoom[Share.GameRoom@69950b4]
+Sending message to the server: answrCreateRoom:success
+05122012_104620: ze created room 'sad' successfully!
+requestUsers[]
+05122012_104621+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104621+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104624+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104624+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+05122012_104624: Client 2 connected.
+requestUsers[]
+05122012_104627+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104627+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+login[lucianojss, bab176419a14bbf6]
+05122012_104629: Client 2 is Logging in!
+PostgreSQL JDBC Driver Registered!
+Connected to database!
+Autenticado
+PostgreSQL JDBC Driver Registered!
+Connected to database!
+Sending message to the server: answrLogin:success
+05122012_104629: User lucianojss Logged in!
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104629+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104630+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104630+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104632+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104632+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104633+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104633+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104635+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104635+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104636+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104636+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104638+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104638+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104639+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104639+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104641+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104641+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104642+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104642+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104644+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104644+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104645+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104645+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104647+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104647+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104648+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104648+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104650+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104650+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104651+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104651+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104653+lucianojss Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104653+lucianojss Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104654+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104654+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+joinRoom[sad, Share.User@3d015199]
+05122012_104656: lucianojss: EXCEPTION on readMessage()!
+05122012_104656: lucianojss: EXCEPTION: java.lang.RuntimeException: Uncompilable source code - Erroneous sym type: LogicaNegocioServidor.ServerUtils.joinRoom
+05122012_104656: lucianojss: ERRO em readMessage()!
+05122012_104656: Terminating lucianojss...
+Exception in thread "Thread-4" java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+	at java.util.ArrayList.rangeCheck(ArrayList.java:604)
+	at java.util.ArrayList.get(ArrayList.java:382)
+	at LogicaNegocioServidor.ServerUtils.forceLogout(ServerUtils.java:148)
+	at LogicaNegocioServidor.ClientThread.run(ClientThread.java:69)
+requestUsers[]
+05122012_104657+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104657+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104700+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104700+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104703+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104703+ze Request looged users
+Sending message to the server: answrRequestRooms:success
+requestUsers[]
+05122012_104706+ze Request looged users
+Sending message to the server: answrRequestUsers:success
+requestRooms[]
+05122012_104706+ze Request looged users
+Sending message to the server: answrRequestRooms:success

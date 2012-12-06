@@ -54,7 +54,13 @@ public class GameRoom implements Serializable{
     public int getCurPlayers(){
         return players.size();
     }
-    
+    /**
+     * Get genérico
+     * @return string criador
+     */
+    public String getCreator() {
+        return creator;
+    }
     /**
      * Get genérico
      * @return int máximo de players na sala
@@ -118,7 +124,7 @@ public class GameRoom implements Serializable{
         this.players.set(index, newUser);
     }
     
-    public Object getPlayer(int index) {
+    public User getPlayer(int index) {
         return players.get(index);
     }
     
@@ -134,7 +140,7 @@ public class GameRoom implements Serializable{
         this.players.add(player);
     }
 
-    /*public boolean removePlayers(String username){
+    public boolean removePlayers(String username){
         for(int i = 0;i<this.players.size();++i){
             if(this.players.get(i).getUsername().equals(username)){
                 this.players.remove(i);
@@ -146,11 +152,12 @@ public class GameRoom implements Serializable{
     
     public boolean existsUser(String username){
         for(int i =0;i<players.size();i++){
-            if(players.get(i).getUsername().equals(username))
+            if(players.get(i).getUsername().equals(username)) {
                 return true;
+            }
         }
         return false;
-    }*/
+    }
 
 
     public void setState(int state) {

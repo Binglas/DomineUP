@@ -25,12 +25,15 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     
     public static UIConfiguracoes optionScreen;
     public static UICreateRoom createRoomScreen;
+    public static UIWaitingRoom waitingRoomScreen;
+    public static UIinvited uiinvited;
     public static ArrayList<User> usersOnlineList;
     public static ArrayList<GameRoom> roomsOnlineList;
     public static User player;
     public static UIConfiguracoes config;
     public static musica_fundo musica;
     public String Lang = Language.getInstance().GetLanguage();
+   
     
     public  UIWelcomeScreen(){
         initComponents();
@@ -90,6 +93,19 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         CreateRoomButton.setEnabled(true);
     }
     /**
+     * Set genérico
+     */
+    public void setRoomButton(){
+         JoinRoomButton.setEnabled(true);
+    }
+    /**
+     * Set genérico
+     */
+    public void JoinRoomStatusLabel(String texto){
+         JoinRoomStatusLabel.setText(texto);
+    }
+    
+    /**
      * Creates instancia da classe UIWelcomeScreen
      */
     public void UIWelcomeSetVisible(){
@@ -132,6 +148,9 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         RoomList = new javax.swing.JTable();
         JoinRoomButton = new javax.swing.JButton();
+        RoomPasswordLabel = new javax.swing.JLabel();
+        JoinRoomStatusLabel = new javax.swing.JLabel();
+        RoomPasswordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -208,6 +227,17 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 {null, null},
                 {null, null},
                 {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
                 {null, null}
             },
             new String [] {
@@ -225,8 +255,6 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         UserList.setSelectionBackground(new java.awt.Color(204, 204, 255));
         UserList.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(UserList);
-        UserList.getColumnModel().getColumn(0).setHeaderValue("Username");
-        UserList.getColumnModel().getColumn(1).setHeaderValue("Rank");
 
         OnlinePlayersLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         OnlinePlayersLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -286,6 +314,15 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -310,6 +347,11 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 JoinRoomButtonActionPerformed(evt);
             }
         });
+
+        RoomPasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        RoomPasswordLabel.setText("Inserir Password Sala:");
+
+        JoinRoomStatusLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -355,23 +397,29 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(OnlinePlayersLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
-                                .addGap(80, 80, 80)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(27, 27, 27)
+                                        .addGap(107, 107, 107)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtChat, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jScrollPane1)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(ChatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(0, 0, Short.MAX_VALUE))))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(CreateRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(JoinRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(GameRoomsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(80, 80, 80)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(GameRoomsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(CreateRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(JoinRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(RoomPasswordLabel)
+                                                    .addComponent(RoomPasswordField)))
+                                            .addComponent(JoinRoomStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(6, 6, 6)))
                 .addComponent(VolumeLogoOn)
                 .addContainerGap())
@@ -403,12 +451,20 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(5, 5, 5)
+                                        .addComponent(RoomPasswordLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(RoomPasswordField))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(CreateRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(JoinRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(CreateRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JoinRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(JoinRoomStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(ChatLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -433,7 +489,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -460,6 +516,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     private void CreateRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateRoomButtonActionPerformed
         
         CreateRoomButton.setEnabled(false);
+        JoinRoomButton.setEnabled(false);
         createRoomScreen= new UICreateRoom();
         createRoomScreen.setVisible(true);
     }//GEN-LAST:event_CreateRoomButtonActionPerformed
@@ -530,7 +587,44 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_LanguageButtonActionPerformed
 
     private void JoinRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinRoomButtonActionPerformed
-        // TODO add your handling code here:
+            
+            String roomName;
+            JoinRoomButton.setEnabled(false);
+            JoinRoomStatusLabel.setText("");
+            int rowS = RoomList.getSelectedRow();
+            
+            
+            
+            if(rowS!=-1 && !RoomList.getValueAt(rowS, 0).toString().equals("")){
+                
+                roomName = RoomList.getValueAt(rowS, 0).toString();
+                
+                //testar se a sala n esta cheia
+                if (roomsOnlineList.get(rowS).getCurPlayers()<roomsOnlineList.get(rowS).getNumPlayers()){
+                    
+                    if (RoomPasswordField.getText().equals(roomsOnlineList.get(rowS).getPassword())){
+                      
+                        try {
+                        ComCliente com = ComCliente.getInstance();
+                        com.joinRoom(roomName, player);
+
+                        } catch (Exception ex) {
+                            System.out.println("welcomeScreenUI: unable to get Instance in Join");
+                        }
+                    }else{ //password errada
+                        JoinRoomStatusLabel.setText("A password da sala que inseriu está errada.");
+                         JoinRoomButton.setEnabled(true);
+                    }
+                    
+                }else{ //sala cheia
+                     JoinRoomStatusLabel.setText("A sala está cheia.");
+                      JoinRoomButton.setEnabled(true);
+                }
+                    
+            }else{ //n escolheu nenhuma sala
+                JoinRoomStatusLabel.setText("Não escolheu uma sala válida.");
+                 JoinRoomButton.setEnabled(true);
+            }
     }//GEN-LAST:event_JoinRoomButtonActionPerformed
 
     /**
@@ -573,12 +667,15 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     private javax.swing.JButton CreateRoomButton;
     private javax.swing.JLabel GameRoomsLabel;
     private javax.swing.JButton JoinRoomButton;
+    private javax.swing.JLabel JoinRoomStatusLabel;
     private javax.swing.JToggleButton LanguageButton;
     private javax.swing.JButton Leave;
     private javax.swing.JLabel OnlinePlayersLabel;
     private javax.swing.JButton OptionsButton;
     private javax.swing.JLabel RankLabel;
     private javax.swing.JTable RoomList;
+    private javax.swing.JPasswordField RoomPasswordField;
+    private javax.swing.JLabel RoomPasswordLabel;
     private javax.swing.JLabel StatisticsLabel;
     private javax.swing.JLabel Tittle;
     private javax.swing.JTable UserList;
@@ -607,22 +704,27 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
      */
     
     public void updateScreen() {
-              
-         int numPlayers = UIWelcomeScreen.usersOnlineList.size(); 
-         int numRooms   = UIWelcomeScreen.roomsOnlineList.size();
+        
          int i;
-         String pass;
-         String state;
-           
          //clear jtable rooms
-         for(i=0;i<numRooms;i++){
+         for(i=0;i<20;i++){
              
              for (int j=0;j<4;j++){
                  RoomList.setValueAt("",i,j);
              }
          }
+         //clear jtable clientes
+         for(i=0;i<20;i++){
+             UserList.setValueAt("",i,0);
+         }
          
-         //update RoomList
+         int numPlayers = UIWelcomeScreen.usersOnlineList.size(); 
+         int numRooms   = UIWelcomeScreen.roomsOnlineList.size();
+
+         String pass;
+         String state;
+                   
+            //update RoomList
            //update Game Rooms List          
          for(i=0;i<numRooms;i++){
                                    
@@ -645,10 +747,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
              RoomList.setValueAt(pass,i,3);      
         }
          
-         //clear jtable clientes
-         for(i=0;i<numPlayers;i++){
-             UserList.setValueAt("",i,0);
-         }
+         
          //update UserList
          for(i=0;i<numPlayers;i++){
              UserList.setValueAt(usersOnlineList.get(i).getUsername(),i,0);
@@ -671,12 +770,14 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 ((float)player.getgameswon())/(float)player.getgamesplayed()));
         
          this.avatarLabel.setIcon(null);
-         System.out.println(player.getAvatar());
+        
          this.avatarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/"+player.getAvatar())));
       
         
          
     }
+
+   
 
     
 }

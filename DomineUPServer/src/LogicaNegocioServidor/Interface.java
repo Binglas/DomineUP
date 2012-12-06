@@ -107,7 +107,7 @@ public class Interface extends javax.swing.JFrame {
         this.serverThread = new ServerThread(4444);
         this.serverThread.start();
         this.StartButton.setEnabled(false);
-        redirectSystemStreams();
+        //redirectSystemStreams();
         System.out.println(GetDate.now()+": Server Started.");
        
         

@@ -4,20 +4,103 @@
  */
 package UserInterface;
 
+import ComunicacaoCliente.ComCliente;
+import Share.GameRoom;
+import Share.User;
+import java.util.ArrayList;
+
 /**
  * Classe da interface da sala de espera. 
  * 
  * @author Luciano,Andre
  */
 public class UIWaitingRoom extends javax.swing.JFrame {
-
+    public String roomName;
+    public static GameRoom roomJoined;
+    public static UIinvite uiinvite;
+   
     /**
      * Creates new form UIWaitingRoom
      */
-    public UIWaitingRoom() {
+    public UIWaitingRoom(GameRoom room) {
         initComponents();
         StartGame.setEnabled(false);
+        InvitePlayer.setEnabled(false);
+        this.roomJoined = room;
+        setLocationRelativeTo(null);
+    }
+    
+    public UIWaitingRoom(){
+        initComponents();
+        StartGame.setEnabled(false);
+        InvitePlayer.setEnabled(false);
+        setLocationRelativeTo(null);
+    }
+    
+     public void updateScreen() {
+              
+         int numRooms   = UIWelcomeScreen.roomsOnlineList.size();
+         int statex=1; // 0= criador 1= se nao for
+         
+         String state;
+         
+         //clear jtable clientes
+         for(int i=0;i<4;i++){
+             PlayersList.setValueAt("",i,0);
+         }
+            //testa se é o criador;
+          for (int j=0;j<numRooms;j++){
+            
+            
+            if(UIWelcomeScreen.roomsOnlineList.get(j).getCreator().equals(UIWelcomeScreen.player.getUsername())){
+                
+                //é o criador...
+                InvitePlayer.setEnabled(true);
+                if (UIWelcomeScreen.roomsOnlineList.get(j).getCurPlayers()>=2){
+                    
+                        StartGame.setEnabled(true);
+                }else{
+                    StartGame.setEnabled(false);
+                }
+                roomJoined = UIWelcomeScreen.roomsOnlineList.get(j);
+                RoomNameLabel.setText(UIWelcomeScreen.roomsOnlineList.get(j).getName());
+                PlayersNumberLabel.setText(Integer.toString(UIWelcomeScreen.roomsOnlineList.get(j).getNumPlayers()));
+                statex=0;
+                ArrayList<User> player= UIWelcomeScreen.roomsOnlineList.get(j).getBroadcast();
+                for(int i=0;i<player.size();i++){
+                             
+                            PlayersList.setValueAt(i+1,i,0);    
+                            PlayersList.setValueAt(player.get(i).getUsername(),i,1);
+                            
+                         }
+            }
+        }
         
+        if (statex!=0){
+            
+           for (int j=0;j<numRooms;j++){
+            
+                //n é o criador...
+                for (int jj=0;jj<UIWelcomeScreen.roomsOnlineList.get(j).getCurPlayers();jj++){
+                        
+                     
+                    if(UIWelcomeScreen.player.getUsername().equals(UIWelcomeScreen.roomsOnlineList.get(j).getPlayer(jj).getUsername())){
+                        
+                       
+                        roomJoined = UIWelcomeScreen.roomsOnlineList.get(j);
+                        RoomNameLabel.setText(UIWelcomeScreen.roomsOnlineList.get(j).getName());
+                        PlayersNumberLabel.setText(Integer.toString(UIWelcomeScreen.roomsOnlineList.get(j).getNumPlayers()));
+                         ArrayList<User> player= UIWelcomeScreen.roomsOnlineList.get(j).getBroadcast();
+                         for(int i=0;i<player.size();i++){
+                            PlayersList.setValueAt(i+1,i,0);      
+                            PlayersList.setValueAt(player.get(i).getUsername(),i,1);
+                            
+                         }
+                    }
+                }
+            
+            }  
+        }
     }
 
     /**
@@ -36,15 +119,27 @@ public class UIWaitingRoom extends javax.swing.JFrame {
         PlayersNumberLabel = new javax.swing.JLabel();
         StartGame = new javax.swing.JButton();
         InvitePlayer = new javax.swing.JButton();
-        InvitePlayer1 = new javax.swing.JButton();
+        LeaveRoom = new javax.swing.JButton();
         NameLabel = new javax.swing.JLabel();
         NumberLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
 
         WaitingRoomLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resources/Portugues_pt_PT_EURO"); // NOI18N
-        WaitingRoomLabel.setText(bundle.getString("RegisterUserLabel")); // NOI18N
+        WaitingRoomLabel.setText("Sala de Espera ");
 
         PlayersList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -69,9 +164,9 @@ public class UIWaitingRoom extends javax.swing.JFrame {
         PlayersList.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(PlayersList);
 
-        RoomNameLabel.setText("jLabel3");
+        RoomNameLabel.setText("_");
 
-        PlayersNumberLabel.setText("jLabel4");
+        PlayersNumberLabel.setText("_");
 
         StartGame.setText("Iniciar Jogo");
         StartGame.addActionListener(new java.awt.event.ActionListener() {
@@ -87,10 +182,10 @@ public class UIWaitingRoom extends javax.swing.JFrame {
             }
         });
 
-        InvitePlayer1.setText("Sair da Sala");
-        InvitePlayer1.addActionListener(new java.awt.event.ActionListener() {
+        LeaveRoom.setText("Sair da Sala");
+        LeaveRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InvitePlayer1ActionPerformed(evt);
+                LeaveRoomActionPerformed(evt);
             }
         });
 
@@ -126,7 +221,7 @@ public class UIWaitingRoom extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(InvitePlayer)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(InvitePlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(LeaveRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(92, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -152,7 +247,7 @@ public class UIWaitingRoom extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(InvitePlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(StartGame, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(InvitePlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LeaveRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -166,11 +261,37 @@ public class UIWaitingRoom extends javax.swing.JFrame {
 
     private void InvitePlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InvitePlayerActionPerformed
         // TODO add your handling code here:
+        
+        uiinvite = new UIinvite(roomJoined.getName());
+        uiinvite.setVisible(true);
     }//GEN-LAST:event_InvitePlayerActionPerformed
 
-    private void InvitePlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InvitePlayer1ActionPerformed
+    private void LeaveRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeaveRoomActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_InvitePlayer1ActionPerformed
+        String roomName = roomJoined.getName();
+        
+        
+        ComCliente com = ComCliente.getInstance();
+        try {
+            com.leaveRoom(roomName, UIWelcomeScreen.player);
+            
+        } catch (Exception ex) {
+            System.out.println("WaitingRoomUI: unable to get instance in Join");
+        }
+        
+    }//GEN-LAST:event_LeaveRoomActionPerformed
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        updateScreen();
+    }//GEN-LAST:event_formMouseMoved
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        updateScreen();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -208,7 +329,7 @@ public class UIWaitingRoom extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton InvitePlayer;
-    private javax.swing.JButton InvitePlayer1;
+    private javax.swing.JButton LeaveRoom;
     private javax.swing.JLabel NameLabel;
     private javax.swing.JLabel NumberLabel;
     private javax.swing.JTable PlayersList;
