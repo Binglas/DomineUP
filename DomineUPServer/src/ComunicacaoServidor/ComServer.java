@@ -593,34 +593,6 @@ public class ComServer {
     }
 
     private boolean invitePlayer(Message msg) {
-        /*ArrayList<Object> arguments = new ArrayList<Object>();
-        arguments.clear();
-        String nome_sala = (String) msg.getArguments().get(0);
-        String newUser = (String) msg.getArguments().get(1);
-        arguments.add(nome_sala);
-        arguments.add(newUser);
-        if (state.Invite(arguments, clientThread)){
-        Message answrMsg = new Message("answrInvitePlayer:success", arguments);
-            try {
-                clientThread.writeMessage(answrMsg);
-                System.out.println(GetDate.now()+": "+thisClient + ": invite '" + arguments.get(1)+ " to " + arguments.get(0) +"'.");
-                return true;
-            } catch (Exception ex) {
-                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.loginRoom(): 1!");
-                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
-                return false;
-                }
-            } else{
-            Message answrMsg = new Message("answerInvitePlayer:error", arguments);
-            try {
-                clientThread.writeMessage(answrMsg);
-                return true;
-            } catch (Exception ex) {
-                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.loginRoom(): 1!");
-                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
-                return false;
-                }
-            }*/
         ArrayList<Object> arguments = new ArrayList<Object>();
         arguments.clear();
         String nome_sala = (String) msg.getArguments().get(0);
