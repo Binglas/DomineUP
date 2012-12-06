@@ -27,36 +27,33 @@ public class Pieces implements Serializable {
      * Construtor da classe Tile
      */
     public Pieces() {
-        this.color = "";
         this.number = 0;
         this.pieceCode = 0;
     }
 
     /**
      * Contrutor da classe Pieces com atributos
-     * @param color
      * @param number
      * @param tileCode 
      */
-    public Pieces(String color, int number, int pieceCode) {
-        this.color = color;
+    public Pieces(int number, int pieceCode) {
         this.number = number;
         this.pieceCode = pieceCode;
     }
 
     /**
      * Get genérico
-     * @return int tileCode
+     * @return int PieceCode
      */
-    public int getTileCode() {
+    public int getPieceCode() {
         return pieceCode;
     }
 
     /**
      * Set genérico
-     * @param tileCode 
+     * @param PieceCode 
      */
-    public void setTileCode(int pieceCode) {
+    public void setPieceCode(int pieceCode) {
         this.pieceCode = pieceCode;
     }
 
@@ -90,22 +87,6 @@ public class Pieces implements Serializable {
      */
     public void setPosY(int posY) {
         this.posY = posY;
-    }
-
-    /**
-     * Get genérico
-     * @return String color
-     */
-    public String getColor() {
-        return color;
-    }
-
-    /**
-     * Set genérico
-     * @param color 
-     */
-    public void setColor(String color) {
-        this.color = color;
     }
 
     /**
