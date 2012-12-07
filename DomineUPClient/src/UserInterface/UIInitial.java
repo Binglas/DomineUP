@@ -7,6 +7,7 @@ import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.Language;
 import LogicaNegocioCliente.ReaderThread;
 import Share.MD5Pwd;
+import javax.swing.JFrame;
 
 /**
  * Interface Inicial da aplicação, aonde o utilizador posse aceder às funções
@@ -159,6 +160,11 @@ private class ConnectThread implements Runnable
 
         HelpButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         HelpButton.setText(bundle.getString("HelpButton")); // NOI18N
+        HelpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HelpButtonActionPerformed(evt);
+            }
+        });
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/final_logo.png"))); // NOI18N
 
@@ -399,6 +405,11 @@ private class ConnectThread implements Runnable
         }
        
     }//GEN-LAST:event_LanguageButtonActionPerformed
+
+    private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpButtonActionPerformed
+        JFrame helpFrame = new net.sourceforge.helpgui.gui.MainFrame("/resources/","java");
+        helpFrame.setVisible(true);
+    }//GEN-LAST:event_HelpButtonActionPerformed
     
     /**
      * @param args the command line arguments
