@@ -162,4 +162,11 @@ public class User implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+    /**
+     * Set genérico
+     * @param rank 
+     */
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
 }

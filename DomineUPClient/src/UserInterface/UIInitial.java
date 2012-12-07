@@ -7,7 +7,6 @@ import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.Language;
 import LogicaNegocioCliente.ReaderThread;
 import Share.MD5Pwd;
-import javax.swing.JFrame;
 
 /**
  * Interface Inicial da aplicação, aonde o utilizador posse aceder às funções
@@ -160,11 +159,6 @@ private class ConnectThread implements Runnable
 
         HelpButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         HelpButton.setText(bundle.getString("HelpButton")); // NOI18N
-        HelpButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HelpButtonActionPerformed(evt);
-            }
-        });
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/final_logo.png"))); // NOI18N
 
@@ -172,6 +166,11 @@ private class ConnectThread implements Runnable
         UsernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UsernameFieldActionPerformed(evt);
+            }
+        });
+        UsernameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                UsernameFieldKeyPressed(evt);
             }
         });
 
@@ -207,6 +206,11 @@ private class ConnectThread implements Runnable
         });
 
         PasswordField.setEnabled(false);
+        PasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PasswordFieldKeyPressed(evt);
+            }
+        });
 
         PasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         PasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -406,10 +410,79 @@ private class ConnectThread implements Runnable
        
     }//GEN-LAST:event_LanguageButtonActionPerformed
 
-    private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpButtonActionPerformed
-        JFrame helpFrame = new net.sourceforge.helpgui.gui.MainFrame("/resources/","java");
-        helpFrame.setVisible(true);
-    }//GEN-LAST:event_HelpButtonActionPerformed
+    private void UsernameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UsernameFieldKeyPressed
+      
+        if(evt.getKeyCode()==10){
+          
+          String username = UsernameField.getText();
+          char[] password = PasswordField.getPassword();
+          this.UsernameField.setText("");
+          this.PasswordField.setText("");
+
+            if(username.equals("") || password.length==0){
+                  System.out.println("Invalid Username");
+                  UIError errorFrame = new UIError();
+                  errorFrame.setErrorTitleLabel(java.util.ResourceBundle.getBundle(Lang).getString("ErrorLabel"));
+                  errorFrame.setTextErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("InvalidParameter"));
+                  errorFrame.setVisible(true);
+              } else{
+                  String pass = new String(password);
+                  MD5Pwd enc = new MD5Pwd();
+                  String passEnc=null;
+                  this.LoginButton.setEnabled(false);
+                  try {
+                        passEnc = enc.encode(username, pass);
+                  } catch (Exception ex) {
+                        System.err.println("Error encrypting password");
+                  }
+                  ComCliente com;
+                  try {
+                        //sends request to server
+                        com = ComCliente.getInstance();
+                        com.login(username, passEnc);
+                    } catch (Exception ex) {
+                        System.out.println("LoginUI: unable to get instance");
+                    }
+            }
+        }
+          
+    }//GEN-LAST:event_UsernameFieldKeyPressed
+
+    private void PasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordFieldKeyPressed
+        if(evt.getKeyCode()==10){
+          
+          String username = UsernameField.getText();
+          char[] password = PasswordField.getPassword();
+          this.UsernameField.setText("");
+          this.PasswordField.setText("");
+
+            if(username.equals("") || password.length==0){
+                  System.out.println("Invalid Username");
+                  UIError errorFrame = new UIError();
+                  errorFrame.setErrorTitleLabel(java.util.ResourceBundle.getBundle(Lang).getString("ErrorLabel"));
+                  errorFrame.setTextErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("InvalidParameter"));
+                  errorFrame.setVisible(true);
+              } else{
+                  String pass = new String(password);
+                  MD5Pwd enc = new MD5Pwd();
+                  String passEnc=null;
+                  this.LoginButton.setEnabled(false);
+                  try {
+                        passEnc = enc.encode(username, pass);
+                  } catch (Exception ex) {
+                        System.err.println("Error encrypting password");
+                  }
+                  ComCliente com;
+                  try {
+                        //sends request to server
+                        com = ComCliente.getInstance();
+                        com.login(username, passEnc);
+                    } catch (Exception ex) {
+                        System.out.println("LoginUI: unable to get instance");
+                    }
+            }
+        }
+    }//GEN-LAST:event_PasswordFieldKeyPressed
     
     /**
      * @param args the command line arguments

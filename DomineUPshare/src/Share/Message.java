@@ -58,5 +58,12 @@ public class Message implements Serializable {
     public String getTipoMensagem() {
         return tipoMensagem;
     }
+    /**
+     * Get genérico
+     * @return int tamanhomsg
+     */
+    public int getSizeMensagem() {
+        return arguments.size();
+    }
 
 }

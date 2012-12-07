@@ -12,6 +12,7 @@ import UserInterface.UIConfiguracoes;
 import UserInterface.UICreateRoom;
 import UserInterface.UIError;
 import UserInterface.UIInitial;
+import UserInterface.UIRank;
 import UserInterface.UIRecoverPass;
 import UserInterface.UIRegister;
 import UserInterface.UIWaitingRoom;
@@ -165,6 +166,14 @@ public class ReaderThread extends Thread {
                     case "answrRequestRoomsSuccess":
                         //não faz nada
                         break;
+                    case "answrRequestRankerror":
+                        System.out.println("error");
+                        UIError errorFrame6 = new UIError();
+                        errorFrame6.setErrorTitleLabel(java.util.ResourceBundle.getBundle(Lang).getString("ErrorLabel"));
+                        errorFrame6.setTextErrorLabel(java.util.ResourceBundle.getBundle(Lang).getString("RuntimeError"));
+                        errorFrame6.setVisible(true);
+                        this.run=false;
+                        break;
                         
                     case "leaveRoom:success":
                         welcomescreen.waitingRoomScreen.dispose();
@@ -196,6 +205,18 @@ public class ReaderThread extends Thread {
                        
                         welcomescreen.uiinvited = new UIinvited(ComCliente.msgx.getArguments().get(0).toString(),ComCliente.msgx.getArguments().get(1).toString()); 
                         welcomescreen.uiinvited.setVisible(true);
+                        break;
+                    case "answrRequestRank:success":
+                        
+                        for (int j=0;j<ComCliente.msgx.getSizeMensagem();j++){
+                            
+                            if (ComCliente.msgx.getArguments().get(j).equals(welcomescreen.player.getUsername())){
+                                welcomescreen.player.setRank(j+1);
+                                welcomescreen.setRankLabel("Rank: "+" "+Integer.toString(j+1));                         
+                            }
+                        }
+                        
+                        UIRank.msgr=ComCliente.msgx;
                         break;
                         
                     default: 

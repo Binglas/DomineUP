@@ -17,7 +17,6 @@ import java.io.Serializable;
 public class Pieces implements Serializable {
 
     static final long serialVersionUID = 125L;
-    private String color;
     private int number;
     private int posX = 0;
     private int posY = 0;

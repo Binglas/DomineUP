@@ -29,6 +29,7 @@ public class ComCliente {
      private final Object lock = new Object();
      private static ComCliente instance;
      public static Message msgx;
+     
     
     /**
     * Cria um novo objeto da classe ComCliente. Garante a existência apenas de uma
@@ -265,7 +266,26 @@ public class ComCliente {
             System.out.println("Exception Message:" + ex);
         }
     }
-   
+   /**
+     * Envia para o servidor mensagem do tipo requestRank, solicitanto os 
+     * ranks dos jogadores.
+     * @param
+     */
+    
+   public void requestRank() {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+
+        Message messageToServer = new Message("requestRank", arguments);
+
+        try {
+            escritor.writeObject(messageToServer);
+            escritor.reset();
+            escritor.flush();
+        } catch (Exception ex) {
+            System.out.println("requestUsers: error writing object");
+            System.out.println("Exception Message:" + ex);
+        }
+    }
    
          /**
        * Envia uma mensagem para o servidor com a mensagem introduzida pelo jogador no chat da sala de jogo
@@ -416,6 +436,13 @@ public class ComCliente {
                     case "answrInvitePlayer:success":
                         System.out.println("answrInvitePlayer:success");
                         return "answrInvitePlayer";
+                    case "answrRequestRank:error":
+                        
+                        return "answrRequestRankerror";
+                        
+                    case "answrRequestRank:success":
+                        
+                        return "answrRequestRank:success";
                         
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");

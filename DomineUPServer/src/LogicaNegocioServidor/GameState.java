@@ -17,7 +17,7 @@ import java.util.Random;
  * @author Andre
  */
 class GameState {
-        private int BOARDSIZEX = 7, BOARDSIZEY = 20, DECKSIZE = 106;
+        private int BOARDSIZEX = 7, BOARDSIZEY = 20, DECKSIZE = 24;
         private String name;
         Pieces[] deck;
         Pieces[] board;
@@ -127,15 +127,15 @@ class GameState {
     }
     
         /**
-     * Este método implementa um gerador aleatóreo de inteiros de 0 a 105, com o
+     * Este método implementa um gerador aleatóreo de inteiros de 0 a 23, com o
      * objectivo de dar peças aleatóreas aos jogadores. A peça sorteada é então
      * retirada do baralho e o seu Tile correspondente (previamente inicializado) 
      * é retornado.
      * @return Retorna o Tile que foi sorteado aleatóreamente.
      */
-    public Pieces DrawTile() {
+    public Pieces DrawPiece() {
         while (true) {
-            int seed = rand.nextInt(106);
+            int seed = rand.nextInt(24);
             if (deck[seed] != null) {
                 Pieces temp = deck[seed];
                 deck[seed] = null;
@@ -146,28 +146,28 @@ class GameState {
 
     /**
      * Este método inicializa todas as mãos dos jogadores duma sala, chamando o 
-     * método DrawTile() 6 vezes para as tantas peças com que cada User começa, e 
+     * método DrawPiece() 6 vezes para as tantas peças com que cada User começa, e 
      * inicializando as restantes com valores em branco. 
      * @param players é o Array de Users que irão ter as suas mãos sorteadas.
      */
     public void DrawHand(ArrayList<User> players) {
-        Pieces[] tempHand = new Pieces[28];
+        Pieces[] tempHand = new Pieces[24];
 
         for (int i = 0; i < players.size(); i++) {
 
             for (int number = 0; number < 6; number++) {
-                tempHand[number] = this.DrawTile();
+                tempHand[number] = this.DrawPiece();
             }
-            for (int number = 6; number < 28; number++) {
+            for (int number = 6; number < 24; number++) {
                 tempHand[number] = new Pieces();
             }
-            hands[i].setTiles(tempHand.clone());
+            hands[i].setPieces(tempHand.clone());
             rand = new Random();
             this.playerHands.put(players.get(i).getUsername(), hands[i]);
         }
     }
     
-        /**
+    /**
      * Este método é chamado no fim de cada turno para que seja gravado numa 
      * Hashtable <Índice_do_Jogador, Nr_de_Peças_na_mão>
      * @return Hashtable com <Índice_do_Jogador, Nr_de_Peças_na_mão>

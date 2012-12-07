@@ -459,6 +459,18 @@ public class ServerUtils implements Serializable{
         }
         return true;
     }
+    
+        private String broadcastrank(Message answrMsg, ArrayList<String> users) {
+        for (int i = 0; i < (users.size()); ++i) {
+            ClientThread clientThread = userConnections.get(users.get(i));
+            try {
+                clientThread.writeMessage(answrMsg);
+            } catch (Exception ex) {
+                System.out.println("ERRO NO BROADCAST! Exception: " + ex);
+            }
+        }
+        return null;
+    }
 
     /**
      * Este método remove um jogador duma sala que ainda esteja em espera.
@@ -594,5 +606,19 @@ public class ServerUtils implements Serializable{
                 return false;
             }
         }
+    }
+
+    public ArrayList<Object>  getUserRank() throws SQLException {
+        DataRead DBreader = new DataRead();
+            try {
+                 ArrayList<Object> rank = DBreader.getRank();
+                 System.out.println("RRAAAANKKKNAKSNFJKA: " +rank);
+                 if (rank != null){
+                     return rank; 
+                 }
+                }catch (SQLException ex){
+                System.out.println("Exception: rank.. " + ex);
+                }
+        return null;
     }
 }

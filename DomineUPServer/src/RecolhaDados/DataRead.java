@@ -4,12 +4,14 @@
  */
 package RecolhaDados;
 
+import Share.Message;
 import Share.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 
 
@@ -204,6 +206,62 @@ public class DataRead {
             throw new SQLException();
         }
          
+    }
+
+    public ArrayList<Object>  getRank() throws SQLException {
+        
+        Statement statement = null;
+        ResultSet rs = null;
+        
+        try {
+
+            Class.forName("org.postgresql.Driver");
+
+        } catch (ClassNotFoundException e) {
+
+            System.out.println("Where is your PostgreSQL JDBC Driver? " + "Include in your library path!");
+            e.printStackTrace();
+            throw new SQLException();
+            
+        }
+
+        System.out.println("PostgreSQL JDBC Driver Registered!");
+        Connection connection = null;
+        
+        try {
+                    connection = DriverManager.getConnection(
+                    "jdbc:postgresql://gnomo.fe.up.pt:5432/ee08251", "ee08251", "PtBfR2D5r");
+                    statement = connection.createStatement();
+        } catch (SQLException e) {
+            
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+            throw new SQLException();
+        }
+        
+        if (connection != null) {
+            System.out.println("Connected to database!");
+
+                String QueryString2 = "select username, gameswon*100/gamesplayed AS Ratio "
+                            + "from domineup.\"Users\" ORDER BY Ratio DESC";
+                            rs = statement.executeQuery(QueryString2); 
+
+                ArrayList<Object> arguments = new ArrayList<Object>();
+                arguments.clear();
+                
+                while (rs.next()) {
+                    System.out.println(rs.getString(1));
+                    arguments.add(rs.getString(1));
+                }
+                
+                rs.close();
+                connection.close();
+                return arguments;
+                
+        } else {
+            System.out.println("Failed to make connection!");
+            return null;
+        }
     }
 }
 

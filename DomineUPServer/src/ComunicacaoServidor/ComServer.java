@@ -161,6 +161,14 @@ public class ComServer {
                         return true; 
                     }
                     
+                case "requestRank":
+                    if (requestRank(msg)){
+                        return true;
+                    }else{
+                        System.out.println(GetDate.now()+": "+thisClient + ": Error getting ranks!");
+                        return true; 
+                    }
+                    
                 case "startGame":
                     System.out.println(GetDate.now()+": "+thisClient + ": Requested the Start of the Game!");
                 if (startGame(msg)) {
@@ -612,7 +620,8 @@ public class ComServer {
         ArrayList<Object> arguments = new ArrayList<Object>();
         arguments.clear();
         String roomName = (String) msg.getArguments().get(0);
-        if (state.startGame(roomName)) {
+        return state.startGame(roomName);
+        /*if (state.startGame(roomName)) {
             Message answrMsg = new Message("answerStartGame:success", arguments);
             try {
                 clientThread.writeMessage(answrMsg);
@@ -632,6 +641,33 @@ public class ComServer {
                 System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
                 return false;
             }
+        }*/
+    }
+
+    private boolean requestRank(Message msg) throws SQLException {
+       
+        ArrayList<Object> rank = state.getUserRank();
+        if (rank != null) {
+            try {
+                Message answrMsg = new Message("answrRequestRank:success", rank);
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.requestrank(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        } else {
+            try {
+                Message answrMsg = new Message("answrRequestRank:error", rank);
+                clientThread.writeMessage(answrMsg);
+                return false;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.requestrank(): 2!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
         }
+        
     }
 }

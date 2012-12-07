@@ -85,7 +85,15 @@ public class UIinvite extends javax.swing.JFrame {
             new String [] {
                 "Jogadores"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(UserList);
 
         CancelButton.setText("Cancelar");
@@ -162,6 +170,7 @@ public class UIinvite extends javax.swing.JFrame {
     private void jScrollPane1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseMoved
         // TODO add your handling code here:
         int i;
+        int x=0;
         int numPlayers=UIWelcomeScreen.usersOnlineList.size();
        
         //clear jtable clientes
@@ -173,7 +182,8 @@ public class UIinvite extends javax.swing.JFrame {
          for(i=0;i<numPlayers;i++){
              
              if (!UIWelcomeScreen.player.getUsername().equals(UIWelcomeScreen.usersOnlineList.get(i).getUsername())){
-                 UserList.setValueAt( UIWelcomeScreen.usersOnlineList.get(i).getUsername(),i,0);
+                 UserList.setValueAt( UIWelcomeScreen.usersOnlineList.get(i).getUsername(),x,0);
+                 x++;
              }
              
          }
