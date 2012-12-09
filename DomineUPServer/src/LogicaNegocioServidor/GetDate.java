@@ -23,4 +23,15 @@ public class GetDate {
         String strDate = sdfDate.format(now);
         return strDate;
     }
+    /**
+   * Esta função retorna a data e hora atual no seguinte formato ex: (21/05/1990 00:05:23 fica 21051990_000523) 
+   * @return Retorna uma string.
+   */
+    public static String time() {
+      
+        SimpleDateFormat sdfDate = new SimpleDateFormat("_HHmmss");
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return strDate;
+    }
 }

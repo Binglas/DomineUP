@@ -4,12 +4,14 @@
  */
 package Share;
 
+import java.io.Serializable;
+
 /**
  * Esta classe contém um array com os objetos da classe Pieces que foram atribuídos
  * a um dado jogador
  * @author Andre
  */
-public class Hand {
+public class Hand implements Serializable{
     
     static final long serialVersionUID = 126L;
     private Pieces[] pieces;
@@ -19,7 +21,7 @@ public class Hand {
      */
     public Hand() {
 
-        this.pieces = new Pieces[24];
+        this.pieces = new Pieces[28];
 
         for (int i = 0; i != pieces.length; ++i) {
             pieces[i] = new Pieces();

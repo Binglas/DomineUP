@@ -52,7 +52,7 @@ public class GameRoom implements Serializable{
      * @return int número atual de players na sala
      */
     public int getCurPlayers(){
-        return players.size();
+        return getPlayers().size();
     }
     /**
      * Get genérico
@@ -113,7 +113,7 @@ public class GameRoom implements Serializable{
      * @return ArrayList<User> players
      */
     public ArrayList<User> getBroadcast(){
-        return players;
+        return getPlayers();
     }
     
     public void setPassword(String password) {
@@ -121,29 +121,29 @@ public class GameRoom implements Serializable{
     }
 
     public void updatePlayer(int index,User newUser){
-        this.players.set(index, newUser);
+        this.getPlayers().set(index, newUser);
     }
     
     public User getPlayer(int index) {
-        return players.get(index);
+        return getPlayers().get(index);
     }
     
     public int getSize() {
-        return players.size();
+        return getPlayers().size();
     }
 
     public void setPlayers(ArrayList<User> players) {
-        this.players = players;
+        this.setPlayers(players);
     }
     
     public void addPlayers(User player){
-        this.players.add(player);
+        this.getPlayers().add(player);
     }
 
     public boolean removePlayers(String username){
-        for(int i = 0;i<this.players.size();++i){
-            if(this.players.get(i).getUsername().equals(username)){
-                this.players.remove(i);
+        for(int i = 0;i<this.getPlayers().size();++i){
+            if(this.getPlayers().get(i).getUsername().equals(username)){
+                this.getPlayers().remove(i);
                 return true;
             }
         }
@@ -151,8 +151,8 @@ public class GameRoom implements Serializable{
     }
     
     public boolean existsUser(String username){
-        for(int i =0;i<players.size();i++){
-            if(players.get(i).getUsername().equals(username)) {
+        for(int i =0;i<getPlayers().size();i++){
+            if(getPlayers().get(i).getUsername().equals(username)) {
                 return true;
             }
         }
@@ -163,4 +163,13 @@ public class GameRoom implements Serializable{
     public void setState(int state) {
         this.state = state;
     }
+
+    /**
+     * @return the players
+     */
+    public ArrayList<User> getPlayers() {
+        return players;
+    }
+
+    
 }

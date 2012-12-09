@@ -17,34 +17,41 @@ import java.io.Serializable;
 public class Pieces implements Serializable {
 
     static final long serialVersionUID = 125L;
-    private int number;
-    private int posX = 0;
-    private int posY = 0;
-    private int pieceCode;
+    private int number = 0;
+    private int leftN = 0;
+    private int rightN = 0;
+    private String pieceCode;
+    private boolean alinhamento = false;
 
     /**
      * Construtor da classe Tile
      */
     public Pieces() {
         this.number = 0;
-        this.pieceCode = 0;
+        this.pieceCode = "";
     }
 
     /**
      * Contrutor da classe Pieces com atributos
      * @param number
-     * @param tileCode 
+     * @param pieceCode 
      */
-    public Pieces(int number, int pieceCode) {
+    public Pieces(int number, String pieceCode) {
         this.number = number;
         this.pieceCode = pieceCode;
+    }
+    
+    public Pieces(int rightN,int leftN){
+        this.rightN = rightN;
+        this.leftN = leftN;
+               
     }
 
     /**
      * Get genérico
      * @return int PieceCode
      */
-    public int getPieceCode() {
+    public String getPieceCode() {
         return pieceCode;
     }
 
@@ -52,42 +59,11 @@ public class Pieces implements Serializable {
      * Set genérico
      * @param PieceCode 
      */
-    public void setPieceCode(int pieceCode) {
+    public void setPieceCode(String pieceCode) {
         this.pieceCode = pieceCode;
     }
 
-    /**
-     * Get genérico
-     * @return int posX
-     */
-    public int getPosX() {
-        return posX;
-    }
-
-    /**
-     * Set genérico
-     * @param posX 
-     */
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    /**
-     * Get genérico
-     * @return int posY
-     */
-    public int getPosY() {
-        return posY;
-    }
-
-    /**
-     * Set genérico
-     * @param posY 
-     */
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
+   
     /**
      * Get genérico
      * @return int number
@@ -102,5 +78,33 @@ public class Pieces implements Serializable {
      */
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    /**
+     * @return the leftN
+     */
+    public int getLeftN() {
+        return leftN;
+    }
+
+    /**
+     * @param leftN the leftN to set
+     */
+    public void setLeftN(int leftN) {
+        this.leftN = leftN;
+    }
+
+    /**
+     * @return the rightN
+     */
+    public int getRightN() {
+        return rightN;
+    }
+
+    /**
+     * @param rightN the rightN to set
+     */
+    public void setRightN(int rightN) {
+        this.rightN = rightN;
     }
 }

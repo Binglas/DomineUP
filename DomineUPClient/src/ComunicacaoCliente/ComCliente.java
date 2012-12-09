@@ -6,6 +6,7 @@ package ComunicacaoCliente;
 
 import LogicaNegocioCliente.ReaderThread;
 import Share.GameRoom;
+import Share.Hand;
 import Share.Message;
 import Share.User;
 import UserInterface.UIWaitingRoom;
@@ -288,8 +289,8 @@ public class ComCliente {
     }
    
          /**
-       * Envia uma mensagem para o servidor com a mensagem introduzida pelo jogador no chat da sala de jogo
-       * e que deve ficar visivel para todos os outros jogadores da sala.
+       * Envia uma mensagem para o servidor com a mensagem introduzida pelo jogador no chat da welcome room
+       * e que deve ficar visivel para todos os outros jogadores.
        * @param player objeto da classe User com as informações do jogador que introduziu a mensagem
        */
        public void roomChat(User player, String message){
@@ -356,9 +357,9 @@ public class ComCliente {
                         System.out.println("answrLogin:error");
                         return "loginError";
                      
-                    case "answrLoginGuest:successLoggedAsGuest":
-                        //inserir codigo...
-                        break;
+                    case "answrLoginGuest:success":
+                        ReaderThread.player = (User) msg.getArguments().get(0);
+                          return "loginguestsuccess";
                         
                     case "answerLogout:success":
                         System.out.println("Logout Success!!!");
@@ -425,6 +426,7 @@ public class ComCliente {
                     case "answerJoinRoom:success":
                         System.out.println("answerJoinRoom:success");
                         UIWaitingRoom.roomJoined = (GameRoom) msg.getArguments().get(0);
+                        ReaderThread.room = (GameRoom) msg.getArguments().get(0);
                         return "joinRoom:success";
                     case "answerJoinRoom:error":
                         System.out.println("answerJoinRoom:error");
@@ -433,17 +435,28 @@ public class ComCliente {
                     case "answrupdateChatsuccess":
                         ReaderThread.chatMessage = (msg.getArguments().get(0) + ": " + msg.getArguments().get(1));
                         return "receivedmessage";
+                    case "answrUpdateGameChat:success":
+                        
+                        ReaderThread.GameChatMessage = (msg.getArguments().get(0).toString());
+                        System.out.println("OLAAAAAAAAA");
+                        return "answrUpdateGameChat";   
                     case "answrInvitePlayer:success":
                         System.out.println("answrInvitePlayer:success");
                         return "answrInvitePlayer";
+                    case "":
+                        
+                        return "startgamesuccess";
                     case "answrRequestRank:error":
                         
                         return "answrRequestRankerror";
                         
                     case "answrRequestRank:success":
-                        
+
                         return "answrRequestRank:success";
                         
+                    case "gameStart:success":
+                        ReaderThread.hand = (Hand) msg.getArguments().get(0);
+                        return "gameStart:success";
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");
                         return "runtimeError";
@@ -516,7 +529,11 @@ public class ComCliente {
         }
       
     }
-
+    /**
+     * Envia para o servidor uma mensagem a solicitar um convite a um jogador.
+     * @param roomName nome da sala de jogo a que o jogador se pretende juntar.
+     * @param player objeto da classe User com as informações do jogador que solicita a junção à sala.
+     */
     public void invitePlayer(String Roomname, String UsernamePlayer) {
         ArrayList<Object> arguments = new ArrayList<Object>();
         arguments.add(Roomname);
@@ -534,6 +551,70 @@ public class ComCliente {
             System.err.println("joinRoom: error writing object");
         }
     }
+     /**
+     * Envia para o servidor uma mensagem a solicitar a entrada de um visitante.
+     * 
+     */
+    public void loginguest() {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        
+        Message messageToServer = new Message("loginGuest", arguments);
+
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+
+        } catch (Exception ex) {
+            System.err.println("joinRoom: error writing object");
+        }
+    }
+      /**
+       * Envia uma mensagem para o servidor com a mensagem introduzida pelo jogador no chat da sala de jogo
+       * e que deve ficar visivel para todos os outros jogadores da sala.
+       * @param player objeto da classe User com as informações do jogador que introduziu a mensagem
+       */
+    public void GameChat(User player, String message) {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(player);
+        arguments.add(message);
+
+        Message messageToServer = new Message("gameChat", arguments);
+
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+        } catch (Exception ex) {
+            System.err.println("chatGame: error writing object");
+        }
+    }
+    
+    public void StartGame(GameRoom roomJoined) {
+       /**
+       * Envia uma mensagem para o servidor com a mensagem para iniciar 
+       * um jogo.
+       * @param roomJoined objeto da classe GameRoom
+       */
+    
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(roomJoined.getName());
+
+
+        Message messageToServer = new Message("startGame", arguments);
+
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+        } catch (Exception ex) {
+            System.err.println("chatGame: error writing object");
+        }
+    }
+    
 }
 
    

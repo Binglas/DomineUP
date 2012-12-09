@@ -72,6 +72,19 @@ public class ComServer {
                        System.out.println(GetDate.now()+": "+thisClient + ": Error Login!");
                        return true;
                    }
+                 
+                case "loginGuest":
+                   System.out.println(GetDate.now()+": Guest is Logging in!");
+                   if(loginGuest(msg)){
+                       clientThreadInstance.printClient = "Guest" + GetDate.time();
+                       thisClient = "Guest" + GetDate.now();
+                       System.out.println(GetDate.now()+": "+thisClient + " Logged in!");
+                       return true;
+                   }else{
+                       System.out.println(GetDate.now()+": "+thisClient + ": Error Login!");
+                       return true;
+                   }
+                    
                 case "logout":
                    System.out.println(GetDate.now()+"+"+thisClient +" trying to logout");
                    System.out.println(GetDate.now()+": "+thisClient + ": Logout request!");
@@ -82,9 +95,7 @@ public class ComServer {
                     System.out.println(GetDate.now()+": "+thisClient + ": Ocorreu um erro durante o Logout!");
                     return true;
                 }
-                case "loginAsGuest":
-                    //falta programar....
-                    return true;
+                    
                 case "registar":
                     System.out.println(GetDate.now()+"+"+thisClient +" trying to register");
                     if (registar(msg)==true){
@@ -153,6 +164,14 @@ public class ComServer {
                     return true;
                     }
                     
+                case "gameChat":
+                    if (gameChat(msg)) {      
+                    return true;
+                    } else {
+                    System.out.println(GetDate.now()+": "+thisClient + ": Error sending chat message!");
+                    return true;
+                    }
+                    
                 case "invitePlayer":
                     if (invitePlayer(msg)){
                         return true;
@@ -200,6 +219,7 @@ public class ComServer {
                 default:
                     System.err.println(GetDate.now()+": "+thisClient + ": EXCEPTION on readMessage()!");
                     System.err.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                    ex.printStackTrace(System.err);
                     return false;
             }
         }
@@ -244,6 +264,35 @@ public class ComServer {
             System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
             return false;
         }
+    }
+    
+        private boolean loginGuest(Message msg) {
+            ArrayList<Object> arguments = new ArrayList<>();
+            User loggedGuest = state.loginGuest(clientThread);
+            if (loggedGuest != null) {
+            arguments.clear();
+            arguments.add(loggedGuest);
+            Message answrMsg = new Message("answrLoginGuest:success", arguments);
+            try {
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! ComServer.login(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        }
+
+        Message answrMsg = new Message("answrLoginGuest:error", arguments);
+        try {
+            clientThread.writeMessage(answrMsg);
+            return false;
+        } catch (Exception ex) {
+            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! ComServer.login(): 2!");
+            System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+            return false;
+        }
+            
     }
     
     /**
@@ -513,7 +562,7 @@ public class ComServer {
 
     /**
      * Este método descodifica os argumentos enviados pelo cliente e chama o método
-     * roomChat da classe ServerState.
+     * roomChat da classe ServerUtils.
      * @param msg é a mensagem recebida do cliente
      * @return Retorna true se for bem sucedido ou false se ocorrer um erro
      */
@@ -523,6 +572,14 @@ public class ComServer {
         User sourceUser = (User) msg.getArguments().get(0);
         String message = (String) msg.getArguments().get(1);
         return state.roomChat(sourceUser, message);
+    }
+    
+    private boolean gameChat(Message msg) {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.clear();
+        User sourceUser = (User) msg.getArguments().get(0);
+        String message = (String) msg.getArguments().get(1);
+        return state.gameChat(sourceUser, message);
     }
 
     /**
@@ -617,31 +674,10 @@ public class ComServer {
      * inicializada, se for bem sucedido
      */
     private boolean startGame(Message msg) {
-        ArrayList<Object> arguments = new ArrayList<Object>();
+        ArrayList<Object> arguments = new ArrayList<>();
         arguments.clear();
         String roomName = (String) msg.getArguments().get(0);
         return state.startGame(roomName);
-        /*if (state.startGame(roomName)) {
-            Message answrMsg = new Message("answerStartGame:success", arguments);
-            try {
-                clientThread.writeMessage(answrMsg);
-                return true;
-            } catch (Exception ex) {
-                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.startGame(): 1!");
-                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
-                return false;
-            }
-        } else {
-            Message answrMsg = new Message("answerStartGame:error", arguments);
-            try {
-                clientThread.writeMessage(answrMsg);
-                return false;
-            } catch (Exception ex) {
-                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.startGame(): 2!");
-                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
-                return false;
-            }
-        }*/
     }
 
     private boolean requestRank(Message msg) throws SQLException {
@@ -670,4 +706,6 @@ public class ComServer {
         }
         
     }
+
+
 }

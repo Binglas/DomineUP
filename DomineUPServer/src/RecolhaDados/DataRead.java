@@ -241,16 +241,15 @@ public class DataRead {
         
         if (connection != null) {
             System.out.println("Connected to database!");
-
+        
                 String QueryString2 = "select username, gameswon*100/gamesplayed AS Ratio "
-                            + "from domineup.\"Users\" ORDER BY Ratio DESC";
+                            + "from domineup.\"Users\" WHERE \"gamesplayed\"!=0 ORDER BY Ratio DESC";
                             rs = statement.executeQuery(QueryString2); 
 
                 ArrayList<Object> arguments = new ArrayList<Object>();
                 arguments.clear();
                 
                 while (rs.next()) {
-                    System.out.println(rs.getString(1));
                     arguments.add(rs.getString(1));
                 }
                 

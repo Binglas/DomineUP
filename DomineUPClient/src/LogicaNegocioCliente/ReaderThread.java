@@ -6,11 +6,13 @@ package LogicaNegocioCliente;
 
 import ComunicacaoCliente.ComCliente;
 import Share.GameRoom;
+import Share.Hand;
 import Share.Message;
 import Share.User;
 import UserInterface.UIConfiguracoes;
 import UserInterface.UICreateRoom;
 import UserInterface.UIError;
+import UserInterface.UIGameRoom;
 import UserInterface.UIInitial;
 import UserInterface.UIRank;
 import UserInterface.UIRecoverPass;
@@ -33,6 +35,8 @@ public class ReaderThread extends Thread {
     public static User player;
     public static GameRoom room;
     public static UIWelcomeScreen welcomescreen;
+    public static UIGameRoom gameRoom;
+    public static Hand hand;
     private ComCliente com;
     public UIInitial InitialScreen;
     private UIRegister registerscreen;
@@ -42,7 +46,7 @@ public class ReaderThread extends Thread {
     public static String password;
     public String Lang = Language.getInstance().GetLanguage();
     public static String chatMessage;
-    
+    public static String GameChatMessage;
    
     
     /**
@@ -54,6 +58,7 @@ public class ReaderThread extends Thread {
        this.registerscreen=registerScreen;
        this.recoverpass=recoverScreen;
        this.chatMessage = new String();
+       this.GameChatMessage = new String();
        
        
     }
@@ -89,7 +94,15 @@ public class ReaderThread extends Thread {
                         errorFrame.setVisible(true);
                         InitialScreen.setLoginButton();
                         break;
-                    
+                    case "loginguestsuccess":
+                        InitialScreen.dispose();
+                        System.out.print("USER Guest LOGGED");
+                        //Send user simple data to the WelcomeScreen
+                        welcomescreen = new UIWelcomeScreen(player);
+                        welcomescreen.setVisible(true); 
+                        welcomescreen.setDisableRoomButton();
+                        new UIupdate(welcomescreen).start();
+                        break;
                     case "logoutSuccess":
                         try {
                         com.getClientSocket().close();
@@ -200,6 +213,14 @@ public class ReaderThread extends Thread {
                           
                     case "receivedmessage":
                         welcomescreen.updateChat(chatMessage);
+                        break;
+                    case "answrUpdateGameChat":
+                        
+                        welcomescreen.uiGameRoom.updateChat(GameChatMessage);
+                        break;
+                    case "gameStart:success":
+                        welcomescreen.uiGameRoom = new UIGameRoom(hand,room);
+                        welcomescreen.uiGameRoom.setVisible(true);
                         break;
                     case "answrInvitePlayer":
                        

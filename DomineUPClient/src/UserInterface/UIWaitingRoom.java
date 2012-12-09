@@ -214,13 +214,13 @@ public class UIWaitingRoom extends javax.swing.JFrame {
                             .addComponent(PlayersNumberLabel)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(103, 103, 103)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(StartGame, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(InvitePlayer)
+                                .addComponent(StartGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(InvitePlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
                                 .addComponent(LeaveRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(92, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -255,7 +255,17 @@ public class UIWaitingRoom extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void StartGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartGameActionPerformed
-
+         
+        //Iniciar jogo
+        
+        
+        ComCliente com = ComCliente.getInstance();
+        try {
+            com.StartGame(roomJoined);
+            
+        } catch (Exception ex) {
+            System.out.println("WaitingRoomUI: unable to get instance in Join");
+        }
         
     }//GEN-LAST:event_StartGameActionPerformed
 
@@ -267,7 +277,7 @@ public class UIWaitingRoom extends javax.swing.JFrame {
     }//GEN-LAST:event_InvitePlayerActionPerformed
 
     private void LeaveRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeaveRoomActionPerformed
-        // TODO add your handling code here:
+        
         String roomName = roomJoined.getName();
         
         
