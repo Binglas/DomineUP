@@ -101,6 +101,7 @@ public class ReaderThread extends Thread {
                         welcomescreen = new UIWelcomeScreen(player);
                         welcomescreen.setVisible(true); 
                         welcomescreen.setDisableRoomButton();
+                        welcomescreen.setDisableOptionsButton();
                         new UIupdate(welcomescreen).start();
                         break;
                     case "logoutSuccess":
