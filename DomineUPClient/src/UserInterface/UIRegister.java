@@ -173,6 +173,11 @@ public class UIRegister extends javax.swing.JFrame {
         UsernameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         UsernameLabel.setText(bundle.getString("UsernameLabel")); // NOI18N
         UsernameLabel.setAlignmentY(0.0F);
+        UsernameLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                UsernameLabelMouseEntered(evt);
+            }
+        });
 
         PasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         PasswordLabel.setText("Password:");
@@ -369,6 +374,10 @@ public class UIRegister extends javax.swing.JFrame {
         }
          
     }//GEN-LAST:event_ConfirmButtonActionPerformed
+
+    private void UsernameLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsernameLabelMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsernameLabelMouseEntered
 
     /**
      * @param args the command line arguments

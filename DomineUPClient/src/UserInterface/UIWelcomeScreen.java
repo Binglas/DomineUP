@@ -90,7 +90,18 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     //    this.ServerStateQuery.setText(java.util.ResourceBundle.getBundle(Lang).getString("Connected"));
     }
     
-    
+      /**
+     * Set genérico
+     */
+    public void setOptionsButton(){
+        OptionsButton.setEnabled(true);
+    }
+     /**
+     * Set genérico
+     */
+    public void setDisableOptionsButton(){
+        OptionsButton.setEnabled(false);
+    }  
     /**
      * Set genérico
      */
