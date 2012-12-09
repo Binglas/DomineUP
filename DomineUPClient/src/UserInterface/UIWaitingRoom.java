@@ -5,6 +5,7 @@
 package UserInterface;
 
 import ComunicacaoCliente.ComCliente;
+import LogicaNegocioCliente.ReaderThread;
 import Share.GameRoom;
 import Share.User;
 import java.util.ArrayList;
@@ -88,6 +89,7 @@ public class UIWaitingRoom extends javax.swing.JFrame {
                         
                        
                         roomJoined = UIWelcomeScreen.roomsOnlineList.get(j);
+                        ReaderThread.room=roomJoined;
                         RoomNameLabel.setText(UIWelcomeScreen.roomsOnlineList.get(j).getName());
                         PlayersNumberLabel.setText(Integer.toString(UIWelcomeScreen.roomsOnlineList.get(j).getNumPlayers()));
                          ArrayList<User> player= UIWelcomeScreen.roomsOnlineList.get(j).getBroadcast();
@@ -101,6 +103,7 @@ public class UIWaitingRoom extends javax.swing.JFrame {
             
             }  
         }
+        ReaderThread.room=roomJoined;
     }
 
     /**

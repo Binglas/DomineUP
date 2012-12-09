@@ -403,6 +403,7 @@ public class ComCliente {
                     case "answrRequestRooms:success":
                         System.out.println("answrRequestRooms:success");
                         UIWelcomeScreen.roomsOnlineList = (ArrayList<GameRoom>) msg.getArguments().get(0);
+
                         return "answrRequestRoomsSuccess";
                         
                     case "answrCreateRoom:success":
