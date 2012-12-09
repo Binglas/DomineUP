@@ -438,14 +438,12 @@ public class ComCliente {
                     case "answrUpdateGameChat:success":
                         
                         ReaderThread.GameChatMessage = (msg.getArguments().get(0).toString());
-                        System.out.println("OLAAAAAAAAA");
+                       
                         return "answrUpdateGameChat";   
                     case "answrInvitePlayer:success":
                         System.out.println("answrInvitePlayer:success");
                         return "answrInvitePlayer";
-                    case "":
-                        
-                        return "startgamesuccess";
+                    
                     case "answrRequestRank:error":
                         
                         return "answrRequestRankerror";
@@ -454,7 +452,7 @@ public class ComCliente {
 
                         return "answrRequestRank:success";
                         
-                    case "gameStart:success":
+                    case "startGame:success":
                         ReaderThread.hand = (Hand) msg.getArguments().get(0);
                         return "gameStart:success";
                     case "runtimeError:error":

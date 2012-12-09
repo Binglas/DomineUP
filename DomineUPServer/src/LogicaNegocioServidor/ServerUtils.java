@@ -629,7 +629,6 @@ public class ServerUtils implements Serializable {
                 toBroadcast.clear();
                 arg.clear();
                 arg.add(userHand.get(startingRoom.getPlayer(i).getUsername()));
-                arg.add(positions);
                 toBroadcast.add(startingRoom.getPlayer(i));
                 Message msg = new Message("startGame:success", arg);
                 if (!broadcast(msg, toBroadcast)) {
