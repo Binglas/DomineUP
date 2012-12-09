@@ -197,6 +197,13 @@ public class ComServer {
                     System.out.println(GetDate.now()+": "+thisClient + ": Error starting the game!");
                     return true;
                 }
+                    
+                case "startturn":
+                    if (startTurn(msg)) {
+                    return true;
+                } else {
+                    return true;
+                }
                    
                 case "requestRooms":
                         System.out.println(GetDate.now()+"+"+thisClient +" Request looged users");
@@ -705,6 +712,11 @@ public class ComServer {
             }
         }
         
+    }
+
+    private boolean startTurn(Message msg) {
+        String roomName = (String) msg.getArguments().get(0);
+        return state.startShift(roomName);
     }
 
 

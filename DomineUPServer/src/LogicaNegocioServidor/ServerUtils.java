@@ -408,6 +408,17 @@ public class ServerUtils implements Serializable {
             return false;
         }
     }
+    
+        private int findRoomPos(String roomName) {
+        synchronized (lockRoomsOnline) {
+            for (int i = 0; i < roomsOnline.size(); i++) {
+                if (roomsOnline.get(i).getName().equals(roomName)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
 
     /**
      * Get default que retorna a lista de User's online e testa se existem
@@ -677,5 +688,22 @@ public class ServerUtils implements Serializable {
             System.out.println("Exception: rank.. " + ex);
         }
         return null;
+    }
+
+    public boolean startShift(String roomName) {
+        synchronized (lockRoomsOnline) {
+            ArrayList<User> toBroadcast = new ArrayList<>();
+            ArrayList<Object> argument = new ArrayList<>();
+            GameRoom activeGame = roomsOnline.get(findRoomPos(roomName));
+            toBroadcast = activeGame.getBroadcast();
+            Message msg = new Message("firstShift", argument);
+            if (broadcast(msg, toBroadcast)) {
+                System.out.println(GetDate.now() + ": " + "Room '" + activeGame.getName() + "' started playing!");
+                return true;
+            } else {
+                System.out.println(GetDate.now() + ": " + "Error starting playing on " + activeGame.getName() + ".");
+                return false;
+            }
+        }
     }
 }
