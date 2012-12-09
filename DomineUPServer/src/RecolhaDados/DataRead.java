@@ -262,6 +262,61 @@ public class DataRead {
             return null;
         }
     }
+
+    public ArrayList<Object> getPub() throws SQLException {
+        
+                
+        Statement statement = null;
+        ResultSet rs = null;
+        
+        try {
+
+            Class.forName("org.postgresql.Driver");
+
+        } catch (ClassNotFoundException e) {
+
+            System.out.println("Where is your PostgreSQL JDBC Driver? " + "Include in your library path!");
+            e.printStackTrace();
+            throw new SQLException();
+            
+        }
+
+        System.out.println("PostgreSQL JDBC Driver Registered!");
+        Connection connection = null;
+        
+        try {
+                    connection = DriverManager.getConnection(
+                    "jdbc:postgresql://gnomo.fe.up.pt:5432/ee08251", "ee08251", "PtBfR2D5r");
+                    statement = connection.createStatement();
+        } catch (SQLException e) {
+            
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+            throw new SQLException();
+        }
+        
+        if (connection != null) {
+            System.out.println("Connected to database!");
+        
+                String QueryString2 = "select url from domineup.\"pub\"";
+                            rs = statement.executeQuery(QueryString2); 
+
+                ArrayList<Object> arguments = new ArrayList<Object>();
+                arguments.clear();
+                
+                while (rs.next()) {
+                    arguments.add(rs.getString(1));
+                }
+                
+                rs.close();
+                connection.close();
+                return arguments;
+                
+        } else {
+            System.out.println("Failed to make connection!");
+            return null;
+        }
+    }
 }
 
 

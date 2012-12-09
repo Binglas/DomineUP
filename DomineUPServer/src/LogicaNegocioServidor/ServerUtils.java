@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import Share.GameRoom;
 import Share.Hand;
+import java.util.Random;
 
 /**
  * Classe que suporta todas as operações do servidor.
@@ -31,6 +32,7 @@ public class ServerUtils implements Serializable {
     private ArrayList<GameRoom> roomsOnline;
     private ArrayList<GameState> runningGames;
     private ArrayList<String> invite;
+    private ArrayList<String> pub;
     private Hashtable<String, GameState> gameStats;
     private static ServerUtils instance;
     private Hashtable<String, ClientThread> userConnections;
@@ -39,6 +41,7 @@ public class ServerUtils implements Serializable {
     private final Object lockLoggedUsers = new Object();
     private final Object locktoBroadcastUsers = new Object();
     private final Object lockRoomsOnline = new Object();
+    private final Object lockPubList = new Object();
 
     /**
      * Este método retorna o nº utilizadores logados.
@@ -705,5 +708,18 @@ public class ServerUtils implements Serializable {
                 return false;
             }
         }
+    }
+
+    public ArrayList<Object> getPub() throws SQLException  {
+        DataRead DBreader = new DataRead();
+        try {
+            ArrayList<Object> publink = DBreader.getPub();
+            if (publink != null) {
+                return publink;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Exception: pub.. " + ex);
+        }
+        return null;
     }
 }

@@ -172,6 +172,95 @@ public class DataWrite {
         }
         
     }
+
+    public Boolean InsertPub(String pubLink, String pubName) throws SQLException {
+        Statement statement = null;
+        ResultSet rs = null;
+        int updateQuery = 0;
+        
+        try {
+
+            Class.forName("org.postgresql.Driver");
+
+        } catch (ClassNotFoundException e) {
+
+            System.out.println("Where is your PostgreSQL JDBC Driver? " + "Include in your library path!");
+            e.printStackTrace();
+            throw new SQLException();
+        }
+
+        System.out.println("PostgreSQL JDBC Driver Registered!");
+        Connection connection = null;
+        
+        try {
+            connection = DriverManager.getConnection(
+                    "jdbc:postgresql://gnomo.fe.up.pt:5432/ee08251", "ee08251", "PtBfR2D5r");
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+            throw new SQLException();
+
+        }
+        
+        if (connection != null) {
+            System.out.println("Connected to database!");
+
+            String QueryString = "INSERT INTO domineup.\"pub\" (nome, url) \n" +
+            "VALUES ('"+pubName+"', '"+pubLink+"')\n";
+                                               
+            updateQuery = statement.executeUpdate(QueryString);
+            return true;
+        } else {
+            System.out.println("Failed to make connection!");
+            throw new SQLException();
+        }
+    }
+
+    public Boolean DeletePub(String pubName) throws SQLException {
+                Statement statement = null;
+        ResultSet rs = null;
+        int updateQuery = 0;
+        
+        try {
+
+            Class.forName("org.postgresql.Driver");
+
+        } catch (ClassNotFoundException e) {
+
+            System.out.println("Where is your PostgreSQL JDBC Driver? " + "Include in your library path!");
+            e.printStackTrace();
+            throw new SQLException();
+        }
+
+        System.out.println("PostgreSQL JDBC Driver Registered!");
+        Connection connection = null;
+        
+        try {
+            connection = DriverManager.getConnection(
+                    "jdbc:postgresql://gnomo.fe.up.pt:5432/ee08251", "ee08251", "PtBfR2D5r");
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+            throw new SQLException();
+
+        }
+        
+        if (connection != null) {
+            System.out.println("Connected to database!");
+
+            String QueryString = "DELETE FROM domineup.\"pub\" WHERE nome = '"+pubName+"'";
+                                               
+            updateQuery = statement.executeUpdate(QueryString);
+            return true;
+        } else {
+            System.out.println("Failed to make connection!");
+            throw new SQLException();
+        }
+    }
 }
 
 

@@ -188,6 +188,14 @@ public class ComServer {
                         return true; 
                     }
                     
+                case "requestPub":
+                    if (requestPub(msg)){
+                        return true;
+                    }else{
+                        System.out.println(GetDate.now()+": "+thisClient + ": Error getting pubs!");
+                        return true; 
+                    }
+                    
                 case "startGame":
                     System.out.println(GetDate.now()+": "+thisClient + ": Requested the Start of the Game!");
                 if (startGame(msg)) {
@@ -717,6 +725,32 @@ public class ComServer {
     private boolean startTurn(Message msg) {
         String roomName = (String) msg.getArguments().get(0);
         return state.startShift(roomName);
+    }
+
+    private boolean requestPub(Message msg) throws SQLException {
+        
+        ArrayList<Object> pub = state.getPub();
+        if (pub != null) {
+            try {
+                Message answrMsg = new Message("answrRequestPub:success", pub);
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.requestPub(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        } else {
+            try {
+                Message answrMsg = new Message("answrRequestPub:error", pub);
+                clientThread.writeMessage(answrMsg);
+                return false;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.requestPub(): 2!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        }
     }
 
 
