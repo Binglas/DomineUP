@@ -22,6 +22,7 @@ public class Pieces implements Serializable {
     private int rightN = 0;
     private String pieceCode;
     private boolean alinhamento = false;
+    private String img;
 
     /**
      * Construtor da classe Tile
@@ -41,9 +42,10 @@ public class Pieces implements Serializable {
         this.pieceCode = pieceCode;
     }
     
-    public Pieces(int rightN,int leftN){
+    public Pieces(int rightN,int leftN,String img){
         this.rightN = rightN;
         this.leftN = leftN;
+        this.img = img;
                
     }
 
@@ -106,5 +108,9 @@ public class Pieces implements Serializable {
      */
     public void setRightN(int rightN) {
         this.rightN = rightN;
+    }
+
+    public String getImage() {
+       return img;
     }
 }

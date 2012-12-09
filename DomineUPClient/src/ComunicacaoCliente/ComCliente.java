@@ -454,6 +454,7 @@ public class ComCliente {
                         
                     case "startGame:success":
                         ReaderThread.hand = (Hand) msg.getArguments().get(0);
+                        System.out.println("dasfdas - " + ReaderThread.hand.getOnePiece(0).getImage());
                         return "gameStart:success";
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");

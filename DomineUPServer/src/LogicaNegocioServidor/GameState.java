@@ -58,7 +58,7 @@ class GameState {
         int c = 0;
         for (int i = 0; i <= 6; i++) {
             for (int j = i; j <= 6; j++) {
-                deck[c] = new Pieces(i, j);
+                deck[c] = new Pieces(i, j,"peca"+i+""+j+".png");
                 c++;
             }
         }
@@ -172,11 +172,11 @@ class GameState {
      * @param players é o Array de Users que irão ter as suas mãos sorteadas.
      */
     public void DrawHand(ArrayList<User> players) {
-        Pieces[] tempHand = new Pieces[6];
+        Pieces[] tempHand = new Pieces[7];
 
         for (int i = 0; i < players.size(); i++) {
 
-            for (int number = 0; number < 6; number++) {
+            for (int number = 0; number < 7; number++) {
                 tempHand[number] = this.DrawPiece();
             }
             

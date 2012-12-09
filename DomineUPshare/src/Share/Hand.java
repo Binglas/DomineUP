@@ -44,7 +44,7 @@ public class Hand implements Serializable{
      */
     public int getSize() {
         int size = 0;
-        for (int i = 0; i < pieces.length; i++) {
+        for (int i = 0; i < getPieces().length; i++) {
                 size++;
         }
         return size;
@@ -57,7 +57,7 @@ public class Hand implements Serializable{
      */
     public Pieces getOnePiece(int index) {
 
-        return this.pieces[index];
+        return this.getPieces()[index];
     }
     
    /**
@@ -67,6 +67,13 @@ public class Hand implements Serializable{
      */
     public void setOneTile(int index, Pieces piece) {
         this.pieces[index] = piece;
+    }
+
+    /**
+     * @return the pieces
+     */
+    public Pieces[] getPieces() {
+        return pieces;
     }
     
 }

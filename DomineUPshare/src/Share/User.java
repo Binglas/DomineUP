@@ -169,4 +169,13 @@ public class User implements Serializable {
     public void setRank(int rank) {
         this.rank = rank;
     }
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof User))
+            return false;
+        User u = (User)o;
+        
+        return this.username.equals( u.getUsername());
+        
+    }
 }

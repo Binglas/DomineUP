@@ -326,7 +326,7 @@
         <Component class="javax.swing.JLabel" name="avatar6">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/avatar6_min.png"/>
+              <Image iconType="3" name="/resources/min_avatar6.png"/>
             </Property>
           </Properties>
         </Component>
@@ -335,7 +335,7 @@
         <Component class="javax.swing.JLabel" name="avatar5">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/avatar1_min.png"/>
+              <Image iconType="3" name="/resources/min_avatar1.png"/>
             </Property>
           </Properties>
         </Component>
@@ -346,7 +346,7 @@
         <Component class="javax.swing.JLabel" name="avatar4">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/avatar4_min.png"/>
+              <Image iconType="3" name="/resources/min_avatar4.png"/>
             </Property>
           </Properties>
         </Component>
@@ -355,14 +355,14 @@
         <Component class="javax.swing.JLabel" name="avatar1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/avatar5_min.png"/>
+              <Image iconType="3" name="/resources/min_avatar5.png"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="avatar2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/avatar2_min.png"/>
+              <Image iconType="3" name="/resources/min_avatar2.png"/>
             </Property>
           </Properties>
         </Component>
@@ -373,7 +373,7 @@
         <Component class="javax.swing.JLabel" name="avatar3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/avatar3_min.png"/>
+              <Image iconType="3" name="/resources/min_avatar3.png"/>
             </Property>
           </Properties>
         </Component>

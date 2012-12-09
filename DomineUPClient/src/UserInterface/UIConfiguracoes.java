@@ -206,17 +206,17 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         ErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        avatar6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar6_min.png"))); // NOI18N
+        avatar6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar6.png"))); // NOI18N
 
-        avatar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar1_min.png"))); // NOI18N
+        avatar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar1.png"))); // NOI18N
 
-        avatar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar4_min.png"))); // NOI18N
+        avatar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar4.png"))); // NOI18N
 
-        avatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar5_min.png"))); // NOI18N
+        avatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar5.png"))); // NOI18N
 
-        avatar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar2_min.png"))); // NOI18N
+        avatar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar2.png"))); // NOI18N
 
-        avatar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar3_min.png"))); // NOI18N
+        avatar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar3.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

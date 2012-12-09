@@ -616,19 +616,21 @@ public class ServerUtils implements Serializable {
 
             Hashtable<String, Hand> userHand = new Hashtable<String, Hand>();
             roomState.DrawHand(players);
-            System.out.println("AQUI NAO 1");
+          
             userHand = roomState.getPlayerHands();
-            System.out.println("AQUI NAO 2");
+           
             ArrayList<Object> arg = new ArrayList<>();
             ArrayList<User> toBroadcast = new ArrayList<>();
-            Hashtable<Integer, String> positions = roomState.getPositions();
+           
 
             for ( i = 0; i < startingRoom.getCurPlayers(); i++) {
 
-                System.out.println("OAAOAOAOAOAO");
+              
                 toBroadcast.clear();
                 arg.clear();
-                arg.add(userHand.get(startingRoom.getPlayer(i).getUsername()));
+                Hand h = userHand.get(startingRoom.getPlayer(i).getUsername());
+                System.out.println("adsadsadsa - " + h.getOnePiece(0).getImage());
+                arg.add(h);
                 toBroadcast.add(startingRoom.getPlayer(i));
                 Message msg = new Message("startGame:success", arg);
                 if (!broadcast(msg, toBroadcast)) {
