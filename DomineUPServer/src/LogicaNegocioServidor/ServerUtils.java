@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import Share.GameRoom;
 import Share.Hand;
+import Share.Piece;
 import java.util.Random;
 
 /**
@@ -183,7 +184,6 @@ public class ServerUtils implements Serializable {
                     //procurar jogador nas sala e eliminar
                     for (int i = 0; i < roomsOnline.size(); i++) {
                         ArrayList<User> player = roomsOnline.get(i).getBroadcast();
-                        System.out.println("AQUI NAO:" + player.size());
                         for (int ii = 0; i < roomsOnline.get(i).getCurPlayers(); ii++) {
 
                             if (player.get(ii).getUsername().equals(username)) {
@@ -628,7 +628,7 @@ public class ServerUtils implements Serializable {
 
 
 
-            Hashtable<String, Hand> userHand = new Hashtable<String, Hand>();
+            Hashtable<User, Hand> userHand = new Hashtable<User, Hand>();
             roomState.DrawHand(players);
           
             userHand = roomState.getPlayerHands();
@@ -643,7 +643,6 @@ public class ServerUtils implements Serializable {
                 toBroadcast.clear();
                 arg.clear();
                 Hand h = userHand.get(startingRoom.getPlayer(i).getUsername());
-                System.out.println("adsadsadsa - " + h.getOnePiece(0).getImage());
                 arg.add(h);
                 toBroadcast.add(startingRoom.getPlayer(i));
                 Message msg = new Message("startGame:success", arg);
@@ -652,8 +651,12 @@ public class ServerUtils implements Serializable {
                     return false;
                 }
             }
+            roomState.setLeftSide(null);
+            roomState.setRightSide(null);
+            roomState.activePlayer=roomsOnline.get(roomIndex).getPlayerbyUsername(roomsOnline.get(roomIndex).getCreator());
             runningGames.add(roomState);
             roomsOnline.set(roomIndex, startingRoom);
+            
             gameStats.put(roomName, roomState);
             return true;
         }
@@ -693,21 +696,42 @@ public class ServerUtils implements Serializable {
         return null;
     }
 
-    public boolean startShift(String roomName) {
+            
+    public boolean tryPlayPiece(User user,Piece piece,GameRoom sala) {
         synchronized (lockRoomsOnline) {
-            ArrayList<User> toBroadcast = new ArrayList<>();
-            ArrayList<Object> argument = new ArrayList<>();
-            GameRoom activeGame = roomsOnline.get(findRoomPos(roomName));
-            toBroadcast = activeGame.getBroadcast();
-            Message msg = new Message("firstShift", argument);
-            if (broadcast(msg, toBroadcast)) {
-                System.out.println(GetDate.now() + ": " + "Room '" + activeGame.getName() + "' started playing!");
-                return true;
-            } else {
-                System.out.println(GetDate.now() + ": " + "Error starting playing on " + activeGame.getName() + ".");
-                return false;
+            ArrayList<Object> arguments = new ArrayList<Object>();
+            ArrayList<User> toBroadcast = new ArrayList<User>();
+            GameRoom myRoom;
+            
+            for (GameState g: runningGames){
+                
+                if(g.getName().equals(sala.getName())) {
+                    User OldUser = g.activePlayer;
+                    if (g.getLeftSide()==null && g.getRightSide()==null){
+                        makePlay(g, user, piece, sala);
+                        g.setLeftSide(piece);
+                        g.setRightSide(piece);
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                        
+                    }
+                    else if(g.getLeftSide().getLeftN()== piece.getLeftN()) {
+                        makePlay(g, user, piece, sala);
+                        g.setLeftSide(piece);
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                    }
+                    else if(g.getRightSide().getRightN() == piece.getRightN()) {
+                        makePlay(g, user, piece, sala);
+                        g.setRightSide(piece);
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                    }
+                    else {
+                        return false; // mandar mensagem apenas ao utilizador que tentou jogar.
+                    }
+                }
             }
+            
         }
+        return false;
     }
 
     public ArrayList<Object> getPub() throws SQLException  {
@@ -721,5 +745,29 @@ public class ServerUtils implements Serializable {
             System.out.println("Exception: pub.. " + ex);
         }
         return null;
+    }
+
+    private void makePlay(GameState g, User user, Piece piece, GameRoom sala) {
+        g.getPlayerHands().get(user).removePiece(piece);
+        int nextPlayer = sala.nextPlayer(user);
+        g.setActivePlayer(sala.getPlayer(nextPlayer));
+    }
+
+    private boolean SendMessagePlayers(GameRoom sala, ArrayList<User> toBroadcast, ArrayList<Object> arguments, Piece piece, GameState g, User OldUser) {
+        GameRoom myRoom;
+        //enviar a todos os jogadores da sala
+        myRoom = sala;
+        for (int i = 0; i < myRoom.getCurPlayers(); i++) {
+            toBroadcast.add(myRoom.getPlayer(i));
+        }
+        arguments.add(piece);
+        arguments.add(g.activePlayer);
+        arguments.add(OldUser);
+        Message msg = new Message("RequestPiecePlay:success", arguments);
+        if (broadcast(msg, toBroadcast)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

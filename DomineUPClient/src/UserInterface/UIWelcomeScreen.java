@@ -13,7 +13,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
 import Share.GameRoom;
+import Share.Message;
+import java.awt.image.BufferedImage;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * Este é o interface após o utilizador ter realizado o login, contém dados do utilizador,
@@ -29,6 +35,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     public static UIWaitingRoom waitingRoomScreen;
     public static UIGameRoom uiGameRoom;
     public static UIinvited uiinvited;
+    public static Message puburl;
     public static UIRank uirank = new UIRank();
     public static ArrayList<User> usersOnlineList;
     public static ArrayList<GameRoom> roomsOnlineList;
@@ -182,6 +189,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         RoomPasswordField = new javax.swing.JPasswordField();
         OptionsButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        pub = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -400,30 +408,35 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
             }
         });
 
+        pub.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(WelcomeLabel)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(WelcomeLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 501, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(pub, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Tittle)
-                                .addGap(94, 94, 94)
+                                .addGap(46, 46, 46)
                                 .addComponent(LanguageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)))
                         .addComponent(VolumeLogoOff)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addComponent(avatarLabel)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -485,12 +498,13 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                             .addComponent(LanguageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(VolumeLogoOn)
-                            .addComponent(VolumeLogoOff))
-                        .addGap(35, 35, 35))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(VolumeLogoOff)))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Tittle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Tittle))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(WelcomeLabel)
                     .addComponent(UsernameLabel))
@@ -761,6 +775,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lostGames;
+    private javax.swing.JLabel pub;
     private javax.swing.JLabel ratio;
     private javax.swing.JTextArea textAreaChatWindow;
     private javax.swing.JTextField txtChat;
@@ -774,9 +789,17 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
      * @author Luciano
      */
     
-    public void updateScreen() {
+    public void updateScreen() throws MalformedURLException, IOException {
         
          int i;
+         //add pub
+        
+        if (0!=puburl.getSizeMensagem()){
+            BufferedImage img = ImageIO.read(new URL(puburl.getArguments().get(0).toString()));
+            ImageIcon icone = new ImageIcon(img);  
+            pub.setIcon(icone);
+        }
+       
          //clear jtable rooms
          for(i=0;i<20;i++){
              

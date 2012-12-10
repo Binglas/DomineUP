@@ -8,13 +8,14 @@
 package Share;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
- * A classe Pieces contém as informações de cada peça, necessárias para a sua
+ * A classe Piece contém as informações de cada peça, necessárias para a sua
  * apresentação na UI do jogo
  * @author Andre
  */
-public class Pieces implements Serializable {
+public class Piece implements Serializable {
 
     static final long serialVersionUID = 125L;
     private int number = 0;
@@ -27,22 +28,22 @@ public class Pieces implements Serializable {
     /**
      * Construtor da classe Tile
      */
-    public Pieces() {
+    public Piece() {
         this.number = 0;
         this.pieceCode = "";
     }
 
     /**
-     * Contrutor da classe Pieces com atributos
+     * Contrutor da classe Piece com atributos
      * @param number
      * @param pieceCode 
      */
-    public Pieces(int number, String pieceCode) {
+    public Piece(int number, String pieceCode) {
         this.number = number;
         this.pieceCode = pieceCode;
     }
     
-    public Pieces(int rightN,int leftN,String img){
+    public Piece(int rightN,int leftN,String img){
         this.rightN = rightN;
         this.leftN = leftN;
         this.img = img;
@@ -112,5 +113,34 @@ public class Pieces implements Serializable {
 
     public String getImage() {
        return img;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        
+        if(obj == null) {
+            return false;
+        }
+        else if(obj instanceof Piece) {
+            Piece piece = (Piece)obj;
+            if(this.leftN == piece.leftN && this.rightN == piece.rightN) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + this.number;
+        hash = 67 * hash + this.leftN;
+        hash = 67 * hash + this.rightN;
+        hash = 67 * hash + Objects.hashCode(this.pieceCode);
+        return hash;
     }
 }

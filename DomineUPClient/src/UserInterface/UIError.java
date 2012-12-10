@@ -4,12 +4,16 @@
  */
 package UserInterface;
 
+import LogicaNegocioCliente.Language;
+
 /**
  * Interface que mostra possíveis erros ao utilizador.
  * @author Luciano
  */
 public class UIError extends javax.swing.JFrame {
 
+     public String Lang = Language.getInstance().GetLanguage();
+    
     /**
      * Cria instancia da classe UIError.
      */
@@ -46,7 +50,7 @@ public class UIError extends javax.swing.JFrame {
         setResizable(false);
 
         ErrorTittleLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        ErrorTittleLabel.setText("Error");
+        ErrorTittleLabel.setText(java.util.ResourceBundle.getBundle(Lang).getString("ErrorLabel"));
 
         okButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         okButton.setText("Ok");
@@ -74,7 +78,7 @@ public class UIError extends javax.swing.JFrame {
                 .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)

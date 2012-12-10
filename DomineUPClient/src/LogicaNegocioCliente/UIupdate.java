@@ -41,7 +41,8 @@ public class UIupdate extends Thread{
 
                 com.requestUsers();
                 com.requestRooms();
-                com.requestRank();      
+                com.requestRank(); 
+                com.requestPub();
                 screen.updateScreen();
                               
                 try {

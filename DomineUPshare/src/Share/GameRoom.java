@@ -54,6 +54,16 @@ public class GameRoom implements Serializable{
     public int getCurPlayers(){
         return getPlayers().size();
     }
+    public User getPlayerbyUsername(String Username){
+        
+        for(User u:players){
+            if (u.getUsername().equals(Username)){
+                return u;
+            }
+            
+        }
+        return null;
+    }
     /**
      * Get genérico
      * @return string criador
@@ -127,7 +137,7 @@ public class GameRoom implements Serializable{
     public User getPlayer(int index) {
         return getPlayers().get(index);
     }
-    
+     
     public int getSize() {
         return getPlayers().size();
     }
@@ -170,6 +180,18 @@ public class GameRoom implements Serializable{
     public ArrayList<User> getPlayers() {
         return players;
     }
+    
+    public int nextPlayer(User u) {
+        
 
+       for(int i = 0; i < this.players.size(); i++) {
+           if(this.players.get(i).equals(u)) {
+               return (i+1)%this.players.size();
+           }
+       }
+      
+       return -1;
+      
+    }
     
 }
