@@ -632,7 +632,8 @@ public class ServerUtils implements Serializable {
             roomState.DrawHand(players);
           
             userHand = roomState.getPlayerHands();
-           
+            
+            
             ArrayList<Object> arg = new ArrayList<>();
             ArrayList<User> toBroadcast = new ArrayList<>();
            
@@ -642,7 +643,8 @@ public class ServerUtils implements Serializable {
               
                 toBroadcast.clear();
                 arg.clear();
-                Hand h = userHand.get(startingRoom.getPlayer(i).getUsername());
+                Hand h = userHand.get(startingRoom.getPlayer(i));
+               
                 arg.add(h);
                 toBroadcast.add(startingRoom.getPlayer(i));
                 Message msg = new Message("startGame:success", arg);

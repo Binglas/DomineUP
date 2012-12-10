@@ -464,7 +464,7 @@ public class ComCliente {
                         
                         return "RequestPiecePlay:success";
                     case "RequestPiecePlay:error":
-                        ReaderThread.welcomescreen.uiGameRoom.setState("Estado:"+);
+                      //  ReaderThread.welcomescreen.uiGameRoom.setState("Estado:"+);
                         return "RequestPiecePlay:error";
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");
