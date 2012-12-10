@@ -180,7 +180,9 @@ public class GameRoom implements Serializable{
     public ArrayList<User> getPlayers() {
         return players;
     }
-    
+    /*
+     * Metodo que permite obter qual o próximo jogador a jogar.
+     */
     public int nextPlayer(User u) {
         
 

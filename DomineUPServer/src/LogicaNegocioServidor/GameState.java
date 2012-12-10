@@ -38,7 +38,7 @@ class GameState {
      * algumas das informações necessárias para a inicialização do jogo.
      */
     public GameState(GameRoom startingRoom) {
-        board = new Piece[BOARDSIZEX * BOARDSIZEY];
+       
         deck = new Piece[DECKSIZE];
         playerHands = new Hashtable<User, Hand>();
         hands = new Hand[startingRoom.getCurPlayers()];
@@ -50,9 +50,15 @@ class GameState {
             hands[j] = new Hand();
         }
 
+<<<<<<< HEAD
         for (int i = 0; i < (BOARDSIZEX * BOARDSIZEY); i++) {
             board[i] = new Piece();
         }
+=======
+       
+
+       
+>>>>>>> 307874e215de2e85cefcfea090d78db47715a125
         int c = 0;
         for (int i = 0; i <= 6; i++) {
             for (int j = i; j <= 6; j++) {
@@ -109,7 +115,7 @@ class GameState {
 
 
     /**
-     * Este método implementa um gerador aleatóreo de inteiros de 0 a 23, com o
+     * Este método implementa um gerador aleatório de inteiros de 0 a 28, com o
      * objectivo de dar peças aleatóreas aos jogadores. A peça sorteada é então
      * retirada do baralho e o seu valor correspondente (previamente
      * inicializado) é retornado.
@@ -138,13 +144,16 @@ class GameState {
         ArrayList<Piece> tempHand = new ArrayList<Piece>();
         tempHand.clear();
         for(int i = 0; i < players.size(); i++) {
+            tempHand.clear();
             for(int j = 0; j < 7; j++) {
                 tempHand.add(this.DrawPiece());
             }
             
             hands[i].setPieces(tempHand);
             this.playerHands.put(players.get(i), hands[i]);
+           
         }
+         
     }
 
     /**

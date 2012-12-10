@@ -104,7 +104,7 @@ public class ReaderThread extends Thread {
                         //Send user simple data to the WelcomeScreen
                         welcomescreen = new UIWelcomeScreen(player);
                         welcomescreen.setVisible(true); 
-                        welcomescreen.setDisableRoomButton();
+                        //FIXME: welcomescreen.setDisableRoomButton();
                         welcomescreen.setDisableOptionsButton();
                         new UIupdate(welcomescreen).start();
                         break;
