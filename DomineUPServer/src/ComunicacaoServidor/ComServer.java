@@ -542,6 +542,7 @@ public class ComServer {
             return false;
         }
     }
+    
     /**
      * Este método descodifica os argumentos enviados pelo cliente e chama o método
      * createRoom da classe ServerState. É enviada uma mensagem ao cliente
@@ -776,6 +777,4 @@ public class ComServer {
             }
         }
     }
-
-
 }
