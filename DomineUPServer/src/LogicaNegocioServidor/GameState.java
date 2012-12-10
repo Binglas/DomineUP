@@ -50,8 +50,6 @@ class GameState {
             hands[j] = new Hand();
         }
 
-       
-
         for (int i = 0; i < (BOARDSIZEX * BOARDSIZEY); i++) {
             board[i] = new Piece();
         }
@@ -131,14 +129,14 @@ class GameState {
 
     /**
      * Este método inicializa todas as mãos dos jogadores duma sala, chamando o
-     * método DrawPiece() 6 vezes para as tantas peças com que cada User começa,
+     * método DrawPiece() 7 vezes para as tantas peças com que cada User começa,
      * e inicializando as restantes com valores em branco.
      *
      * @param players é o Array de Users que irão ter as suas mãos sorteadas.
      */
     public void DrawHand(ArrayList<User> players) {
         ArrayList<Piece> tempHand = new ArrayList<Piece>();
-        
+        tempHand.clear();
         for(int i = 0; i < players.size(); i++) {
             for(int j = 0; j < 7; j++) {
                 tempHand.add(this.DrawPiece());

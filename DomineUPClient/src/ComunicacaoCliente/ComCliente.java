@@ -10,6 +10,7 @@ import Share.Hand;
 import Share.Message;
 import Share.Piece;
 import Share.User;
+import UserInterface.UIGameRoom;
 import UserInterface.UIWaitingRoom;
 import UserInterface.UIWelcomeScreen;
 import java.io.*;
@@ -461,10 +462,12 @@ public class ComCliente {
                         ReaderThread.hand = (Hand) msg.getArguments().get(0);
                         return "gameStart:success";
                     case "RequestPiecePlay:success":
-                        
+                        ReaderThread.welcomescreen.uiGameRoom.PlayerTime = (User) msg.getArguments().get(1);
+                        Piece pecaremovida = (Piece) msg.getArguments().get(0);
+                        ReaderThread.hand.removePiece(pecaremovida);
+                        ReaderThread.welcomescreen.uiGameRoom.addPeca(pecaremovida);
                         return "RequestPiecePlay:success";
                     case "RequestPiecePlay:error":
-                        ReaderThread.welcomescreen.uiGameRoom.setState("Estado:"+);
                         return "RequestPiecePlay:error";
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");
