@@ -13,8 +13,8 @@ import java.util.Hashtable;
 import java.util.Random;
 
 /**
- *
- * @author Andre
+ * Classe que suporta todos os estados do jogo.
+ * @author Andre,Luciano
  */
 class GameState {
 
@@ -23,6 +23,7 @@ class GameState {
     Piece[] deck;
     Piece[] board;
     Hand[] hands;
+    Hand[] handstemp;
     Random rand;
     private Hashtable<String, Hand> playerHands;
    
@@ -42,12 +43,14 @@ class GameState {
         deck = new Piece[DECKSIZE];
         playerHands = new Hashtable<String, Hand>();
         hands = new Hand[startingRoom.getCurPlayers()];
+        handstemp = new Hand[startingRoom.getCurPlayers()];
         rand = new Random();
         
         name = startingRoom.getName();
 
         for (int j = 0; j < startingRoom.getCurPlayers(); j++) {
             hands[j] = new Hand();
+            handstemp[j]=new Hand();
         }
         int c = 0;
         for (int i = 0; i <= 6; i++) {
@@ -136,10 +139,10 @@ class GameState {
         for(int i = 0; i < players.size(); i++) {
             tempHand.clear();
             for(int j = 0; j < 7; j++) {
-                tempHand.add(this.DrawPiece());
+                hands[i].setOnePiece(j, this.DrawPiece());
+                
             }
-            
-            hands[i].setPieces(tempHand);
+                  
             this.playerHands.put(players.get(i).getUsername(), hands[i]);
            
         }

@@ -59,7 +59,7 @@ public class Hand implements Serializable{
      * @param piece 
      */
     public void setOnePiece(int index, Piece piece) {
-        //this.pieces[index] = piece; //FIXME: ver para que serve
+        this.pieces.add(index, piece);
     }
 
     /**
