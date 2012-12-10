@@ -18,13 +18,13 @@ import java.util.Random;
  */
 class GameState {
 
-    private int BOARDSIZEX = 7, BOARDSIZEY = 20, DECKSIZE = 28;
+    private int DECKSIZE = 28;
     private String name;
     Piece[] deck;
     Piece[] board;
     Hand[] hands;
     Random rand;
-    private Hashtable<User, Hand> playerHands;
+    private Hashtable<String, Hand> playerHands;
    
     User activePlayer;
     private Piece leftside;
@@ -40,7 +40,7 @@ class GameState {
     public GameState(GameRoom startingRoom) {
        
         deck = new Piece[DECKSIZE];
-        playerHands = new Hashtable<User, Hand>();
+        playerHands = new Hashtable<String, Hand>();
         hands = new Hand[startingRoom.getCurPlayers()];
         rand = new Random();
         
@@ -144,7 +144,7 @@ class GameState {
             }
             
             hands[i].setPieces(tempHand);
-            this.playerHands.put(players.get(i), hands[i]);
+            this.playerHands.put(players.get(i).getUsername(), hands[i]);
            
         }
          
@@ -155,7 +155,7 @@ class GameState {
      *
      * @return Retorna a Hashtable com <String, Hand>
      */
-    public Hashtable<User, Hand> getPlayerHands() {
+    public Hashtable<String, Hand> getPlayerHands() {
         return playerHands;
     }
     
@@ -181,5 +181,13 @@ class GameState {
     
     public void setRightSide(Piece rightSide) {
         this.rightside = rightSide;
+    }
+
+    void removePiece(User player,Piece piece) {
+        
+       // SystemplayerHands.get(player)
+        playerHands.get(player).removePiece(piece);
+        
+       
     }
 }
