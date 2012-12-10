@@ -54,11 +54,11 @@ public class Hand implements Serializable{
     }
     
    /**
-     * Este método introduz o objeto tile na posicao index
+     * Este método introduz o objeto piece na posicao index
      * @param index
      * @param piece 
      */
-    public void setOneTile(int index, Piece piece) {
+    public void setOnePiece(int index, Piece piece) {
         //this.pieces[index] = piece; //FIXME: ver para que serve
     }
 

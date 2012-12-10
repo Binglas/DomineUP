@@ -50,9 +50,15 @@ class GameState {
             hands[j] = new Hand();
         }
 
+<<<<<<< HEAD
+        for (int i = 0; i < (BOARDSIZEX * BOARDSIZEY); i++) {
+            board[i] = new Piece();
+        }
+=======
        
 
        
+>>>>>>> 307874e215de2e85cefcfea090d78db47715a125
         int c = 0;
         for (int i = 0; i <= 6; i++) {
             for (int j = i; j <= 6; j++) {
@@ -129,14 +135,14 @@ class GameState {
 
     /**
      * Este método inicializa todas as mãos dos jogadores duma sala, chamando o
-     * método DrawPiece() 6 vezes para as tantas peças com que cada User começa,
+     * método DrawPiece() 7 vezes para as tantas peças com que cada User começa,
      * e inicializando as restantes com valores em branco.
      *
      * @param players é o Array de Users que irão ter as suas mãos sorteadas.
      */
     public void DrawHand(ArrayList<User> players) {
         ArrayList<Piece> tempHand = new ArrayList<Piece>();
-        
+        tempHand.clear();
         for(int i = 0; i < players.size(); i++) {
             tempHand.clear();
             for(int j = 0; j < 7; j++) {

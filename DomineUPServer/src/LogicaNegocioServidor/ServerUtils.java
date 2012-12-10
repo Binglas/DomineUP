@@ -410,17 +410,6 @@ public class ServerUtils implements Serializable {
             return false;
         }
     }
-    
-        private int findRoomPos(String roomName) {
-        synchronized (lockRoomsOnline) {
-            for (int i = 0; i < roomsOnline.size(); i++) {
-                if (roomsOnline.get(i).getName().equals(roomName)) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-    }
 
     /**
      * Get default que retorna a lista de User's online e testa se existem
@@ -643,7 +632,6 @@ public class ServerUtils implements Serializable {
                 toBroadcast.clear();
                 arg.clear();
                 Hand h = userHand.get(startingRoom.getPlayer(i).getUsername());
-               
                 arg.add(h);
                 toBroadcast.add(startingRoom.getPlayer(i));
                 Message msg = new Message("startGame:success", arg);

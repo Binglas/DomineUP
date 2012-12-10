@@ -43,7 +43,7 @@ public class UIGameRoom extends javax.swing.JFrame {
     int lastY;
     int lastX;
     int DeckPieces=28;
-    User PlayerTime; //saber de quem é a vez
+    public User PlayerTime; //saber de quem é a vez
     private Hashtable<JLabel, Piece> piecesPosition = new Hashtable<JLabel, Piece>();
     GameRoom gameRoom;
     
@@ -101,7 +101,7 @@ public class UIGameRoom extends javax.swing.JFrame {
        handsPanel[1] = hand3;
        handsPanel[2] = hand4;
        
-        i = 0;
+       i = 0;
        
        for(User u: gr.getPlayers()){
            if(u.getUsername().equals(UIWelcomeScreen.player.getUsername()))
@@ -127,9 +127,6 @@ public class UIGameRoom extends javax.swing.JFrame {
        DeckPiecesNumberLabel.setText(Integer.toString(DeckPieces));
        populateHand(hand1, hand, Rotate.NORMAL);
        Estado.setText("Vez do jogador "+PlayerTime.getUsername());
-       
-       
-       
     }
     
     private void populateHand(JPanel panel, Hand hand,Rotate r){
@@ -519,7 +516,7 @@ public class UIGameRoom extends javax.swing.JFrame {
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // TODO add your handling code here:
-        addPeca();
+        //addPeca();
     }//GEN-LAST:event_jToggleButton2ActionPerformed
     /**
      * Atualiza a área de chat com as mensagens que vão sendo introduzidas pelos
@@ -580,7 +577,7 @@ public class UIGameRoom extends javax.swing.JFrame {
     Rotate r = Rotate.UP;
     int x = 75;
     int y = 35;
-    private void addPeca() {
+    public void addPeca(Piece piece) {
         
         JLabel j = new JLabel();
         Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/peca31.png")), r);
