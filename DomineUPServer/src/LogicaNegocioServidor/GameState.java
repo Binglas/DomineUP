@@ -6,7 +6,7 @@ package LogicaNegocioServidor;
 
 import Share.GameRoom;
 import Share.Hand;
-import Share.Pieces;
+import Share.Piece;
 import Share.User;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -20,13 +20,15 @@ class GameState {
 
     private int BOARDSIZEX = 7, BOARDSIZEY = 20, DECKSIZE = 28;
     private String name;
-    Pieces[] deck;
-    Pieces[] board;
+    Piece[] deck;
+    Piece[] board;
     Hand[] hands;
     Random rand;
-    private Hashtable<String, Hand> playerHands;
-    private Hashtable<Integer, String> positions;
-    private int activePlayer;
+    private Hashtable<User, Hand> playerHands;
+   
+    User activePlayer;
+    private Piece leftside;
+    private Piece rightside;
 
     /**
      * Contrutor da classe GameState. Este inicializa todas as variáveis que vão
@@ -36,29 +38,27 @@ class GameState {
      * algumas das informações necessárias para a inicialização do jogo.
      */
     public GameState(GameRoom startingRoom) {
-        board = new Pieces[BOARDSIZEX * BOARDSIZEY];
-        deck = new Pieces[DECKSIZE];
-        playerHands = new Hashtable<String, Hand>();
+        board = new Piece[BOARDSIZEX * BOARDSIZEY];
+        deck = new Piece[DECKSIZE];
+        playerHands = new Hashtable<User, Hand>();
         hands = new Hand[startingRoom.getCurPlayers()];
         rand = new Random();
-        positions = new Hashtable<Integer, String>();
+        
         name = startingRoom.getName();
 
         for (int j = 0; j < startingRoom.getCurPlayers(); j++) {
             hands[j] = new Hand();
         }
 
-        for (int i = 0; i < startingRoom.getCurPlayers(); i++) {
-            positions.put(i, startingRoom.getPlayer(i).getUsername());
-        }
+       
 
         for (int i = 0; i < (BOARDSIZEX * BOARDSIZEY); i++) {
-            board[i] = new Pieces();
+            board[i] = new Piece();
         }
         int c = 0;
         for (int i = 0; i <= 6; i++) {
             for (int j = i; j <= 6; j++) {
-                deck[c] = new Pieces(i, j,"peca"+i+""+j+".png");
+                deck[c] = new Piece(i, j,"peca"+i+""+j+".png");
                 c++;
             }
         }
@@ -78,7 +78,7 @@ class GameState {
      *
      * @return int activePlayer
      */
-    public int getCurPlayer() {
+    public User getCurPlayer() {
         return activePlayer;
     }
 
@@ -96,7 +96,7 @@ class GameState {
      *
      * @return Retorna o tabuleiro de jogo.
      */
-    public Pieces[] getBoard() {
+    public Piece[] getBoard() {
         return board;
     }
 
@@ -105,45 +105,10 @@ class GameState {
      *
      * @param board é o novo tabuleiro a ser guardado.
      */
-    public void setBoard(Pieces[] board) {
+    public void setBoard(Piece[] board) {
         this.board = board;
     }
 
-    /**
-     * Este método atribui o índice do próximo jogador, na mudança de turno.
-     *
-     * @return Retorna o índice do próximo jogador.
-     */
-    public int nextPlayer() {
-        int nrPlayers = playerHands.size() - 1;
-        if (activePlayer == nrPlayers) {
-            activePlayer = 0;
-        } else {
-            activePlayer++;
-        }
-        return activePlayer;
-
-    }
-
-    /**
-     * Get comum.
-     *
-     * @return Retorna a Hashtable que contém
-     * <Índice_do_Jogador,Username_do_Jogador>
-     */
-    public Hashtable<Integer, String> getPositions() {
-        return positions;
-    }
-
-    /**
-     * Set comum.
-     *
-     * @param positions é a nova Hashtable com
-     * <Índice_do_Jogador,Username_do_Jogador>
-     */
-    public void setPositions(Hashtable<Integer, String> positions) {
-        this.positions = positions;
-    }
 
     /**
      * Este método implementa um gerador aleatóreo de inteiros de 0 a 23, com o
@@ -153,11 +118,11 @@ class GameState {
      *
      * @return Retorna a Piece que foi sorteado aleatóreamente.
      */
-    public Pieces DrawPiece() {
+    public Piece DrawPiece() {
         while (true) {
             int seed = rand.nextInt(28);
             if (deck[seed] != null) {
-                Pieces temp = deck[seed];
+                Piece temp = deck[seed];
                 deck[seed] = null;
                 return temp;
             }
@@ -172,44 +137,16 @@ class GameState {
      * @param players é o Array de Users que irão ter as suas mãos sorteadas.
      */
     public void DrawHand(ArrayList<User> players) {
-        Pieces[] tempHand = new Pieces[7];
-
-        for (int i = 0; i < players.size(); i++) {
-
-            for (int number = 0; number < 7; number++) {
-                tempHand[number] = this.DrawPiece();
+        ArrayList<Piece> tempHand = new ArrayList<Piece>();
+        
+        for(int i = 0; i < players.size(); i++) {
+            for(int j = 0; j < 7; j++) {
+                tempHand.add(this.DrawPiece());
             }
             
-            hands[i].setPieces(tempHand.clone());
-           
-            this.playerHands.put(players.get(i).getUsername(), hands[i]);
+            hands[i].setPieces(tempHand);
+            this.playerHands.put(players.get(i), hands[i]);
         }
-    }
-
-    /**
-     * Este método é chamado no fim de cada turno para que seja gravado numa
-     * Hashtable <Índice_do_Jogador, Nr_de_Peças_na_mão>
-     *
-     * @return Hashtable com <Índice_do_Jogador, Nr_de_Peças_na_mão>
-     */
-    public Hashtable<Integer, Integer> getHandsSize() {
-        Hashtable<Integer, Integer> sizeHands = new Hashtable<Integer, Integer>();
-        for (int i = 0; i < playerHands.size(); i++) {
-            sizeHands.put(i, playerHands.get(positions.get(i)).getSize());
-        }
-        return sizeHands;
-    }
-
-    /**
-     * Set comum. Faz update no array de Hands, e na Hashtable que também contém
-     * uma cópia das mãos, por username.
-     *
-     * @param playerHand será a nova Hand do player cujo turno acabou.
-     */
-    public void setHand(Hand playerHand) {
-        this.hands[activePlayer] = playerHand;
-        this.playerHands.remove(positions.get(activePlayer));
-        this.playerHands.put(positions.get(activePlayer), playerHand);
     }
 
     /**
@@ -217,7 +154,31 @@ class GameState {
      *
      * @return Retorna a Hashtable com <String, Hand>
      */
-    public Hashtable<String, Hand> getPlayerHands() {
+    public Hashtable<User, Hand> getPlayerHands() {
         return playerHands;
+    }
+    
+    public User getActivePlayer() {
+        return this.activePlayer;
+    }
+    
+    public void setActivePlayer(User user) {
+        this.activePlayer = user;
+    }
+    
+    public Piece getLeftSide() {
+        return this.leftside;
+    }
+    
+    public Piece getRightSide() {
+        return this.rightside;
+    }
+    
+    public void setLeftSide(Piece leftSide) {
+        this.leftside = leftSide;
+    }
+    
+    public void setRightSide(Piece rightSide) {
+        this.rightside = rightSide;
     }
 }

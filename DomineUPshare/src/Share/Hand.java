@@ -5,27 +5,24 @@
 package Share;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
- * Esta classe contém um array com os objetos da classe Pieces que foram atribuídos
+ * Esta classe contém um array com os objetos da classe Piece que foram atribuídos
  * a um dado jogador
  * @author Andre
  */
 public class Hand implements Serializable{
     
     static final long serialVersionUID = 126L;
-    private Pieces[] pieces;
+    private ArrayList<Piece> pieces;
     
    /**
      * Construtor da classe Hand
      */
     public Hand() {
 
-        this.pieces = new Pieces[28];
-
-        for (int i = 0; i != pieces.length; ++i) {
-            pieces[i] = new Pieces();
-        }
+        this.pieces = new ArrayList<Piece>();
 
     }
     
@@ -33,21 +30,17 @@ public class Hand implements Serializable{
      * Set genérico
      * @param hand 
      */
-    public void setPieces(Pieces[] hand) {
+    public void setPieces(ArrayList<Piece> hand) {
         this.pieces = hand;
     }
     
     /**
      * Este método avalia o array de pieces que compõem a mão do jogador e 
      * retornam o número de objetos que estão inicializados com um tile válido.
-     * @return int número de Pieces válidos na Hand
+     * @return int número de Piece válidos na Hand
      */
     public int getSize() {
-        int size = 0;
-        for (int i = 0; i < getPieces().length; i++) {
-                size++;
-        }
-        return size;
+        return this.pieces.size();
     }
     
     /**
@@ -55,9 +48,9 @@ public class Hand implements Serializable{
      * @param index
      * @return Objeto da Piece da posição index
      */
-    public Pieces getOnePiece(int index) {
+    public Piece getOnePiece(int index) {
 
-        return this.getPieces()[index];
+        return this.pieces.get(index);
     }
     
    /**
@@ -65,15 +58,25 @@ public class Hand implements Serializable{
      * @param index
      * @param piece 
      */
-    public void setOneTile(int index, Pieces piece) {
-        this.pieces[index] = piece;
+    public void setOneTile(int index, Piece piece) {
+        //this.pieces[index] = piece; //FIXME: ver para que serve
     }
 
     /**
      * @return the pieces
      */
-    public Pieces[] getPieces() {
-        return pieces;
+    public ArrayList<Piece> getPieces() {
+        return this.pieces;
+    }
+    
+    public boolean removePiece(Piece piece) {
+        
+        if(this.pieces.contains(piece)) {
+            this.pieces.remove(piece);
+            return true;
+        }
+        
+        return false;
     }
     
 }

@@ -8,50 +8,67 @@ import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.musica_fundo;
 import Share.GameRoom;
 import Share.Hand;
-import Share.Pieces;
+import Share.Piece;
 import Share.User;
 import UserInterface.RotatedIcon.Rotate;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
- * Interface da sala de jogo
+ * Interface da sala de jogo e toda a sua usabilidade
+ * 
  * @author Luciano
  */
 public class UIGameRoom extends javax.swing.JFrame {
 
     public static musica_fundo musica;
+    
+    ComCliente com;
+    int lastY;
+    int lastX;
+    int DeckPieces=28;
+    User PlayerTime; //saber de quem é a vez
+    private Hashtable<JLabel, Piece> piecesPosition = new Hashtable<JLabel, Piece>();
+    GameRoom gameRoom;
+    
     /**
      * Creates new form UIGameRoom
      */
-    int lastY;
-    int lastX;
-    int lastXhand3=0;
-    int lastXhand4=0;
-    int lastYhand3=0;
-    int lastYhand4=0;
-    
-    GameRoom gameRoom;
-
     public UIGameRoom() {
         initComponents();
         lastY = tabuleiro.getHeight() / 2;
         lastX = tabuleiro.getWidth() / 2;
         textAreaChatWindow.setLineWrap(true);
         textAreaChatWindow.setWrapStyleWord(true);
-      
         this.pack();
-
-
     }
-
-    public UIGameRoom(Hand hand,GameRoom gr) {
+    /**
+     * Creates new form UIGameRoom
+     */
+    public UIGameRoom(Hand hand,GameRoom gr) throws IOException {
         initComponents();
+         //add pub
+        if (0!=UIWelcomeScreen.puburl.getSizeMensagem()){
+            BufferedImage img = ImageIO.read(new URL(UIWelcomeScreen.puburl.getArguments().get(0).toString()));
+            ImageIcon icone = new ImageIcon(img);  
+            pub.setIcon(icone);
+        }
         lastY = tabuleiro.getHeight() / 2;
         lastX = tabuleiro.getWidth() / 2;
         textAreaChatWindow.setLineWrap(true);
@@ -64,9 +81,9 @@ public class UIGameRoom extends javax.swing.JFrame {
        this.avatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_"+UIWelcomeScreen.player.getAvatar())));
        gameRoom = gr;
        
-       ArrayList<User> players = gr.getPlayers();
+       ArrayList<User> players = (ArrayList<User>) gr.getPlayers();
        ArrayList<Hand> hands = null;
-       players.remove(UIWelcomeScreen.player);
+       
        
        JLabel[] playersLbl = new JLabel[3];
        JLabel[] avatarsLbl = new JLabel[3];
@@ -87,6 +104,8 @@ public class UIGameRoom extends javax.swing.JFrame {
         i = 0;
        
        for(User u: gr.getPlayers()){
+           if(u.getUsername().equals(UIWelcomeScreen.player.getUsername()))
+               continue;
            playersLbl[i].setText( u.getUsername());
            avatarsLbl[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_"+u.getAvatar())));
            if (i==3 || i==4){
@@ -100,50 +119,57 @@ public class UIGameRoom extends javax.swing.JFrame {
        for(;i< 3;i++){
            playersLbl[i].setVisible(false);
            avatarsLbl[i].setVisible(false);
-       }
-       
-       populateHand(hand1, hand, Rotate.NORMAL);
+           DeckPieces=DeckPieces-7;
            
+       }
+     
+       PlayerTime=gameRoom.getPlayerbyUsername(gameRoom.getCreator());
+       DeckPiecesNumberLabel.setText(Integer.toString(DeckPieces));
+       populateHand(hand1, hand, Rotate.NORMAL);
+       Estado.setText("Vez do jogador "+PlayerTime.getUsername());
+       
+       
        
     }
     
     private void populateHand(JPanel panel, Hand hand,Rotate r){
         
-        for(Pieces p : hand.getPieces()){
+        for(Piece p : hand.getPieces()){
             JLabel j = new JLabel();
-            
             
             if (panel.equals(hand1)){
                 Icon i = new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+p.getImage()));
                 j.setIcon(new RotatedIcon(i,r));
+                j.addMouseListener(new java.awt.event.MouseAdapter() {
+                     public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PieceCliked(evt);
+            }
+                        
+                    /*
+                    * Função que verifica qual foi a peça clicada
+                    * @param evt evento da label
+                    */ 
+                    private void PieceCliked(MouseEvent evt) {
+                        
+                         //verifica de quem é a vez para desactivar botoes
+                        if (UIWelcomeScreen.player.getUsername().equals(PlayerTime.getUsername())) {
+                             
+                                                       
+                            com = ComCliente.getInstance();
+                            com.TryPlayPiece(UIWelcomeScreen.player, piecesPosition.get(((JLabel) evt.getComponent())),gameRoom);
+                        } else {
+                            UIError erro = new UIError();
+                            erro.setTextErrorLabel("Não é a sua vez!");
+                            erro.setVisible(true);
+                        }
+
+                    }
+                });
             }else{
                 Icon i = new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/costas.png"));
                 j.setIcon(new RotatedIcon(i,r));
-                
-                if (panel.equals(hand3)){ 
-                    
-                    if ((lastXhand3 +35) >hand3.WIDTH){
-                        lastYhand3+=75;
-                        lastXhand3=0;
-                    }else{
-                        lastXhand3+=35;
-                    }
-                     hand3.add(j,new AbsoluteConstraints(lastXhand3, lastYhand3, -1, -1));
-                }
-                
-                if (panel.equals(hand4)){
-                    if ((lastXhand4 +35) >hand4.WIDTH){
-                        lastYhand4+=75;
-                        lastXhand4=0;
-                    }else{
-                        lastXhand4+=35;
-                        
-                    }
-                    hand4.add(j,new AbsoluteConstraints(lastYhand4, lastYhand4, -1, -1));
-                }
-                this.pack();
             }
-  
+            
             switch(r){
                 case NORMAL:
                      j.setPreferredSize(new Dimension(35, 75));
@@ -156,14 +182,18 @@ public class UIGameRoom extends javax.swing.JFrame {
                     break;
 
             }
-           
+            piecesPosition.put(j,p);
             panel.add(j);
             this.pack();
              
         }
         
     }
-
+    public void setState(String state){
+        
+        Estado.setText(state);
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -190,13 +220,17 @@ public class UIGameRoom extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         VolumeControl = new javax.swing.JSlider();
         VolumeLogoOn = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        pub = new javax.swing.JLabel();
         VolumeLogoOff = new javax.swing.JLabel();
         jToggleButton2 = new javax.swing.JToggleButton();
         hand3 = new javax.swing.JPanel();
         hand1 = new javax.swing.JPanel();
         hand4 = new javax.swing.JPanel();
         hand2 = new javax.swing.JPanel();
+        DeckLabel = new javax.swing.JLabel();
+        DeckPiecesNumberLabel = new javax.swing.JLabel();
+        piecesTextLabel = new javax.swing.JLabel();
+        Estado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -251,11 +285,6 @@ public class UIGameRoom extends javax.swing.JFrame {
 
         Player1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         Player1.setText("jLabel2");
-        Player1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                teste(evt);
-            }
-        });
 
         jToggleButton1.setText("Sair");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -274,9 +303,8 @@ public class UIGameRoom extends javax.swing.JFrame {
 
         VolumeLogoOn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/soundon.png"))); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("PUBLICIDADE");
+        pub.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        pub.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         VolumeLogoOff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/soundoff.png"))); // NOI18N
 
@@ -288,16 +316,28 @@ public class UIGameRoom extends javax.swing.JFrame {
         });
 
         hand3.setPreferredSize(new java.awt.Dimension(75, 0));
-        hand3.setLayout(new java.awt.GridLayout(1, 0));
+        hand3.setLayout(new java.awt.GridLayout(0, 3));
 
         hand1.setPreferredSize(new java.awt.Dimension(0, 75));
         hand1.setLayout(new java.awt.GridLayout(1, 0));
 
         hand4.setPreferredSize(new java.awt.Dimension(75, 0));
-        hand4.setLayout(new java.awt.GridLayout(0, 2));
+        hand4.setLayout(new java.awt.GridLayout(0, 3));
 
         hand2.setPreferredSize(new java.awt.Dimension(0, 75));
         hand2.setLayout(new java.awt.GridLayout(1, 0));
+
+        DeckLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/deck.png"))); // NOI18N
+
+        DeckPiecesNumberLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        DeckPiecesNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        DeckPiecesNumberLabel.setText("XX");
+
+        piecesTextLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        piecesTextLabel.setText("Peças");
+
+        Estado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Estado.setText("Estado:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -310,9 +350,7 @@ public class UIGameRoom extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(avatar2)
                             .addComponent(jLabel1))
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(VolumeLogoOff)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,40 +359,59 @@ public class UIGameRoom extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(avatar3)
+                                        .addGap(61, 61, 61))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(Player3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(hand3, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tabuleiro, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(avatar1)
+                                                .addGap(87, 87, 87))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(Player1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                        .addComponent(hand1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(26, 26, 26)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(DeckLabel)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(DeckPiecesNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(piecesTextLabel)))
+                                        .addGap(19, 19, 19))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(146, 146, 146)
                                 .addComponent(Player2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(hand2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Player3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(avatar3)
-                                    .addComponent(hand3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(hand2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(avatar1)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(10, 10, 10)
-                                                .addComponent(Player1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(hand1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jToggleButton2))
-                                    .addComponent(tabuleiro, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(pub, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(238, 238, 238)
+                                        .addComponent(Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(ChatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Player4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(hand4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(avatar4)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                                .addComponent(txtChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Player4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(hand4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(avatar4)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                                    .addComponent(txtChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jToggleButton2))
+                            .addComponent(ChatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
@@ -370,12 +427,14 @@ public class UIGameRoom extends javax.swing.JFrame {
                         .addComponent(Player2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(VolumeLogoOn)
-                                .addComponent(VolumeLogoOff)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(VolumeLogoOff))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(pub, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Estado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(hand2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,37 +442,40 @@ public class UIGameRoom extends javax.swing.JFrame {
                         .addComponent(avatar3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Player3)
-                        .addGap(18, 18, 18)
-                        .addComponent(hand3, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(hand3, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tabuleiro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tabuleiro, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(avatar4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Player4)
-                                .addGap(18, 18, 18)
-                                .addComponent(hand4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ChatLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(avatar4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Player4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(hand4, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ChatLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(avatar1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Player1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(8, 8, 8)
+                        .addComponent(txtChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton2))
+                    .addComponent(hand1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(DeckLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton2)
-                            .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(hand1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62))
+                            .addComponent(DeckPiecesNumberLabel)
+                            .addComponent(piecesTextLabel))))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -459,10 +521,6 @@ public class UIGameRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
         addPeca();
     }//GEN-LAST:event_jToggleButton2ActionPerformed
-
-    private void teste(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teste
-        System.out.println(((JLabel) evt.getComponent()).getText());
-    }//GEN-LAST:event_teste
     /**
      * Atualiza a área de chat com as mensagens que vão sendo introduzidas pelos
      * vários jogadores da sala.
@@ -477,38 +535,23 @@ public class UIGameRoom extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UIGameRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UIGameRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UIGameRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UIGameRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UIGameRoom().setVisible(true);
+                
+                    new UIGameRoom().setVisible(true);
+                
+                
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ChatLabel;
+    private javax.swing.JLabel DeckLabel;
+    private javax.swing.JLabel DeckPiecesNumberLabel;
+    private javax.swing.JLabel Estado;
     private javax.swing.JLabel Player1;
     private javax.swing.JLabel Player2;
     private javax.swing.JLabel Player3;
@@ -525,10 +568,11 @@ public class UIGameRoom extends javax.swing.JFrame {
     private javax.swing.JPanel hand3;
     private javax.swing.JPanel hand4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JLabel piecesTextLabel;
+    private javax.swing.JLabel pub;
     private javax.swing.JPanel tabuleiro;
     private javax.swing.JTextArea textAreaChatWindow;
     private javax.swing.JTextField txtChat;

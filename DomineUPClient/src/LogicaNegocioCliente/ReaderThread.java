@@ -22,6 +22,10 @@ import UserInterface.UIWelcomeScreen;
 import UserInterface.UIWaitingRoom;
 import UserInterface.UIinvite;
 import UserInterface.UIinvited;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -220,8 +224,20 @@ public class ReaderThread extends Thread {
                         welcomescreen.uiGameRoom.updateChat(GameChatMessage);
                         break;
                     case "gameStart:success":
-                        welcomescreen.uiGameRoom = new UIGameRoom(hand,room);
+                        try {
+                            welcomescreen.uiGameRoom = new UIGameRoom(hand,room);
+                        } catch (IOException ex) {
+                            Logger.getLogger(ReaderThread.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         welcomescreen.uiGameRoom.setVisible(true);
+                        break;
+                    case "RequestPiecePlay:success":
+                        
+                        break;
+                    case "RequestPiecePlay:error":
+                        UIError errorFrame8 = new UIError();
+                        errorFrame8.setTextErrorLabel("Não é possível jogar essa peça.");
+                        errorFrame8.setVisible(true); 
                         break;
                     case "answrInvitePlayer":
                        
@@ -239,6 +255,10 @@ public class ReaderThread extends Thread {
                         }
                         
                         UIRank.msgr=ComCliente.msgx;
+                        break;
+                    case "answrRequestPub:success":
+                        ReaderThread.welcomescreen.puburl=ComCliente.msgx;
+                        
                         break;
                         
                     default: 

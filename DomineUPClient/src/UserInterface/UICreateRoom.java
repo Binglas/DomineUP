@@ -135,7 +135,7 @@ public class UICreateRoom extends javax.swing.JFrame {
         ConfimPasswordLabel.setAlignmentY(0.0F);
 
         UsernameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        UsernameLabel.setText(bundle.getString("UsernameLabel")); // NOI18N
+        UsernameLabel.setText("Nome da Sala\n");
         UsernameLabel.setAlignmentY(0.0F);
 
         PasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

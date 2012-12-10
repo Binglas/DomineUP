@@ -7,6 +7,7 @@ import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.Language;
 import LogicaNegocioCliente.ReaderThread;
 import Share.MD5Pwd;
+import javax.swing.JFrame;
 
 /**
  * Interface Inicial da aplicação, aonde o utilizador posse aceder às funções
@@ -60,6 +61,7 @@ public class UIInitial extends javax.swing.JFrame {
         this.ServerStateQuery.setText(java.util.ResourceBundle.getBundle(Lang).getString("Connected"));
         this.RecoverPassButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("RecoverPassButton"));
         this.LoginGuestButton.setText(java.util.ResourceBundle.getBundle(Lang).getString("LoginGuest"));
+        
     }
 /**
 * Implementa uma Thread que permite a ligação automática ao servidor quando a 
@@ -163,6 +165,11 @@ private class ConnectThread implements Runnable
 
         HelpButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         HelpButton.setText(bundle.getString("HelpButton")); // NOI18N
+        HelpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HelpButtonActionPerformed(evt);
+            }
+        });
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/final_logo.png"))); // NOI18N
 
@@ -234,7 +241,7 @@ private class ConnectThread implements Runnable
 
         ServerStateQuery.setText("jLabel1");
 
-        LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pt.png"))); // NOI18N
+        LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/uk.png"))); // NOI18N
         LanguageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LanguageButtonActionPerformed(evt);
@@ -420,11 +427,12 @@ private class ConnectThread implements Runnable
     private void LanguageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LanguageButtonActionPerformed
         
         if (Lang.equals("resources/Portugues_pt_PT_EURO")){
-             this.LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/uk.png")));
+             this.LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pt.png")));
+             
              Language.getInstance().SetLanguageEN();
              UpdateLanguage();
         }else{
-            this.LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pt.png")));
+            this.LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/uk.png")));
             Language.getInstance().SetLanguagePT();
             UpdateLanguage();
         }
@@ -504,7 +512,7 @@ private class ConnectThread implements Runnable
             }
         }
     }//GEN-LAST:event_PasswordFieldKeyPressed
-
+   
     private void LoginGuestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginGuestButtonActionPerformed
        ComCliente com;
               try {
@@ -516,6 +524,11 @@ private class ConnectThread implements Runnable
                 }
         dispose();
     }//GEN-LAST:event_LoginGuestButtonActionPerformed
+
+    private void HelpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpButtonActionPerformed
+        JFrame helpFrame = new net.sourceforge.helpgui.gui.MainFrame("/resources/","java");
+        helpFrame.setVisible(true);
+    }//GEN-LAST:event_HelpButtonActionPerformed
     
     /**
      * @param args the command line arguments

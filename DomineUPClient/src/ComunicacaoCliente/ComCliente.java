@@ -8,6 +8,7 @@ import LogicaNegocioCliente.ReaderThread;
 import Share.GameRoom;
 import Share.Hand;
 import Share.Message;
+import Share.Piece;
 import Share.User;
 import UserInterface.UIWaitingRoom;
 import UserInterface.UIWelcomeScreen;
@@ -452,11 +453,19 @@ public class ComCliente {
                     case "answrRequestRank:success":
 
                         return "answrRequestRank:success";
+                    case "answrRequestPub:success":
+                       
+                        return "answrRequestPub:success";
                         
                     case "startGame:success":
                         ReaderThread.hand = (Hand) msg.getArguments().get(0);
-                        System.out.println("dasfdas - " + ReaderThread.hand.getOnePiece(0).getImage());
                         return "gameStart:success";
+                    case "RequestPiecePlay:success":
+                        
+                        return "RequestPiecePlay:success";
+                    case "RequestPiecePlay:error":
+                        ReaderThread.welcomescreen.uiGameRoom.setState("Estado:"+);
+                        return "RequestPiecePlay:error";
                     case "runtimeError:error":
                         System.out.println("runtimeError:error");
                         return "runtimeError";
@@ -591,13 +600,36 @@ public class ComCliente {
             System.err.println("chatGame: error writing object");
         }
     }
-    
-    public void StartGame(GameRoom roomJoined) {
-       /**
+    /*
+     *Envia uma mensagem para o servidor a solicitar uma jogada de uma peça
+     * @param player jogador que faz a jogada
+     * @param piece peça a ser jogada
+     */
+    public void TryPlayPiece(User player,Piece piece,GameRoom sala){
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(player);
+        arguments.add(piece);
+        arguments.add(sala);
+
+
+        Message messageToServer = new Message("RequestPiecePlay", arguments);
+
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+        } catch (Exception ex) {
+            System.err.println("RequestPiecePlay: error writing object");
+        }
+    }
+    /**
        * Envia uma mensagem para o servidor com a mensagem para iniciar 
        * um jogo.
        * @param roomJoined objeto da classe GameRoom
        */
+    public void StartGame(GameRoom roomJoined) {
+       
     
         ArrayList<Object> arguments = new ArrayList<Object>();
         arguments.add(roomJoined.getName());
@@ -611,7 +643,22 @@ public class ComCliente {
             escritor.flush();
 
         } catch (Exception ex) {
-            System.err.println("chatGame: error writing object");
+            System.err.println("StartGame: error writing object");
+        }
+    }
+
+    public void requestPub() {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+
+        Message messageToServer = new Message("requestPub", arguments);
+
+        try {
+            escritor.writeObject(messageToServer);
+            escritor.reset();
+            escritor.flush();
+        } catch (Exception ex) {
+            System.out.println("requestPub: error writing object");
+            System.out.println("Exception Message:" + ex);
         }
     }
     

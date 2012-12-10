@@ -15,6 +15,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import Share.GameRoom;
+import Share.Piece;
 
 /**
  * Classe responsável pela ligação do Servidor com o cliente, processa todas as 
@@ -206,12 +207,16 @@ public class ComServer {
                     return true;
                 }
                     
-                case "startturn":
+                case "RequestPiecePlay":
+                    System.out.println(GetDate.now()+": "+thisClient + ": Requested a piece play!");
                     if (startTurn(msg)) {
-                    return true;
-                } else {
-                    return true;
-                }
+                        System.out.println(GetDate.now()+": "+thisClient + ": Play a piece accepted");
+                        return true;
+                    } else {
+                        System.out.println(GetDate.now()+": "+thisClient + ": Failed to play a piece!");
+                        return true;
+                    }
+                    
                    
                 case "requestRooms":
                         System.out.println(GetDate.now()+"+"+thisClient +" Request looged users");
@@ -699,6 +704,7 @@ public class ComServer {
     private boolean requestRank(Message msg) throws SQLException {
        
         ArrayList<Object> rank = state.getUserRank();
+        
         if (rank != null) {
             try {
                 Message answrMsg = new Message("answrRequestRank:success", rank);
@@ -724,8 +730,26 @@ public class ComServer {
     }
 
     private boolean startTurn(Message msg) {
-        String roomName = (String) msg.getArguments().get(0);
-        return state.startShift(roomName);
+        User user = (User) msg.getArguments().get(0);
+        Piece piece=(Piece) msg.getArguments().get(1);
+        GameRoom sala = (GameRoom) msg.getArguments().get(2);
+        ArrayList<Object> arg = null;
+        
+        if (!state.tryPlayPiece(user,piece,sala)){
+            try {
+                Message answrMsg = new Message("RequestPiecePlay:error",arg);
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION! Comunicacao.requestPub(): 1!");
+                System.out.println(GetDate.now()+": "+thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        }else{
+            //mandou broadcast
+            return true;
+        }
+        
     }
 
     private boolean requestPub(Message msg) throws SQLException {
