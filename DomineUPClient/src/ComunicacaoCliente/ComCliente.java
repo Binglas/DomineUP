@@ -466,6 +466,8 @@ public class ComCliente {
                         Piece pecaremovida = (Piece) msg.getArguments().get(0);
                         ReaderThread.hand.removePiece(pecaremovida);
                         ReaderThread.welcomescreen.uiGameRoom.addPeca(pecaremovida);
+                        ReaderThread.welcomescreen.uiGameRoom.newleftSide = pecaremovida.getLeftN();
+                        ReaderThread.welcomescreen.uiGameRoom.newrightSide = pecaremovida.getRightN();
                         return "RequestPiecePlay:success";
                     case "RequestPiecePlay:error":
                         return "RequestPiecePlay:error";
