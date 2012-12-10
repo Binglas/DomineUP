@@ -49,16 +49,6 @@ class GameState {
         for (int j = 0; j < startingRoom.getCurPlayers(); j++) {
             hands[j] = new Hand();
         }
-
-<<<<<<< HEAD
-        for (int i = 0; i < (BOARDSIZEX * BOARDSIZEY); i++) {
-            board[i] = new Piece();
-        }
-=======
-       
-
-       
->>>>>>> 307874e215de2e85cefcfea090d78db47715a125
         int c = 0;
         for (int i = 0; i <= 6; i++) {
             for (int j = i; j <= 6; j++) {
