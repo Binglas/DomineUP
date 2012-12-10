@@ -18,7 +18,6 @@ import java.util.Hashtable;
 import Share.GameRoom;
 import Share.Hand;
 import Share.Piece;
-import java.util.Random;
 
 /**
  * Classe que suporta todas as operações do servidor.
@@ -617,7 +616,7 @@ public class ServerUtils implements Serializable {
 
 
 
-            Hashtable<User, Hand> userHand = new Hashtable<User, Hand>();
+            Hashtable<String, Hand> userHand = new Hashtable<String, Hand>();
             roomState.DrawHand(players);
           
             userHand = roomState.getPlayerHands();
@@ -632,7 +631,7 @@ public class ServerUtils implements Serializable {
               
                 toBroadcast.clear();
                 arg.clear();
-                Hand h = userHand.get(startingRoom.getPlayer(i));
+                Hand h = userHand.get(startingRoom.getPlayer(i).getUsername());
                 arg.add(h);
                 toBroadcast.add(startingRoom.getPlayer(i));
                 Message msg = new Message("startGame:success", arg);
@@ -692,30 +691,44 @@ public class ServerUtils implements Serializable {
             ArrayList<Object> arguments = new ArrayList<>();
             ArrayList<User> toBroadcast = new ArrayList<>();
             GameRoom myRoom;
+           
             
             for (GameState g: runningGames){
                 
                 if(g.getName().equals(sala.getName())) {
                     User OldUser = g.activePlayer;
                     if (g.getLeftSide()==null && g.getRightSide()==null){
-                        makePlay(g, user, piece, sala);
+                       // g.getPlayerHands().get(user).removePiece(piece);
+                        System.out.println("entrou no ciclo");
+                        
+                        //g.removePiece(user,piece);
+                        Hand mao = g.getPlayerHands().get(user.getUsername());
+                        ArrayList<Piece> pieces = mao.getPieces();
+                        pieces.remove(piece);
+                        
+                        int nextPlayer = sala.nextPlayer(user);
+                        g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setLeftSide(piece);
                         g.setRightSide(piece);
                         return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
                         
                     }
                     else if(g.getLeftSide().getLeftN()== piece.getLeftN()) {
-                        makePlay(g, user, piece, sala);
+                        g.getPlayerHands().get(user.getUsername()).removePiece(piece);
+                        int nextPlayer = sala.nextPlayer(user);
+                        g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setLeftSide(piece);
                         return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
                     }
                     else if(g.getRightSide().getRightN() == piece.getRightN()) {
-                        makePlay(g, user, piece, sala);
+                        g.getPlayerHands().get(user.getUsername()).removePiece(piece);
+                        int nextPlayer = sala.nextPlayer(user);
+                        g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setRightSide(piece);
                         return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
                     }
                     else {
-                        return false; // mandar mensagem apenas ao utilizador que tentou jogar.
+                        return false; // mandar mensagem apenas ao utilizador que tentou jogar a dizer que a jogada n é valida.
                     }
                 }
             }
@@ -735,12 +748,6 @@ public class ServerUtils implements Serializable {
             System.out.println("Exception: pub.. " + ex);
         }
         return null;
-    }
-
-    private void makePlay(GameState g, User user, Piece piece, GameRoom sala) {
-        g.getPlayerHands().get(user).removePiece(piece);
-        int nextPlayer = sala.nextPlayer(user);
-        g.setActivePlayer(sala.getPlayer(nextPlayer));
     }
 
     private boolean SendMessagePlayers(GameRoom sala, ArrayList<User> toBroadcast, ArrayList<Object> arguments, Piece piece, GameState g, User OldUser) {
