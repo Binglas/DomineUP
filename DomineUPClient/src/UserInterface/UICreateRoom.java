@@ -32,7 +32,8 @@ public class UICreateRoom extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         this.xName.setVisible(false);
-        this.ErrorLabel.setText("");        
+        this.ErrorLabel.setText("");
+        jPanel1.setOpaque(false);
     }
     /*
     * Set genérico
@@ -82,6 +83,7 @@ public class UICreateRoom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         ConfirmButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
         CreateGameRoomLabel = new javax.swing.JLabel();
@@ -94,11 +96,15 @@ public class UICreateRoom extends javax.swing.JFrame {
         xName = new javax.swing.JLabel();
         ErrorLabel = new javax.swing.JLabel();
         NumPlayers = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resources/Portugues_pt_PT_EURO"); // NOI18N
         setTitle(bundle.getString("AppTitle")); // NOI18N
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ConfirmButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ConfirmButton.setText(bundle.getString("ConfirmButton")); // NOI18N
@@ -107,6 +113,7 @@ public class UICreateRoom extends javax.swing.JFrame {
                 ConfirmButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(ConfirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(153, 370, 171, 55));
 
         CancelButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         CancelButton.setText(bundle.getString("CancelButton")); // NOI18N
@@ -115,9 +122,11 @@ public class UICreateRoom extends javax.swing.JFrame {
                 CancelButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 370, 165, 55));
 
         CreateGameRoomLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         CreateGameRoomLabel.setText("Criar Sala de Jogo\n");
+        getContentPane().add(CreateGameRoomLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 46, -1, -1));
 
         RoomNameLabel.setAlignmentY(0.0F);
         RoomNameLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -195,38 +204,10 @@ public class UICreateRoom extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 153, Short.MAX_VALUE)
-                .addComponent(ConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(141, 141, 141))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addComponent(CreateGameRoomLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(CreateGameRoomLabel)
-                .addGap(47, 47, 47)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 122, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background.jpg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -325,6 +306,8 @@ public class UICreateRoom extends javax.swing.JFrame {
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JTextField RoomNameLabel;
     private javax.swing.JLabel UsernameLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel xName;
     // End of variables declaration//GEN-END:variables

@@ -74,11 +74,13 @@ public class UIRecoverPass extends javax.swing.JFrame {
         RegisterUserLabel = new javax.swing.JLabel();
         ErrorLabel = new javax.swing.JLabel();
         xEmail = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resources/Portugues_pt_PT_EURO"); // NOI18N
         setTitle(bundle.getString("AppTitle")); // NOI18N
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ConfirmButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ConfirmButton.setText(bundle.getString("ConfirmButton")); // NOI18N
@@ -87,6 +89,7 @@ public class UIRecoverPass extends javax.swing.JFrame {
                 ConfirmButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(ConfirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 286, 171, 55));
 
         CancelButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         CancelButton.setText(bundle.getString("CancelButton")); // NOI18N
@@ -95,66 +98,30 @@ public class UIRecoverPass extends javax.swing.JFrame {
                 CancelButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(359, 286, 165, 55));
 
         EmailField.setAlignmentY(0.0F);
         EmailField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(EmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 149, 335, 25));
 
         EmailLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         EmailLabel.setText("E-Mail:");
         EmailLabel.setAlignmentY(0.0F);
+        getContentPane().add(EmailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 151, -1, -1));
 
         RegisterUserLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         RegisterUserLabel.setText(bundle.getString("RecoverPassLabel")); // NOI18N
+        getContentPane().add(RegisterUserLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 25, -1, -1));
 
         ErrorLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         ErrorLabel.setText("jLabel1");
+        getContentPane().add(ErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 210, 335, -1));
 
         xEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/redcross.png"))); // NOI18N
+        getContentPane().add(xEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(534, 149, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(306, 306, 306)
-                        .addComponent(RegisterUserLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addComponent(EmailLabel)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(EmailField, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(xEmail))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(238, 238, 238)
-                        .addComponent(ConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(201, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(RegisterUserLabel)
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(xEmail)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(EmailLabel)))
-                .addGap(36, 36, 36)
-                .addComponent(ErrorLabel)
-                .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -231,6 +198,7 @@ public class UIRecoverPass extends javax.swing.JFrame {
     private javax.swing.JLabel EmailLabel;
     private javax.swing.JLabel ErrorLabel;
     private javax.swing.JLabel RegisterUserLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel xEmail;
     // End of variables declaration//GEN-END:variables
 }

@@ -477,6 +477,7 @@ public class ComCliente {
                         ReaderThread.hand = (Hand) msg.getArguments().get(0);
                         return "gameStart:success";
                     case "RequestPiecePlay:success":
+                        User Oldplayer = (User) msg.getArguments().get(2);
                         ReaderThread.welcomescreen.uiGameRoom.PlayerTime = (User) msg.getArguments().get(1);
                         Piece pecaremovida = (Piece) msg.getArguments().get(0);
                         ReaderThread.hand.removePiece(pecaremovida);
@@ -487,6 +488,19 @@ public class ComCliente {
                         } else {
                             return "RequestPiecePlay:error";
                         }
+                        ReaderThread.welcomescreen.uiGameRoom.addPeca(pecaremovida);
+                        ReaderThread.welcomescreen.uiGameRoom.newleftSide = pecaremovida.getLeftN();
+                        ReaderThread.welcomescreen.uiGameRoom.newrightSide = pecaremovida.getRightN();
+                        
+                        if (ReaderThread.welcomescreen.player.getUsername().equals(Oldplayer.getUsername())){
+                             ReaderThread.hand.removePiece(pecaremovida);
+                             ReaderThread.welcomescreen.uiGameRoom.addPeca(pecaremovida);
+                             ReaderThread.welcomescreen.uiGameRoom.updateUI(ReaderThread.welcomescreen.uiGameRoom.PlayerTime.getUsername(),pecaremovida,Oldplayer);
+                        }else{
+                            pecaremovida=null;
+                            ReaderThread.welcomescreen.uiGameRoom.updateUI(ReaderThread.welcomescreen.uiGameRoom.PlayerTime.getUsername(),pecaremovida,Oldplayer);
+                        }
+                        return "RequestPiecePlay:success";
                     case "RequestPiecePlay:error":
                         return "RequestPiecePlay:error";
                     case "runtimeError:error":

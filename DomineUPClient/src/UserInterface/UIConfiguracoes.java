@@ -68,6 +68,9 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         xOldPassword.setVisible(false);
         xNewEmail.setVisible(false);
         xOldEmail.setVisible(false);
+        jPanel1.setOpaque(false);
+        jPanel2.setOpaque(false);
+        jPanel4.setOpaque(false);
     }
      /*
       * Set genérico
@@ -105,17 +108,15 @@ public class UIConfiguracoes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ErrorLabel = new javax.swing.JLabel();
         OptionsLabel = new javax.swing.JLabel();
         ImageSettingsLabel = new javax.swing.JLabel();
         SoundEffectsLabel = new javax.swing.JLabel();
         MusicVolumeLabel = new javax.swing.JLabel();
-        SFXSoundLabel = new javax.swing.JLabel();
         MusicVolumeSlider = new javax.swing.JSlider();
-        SFXSoundSlider = new javax.swing.JSlider();
         AccountSettingsLabel1 = new javax.swing.JLabel();
         CancelButton = new javax.swing.JButton();
         SaveButton = new javax.swing.JButton();
-        ErrorLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         avatar6 = new javax.swing.JLabel();
         rbavatar6 = new javax.swing.JRadioButton();
@@ -149,6 +150,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
         OldEmailField = new javax.swing.JTextField();
         NewEmailField = new javax.swing.JTextField();
         ConfirmEmailField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -157,22 +159,28 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(ErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, 252, 20));
 
         OptionsLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         OptionsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        OptionsLabel.setText("Options");
+        OptionsLabel.setText("Opções");
+        getContentPane().add(OptionsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 11, 276, -1));
 
         ImageSettingsLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         ImageSettingsLabel.setText("Image Settings");
+        getContentPane().add(ImageSettingsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 250, -1, -1));
 
         SoundEffectsLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        SoundEffectsLabel.setText("Sound Effects");
+        SoundEffectsLabel.setText("Efeitos Sonoros");
+        getContentPane().add(SoundEffectsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(626, 77, -1, -1));
 
         MusicVolumeLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        MusicVolumeLabel.setText("Music Volume");
-
-        SFXSoundLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        SFXSoundLabel.setText("SFX Sound");
+        MusicVolumeLabel.setText("Volume Música:");
+        getContentPane().add(MusicVolumeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 125, -1, 20));
 
         MusicVolumeSlider.setMaximum(0);
         MusicVolumeSlider.setMinimum(-40);
@@ -182,37 +190,38 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                 MusicVolumeSliderStateChanged(evt);
             }
         });
+        getContentPane().add(MusicVolumeSlider, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 120, 144, -1));
 
         AccountSettingsLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         AccountSettingsLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        AccountSettingsLabel1.setText("Account Settings");
+        AccountSettingsLabel1.setText("Configurações Conta");
+        getContentPane().add(AccountSettingsLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 77, 272, -1));
 
         CancelButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        CancelButton.setText("Cancel");
+        CancelButton.setText("Cancelar");
         CancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 510, 140, 50));
 
         SaveButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        SaveButton.setText("Save");
+        SaveButton.setText("Guardar");
         SaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveButtonActionPerformed(evt);
             }
         });
-
-        ErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        ErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(SaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 510, 150, 50));
 
         avatar6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar6.png"))); // NOI18N
 
-        avatar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar1.png"))); // NOI18N
+        avatar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar5.png"))); // NOI18N
 
         avatar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar4.png"))); // NOI18N
 
-        avatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar5.png"))); // NOI18N
+        avatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar1.png"))); // NOI18N
 
         avatar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_avatar2.png"))); // NOI18N
 
@@ -283,25 +292,27 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                     .addComponent(rbavatar6)))
         );
 
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 290, -1, -1));
+
         xOldPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/redcross.png"))); // NOI18N
 
         ConfirmaPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ConfirmaPasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        ConfirmaPasswordLabel.setText("Confirm Password:");
+        ConfirmaPasswordLabel.setText("Confirmar Password:");
 
         NewPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         NewPasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        NewPasswordLabel.setText("New Password:");
+        NewPasswordLabel.setText("Nova Password:");
 
         xNewPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/redcross.png"))); // NOI18N
 
         OldPasswordLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         OldPasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        OldPasswordLabel.setText("Old Password:");
+        OldPasswordLabel.setText("Password Antiga:");
 
         ChangePasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ChangePasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ChangePasswordLabel.setText("Change Password");
+        ChangePasswordLabel.setText("Alteração Password");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -317,16 +328,14 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(OldPasswordField)
                     .addComponent(NewPasswordField)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 1, Short.MAX_VALUE)
-                        .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(ConfirmPasswordField, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(xNewPassword, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(xOldPassword, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(195, Short.MAX_VALUE)
                 .addComponent(ChangePasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55))
         );
@@ -355,25 +364,27 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 135, -1, -1));
+
         xOldEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/redcross.png"))); // NOI18N
 
         ConfirmaPasswordLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ConfirmaPasswordLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        ConfirmaPasswordLabel2.setText("Confirm New Email:");
+        ConfirmaPasswordLabel2.setText("Confirmar Novo Email:");
 
         NewPasswordLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         NewPasswordLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        NewPasswordLabel2.setText("New Email:");
+        NewPasswordLabel2.setText("Novo Email:");
 
         xNewEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/redcross.png"))); // NOI18N
 
         OldPasswordLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         OldPasswordLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        OldPasswordLabel2.setText("Old Email:");
+        OldPasswordLabel2.setText("Email Antigo:");
 
         ChangePasswordLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ChangePasswordLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ChangePasswordLabel2.setText("Change Email");
+        ChangePasswordLabel2.setText("Alterar Email");
 
         NewEmailField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,7 +413,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                     .addComponent(xNewEmail, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(150, Short.MAX_VALUE)
                 .addComponent(ChangePasswordLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
@@ -427,95 +438,10 @@ public class UIConfiguracoes extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addComponent(AccountSettingsLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(134, 134, 134)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(163, 163, 163)
-                                .addComponent(SoundEffectsLabel))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(MusicVolumeLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(SFXSoundLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(SFXSoundSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(MusicVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(75, 75, 75))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(ImageSettingsLabel)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(322, 322, 322)
-                        .addComponent(OptionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(292, 292, 292)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(52, 52, 52)
-                                .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(OptionsLabel)
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SoundEffectsLabel)
-                    .addComponent(AccountSettingsLabel1))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MusicVolumeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MusicVolumeLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SFXSoundSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SFXSoundLabel))))
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                        .addComponent(ErrorLabel)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ImageSettingsLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 303, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -779,8 +705,6 @@ public class UIConfiguracoes extends javax.swing.JFrame {
     private javax.swing.JLabel OldPasswordLabel;
     private javax.swing.JLabel OldPasswordLabel2;
     private javax.swing.JLabel OptionsLabel;
-    private javax.swing.JLabel SFXSoundLabel;
-    private javax.swing.JSlider SFXSoundSlider;
     private javax.swing.JButton SaveButton;
     private javax.swing.JLabel SoundEffectsLabel;
     private javax.swing.JLabel avatar1;
@@ -789,6 +713,7 @@ public class UIConfiguracoes extends javax.swing.JFrame {
     private javax.swing.JLabel avatar4;
     private javax.swing.JLabel avatar5;
     private javax.swing.JLabel avatar6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

@@ -11,6 +11,7 @@ import Share.Hand;
 import Share.Piece;
 import Share.User;
 import UserInterface.RotatedIcon.Rotate;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.MouseEvent;
@@ -20,6 +21,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -53,7 +57,11 @@ public class UIGameRoom extends javax.swing.JFrame {
     public int rightSide = 0;
     public int newleftSide = 0;
     public int newrightSide = 0;
-
+    public int leftSide=0;
+    public int rightSide=0;
+    public int newleftSide=0;
+    public int newrightSide=0;
+    JPanel[] handsPanel = new JPanel[3];
     /**
      * Creates new form UIGameRoom
      */
@@ -81,7 +89,6 @@ public class UIGameRoom extends javax.swing.JFrame {
         lastX = tabuleiro.getWidth() / 2;
         textAreaChatWindow.setLineWrap(true);
         textAreaChatWindow.setWrapStyleWord(true);
-
         int roomIndex = 0;
         int i = 0;
 
@@ -136,6 +143,65 @@ public class UIGameRoom extends javax.swing.JFrame {
         DeckPiecesNumberLabel.setText(Integer.toString(DeckPieces));
         populateHand(hand1, hand, Rotate.NORMAL);
         Estado.setText("Vez do jogador " + PlayerTime.getUsername());
+        
+        int roomIndex= 0;
+        int i =0;
+        
+       Player1.setText(UIWelcomeScreen.player.getUsername());
+       this.avatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_"+UIWelcomeScreen.player.getAvatar())));
+       gameRoom = gr;
+       
+       ArrayList<User> players = (ArrayList<User>) gr.getPlayers();
+       ArrayList<Hand> hands = null;
+       
+       
+       JLabel[] playersLbl = new JLabel[3];
+       JLabel[] avatarsLbl = new JLabel[3];
+      
+       
+       playersLbl[0] = Player2;
+       playersLbl[1] = Player3;
+       playersLbl[2] = Player4;
+       
+       avatarsLbl[0] = avatar2;
+       avatarsLbl[1] = avatar3;
+       avatarsLbl[2] = avatar4;
+       
+       hand1.setName(Player1.getText());
+       hand2.setName(Player2.getText());
+       hand3.setName(Player3.getText());
+       hand4.setName(Player4.getText());
+       
+       handsPanel[0] = hand2;
+       handsPanel[1] = hand3;
+       handsPanel[2] = hand4;
+       
+       i = 0;
+       
+       for(User u: gr.getPlayers()){
+           if(u.getUsername().equals(UIWelcomeScreen.player.getUsername()))
+               continue;
+           playersLbl[i].setText( u.getUsername());
+           avatarsLbl[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_"+u.getAvatar())));
+           if (i==3 || i==4){
+               populateHand(handsPanel[i++], hand, Rotate.UP);
+           }else{
+               populateHand(handsPanel[i++], hand, Rotate.NORMAL);
+           }
+           
+       }
+     
+       for(;i< 3;i++){
+           playersLbl[i].setVisible(false);
+           avatarsLbl[i].setVisible(false);
+           DeckPieces=DeckPieces-7;
+           
+       }
+     
+       PlayerTime=gameRoom.getPlayerbyUsername(gameRoom.getCreator());
+       DeckPiecesNumberLabel.setText(Integer.toString(DeckPieces));
+       populateHand(hand1, hand, Rotate.NORMAL);
+       Estado.setText("Vez do jogador "+PlayerTime.getUsername());
     }
 
     private void populateHand(JPanel panel, Hand hand, Rotate r) {
@@ -244,6 +310,8 @@ public class UIGameRoom extends javax.swing.JFrame {
         setUndecorated(true);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/final_logo_mini.png"))); // NOI18N
+
+        jScrollPane1.setAutoscrolls(true);
 
         textAreaChatWindow.setEditable(false);
         textAreaChatWindow.setColumns(20);
@@ -528,6 +596,44 @@ public class UIGameRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
         //addPeca();
     }//GEN-LAST:event_jToggleButton2ActionPerformed
+    public void updateUI(String estado,Piece pecaremovida,User playerdajogada){
+        
+        //DeckPieces--;
+        DeckPiecesNumberLabel.setText(Integer.toString(DeckPieces));
+        Estado.setText("Estado:"+estado);
+        
+         Set set = piecesPosition.entrySet();
+         Iterator it = set.iterator();
+            
+        if (playerdajogada.getUsername().equals(UIWelcomeScreen.player.getUsername())){ 
+            //limpar uma peca hand do jogador que fez a jogada
+            
+            while(it.hasNext()){
+                Map.Entry entry = (Map.Entry) it.next(); 
+                if(entry.getValue().equals(pecaremovida)){
+                    JLabel label =  (JLabel)entry.getKey();
+                    Container parent = label.getParent();
+                    parent.remove(label);
+                    parent.validate();
+                    parent.repaint();
+                    piecesPosition.remove(entry.getKey());
+                    break;
+                }
+                    
+            }
+        }else{//limpar uma peca costas do jogador que fez a jogada
+            
+            for (int i=1;i<handsPanel.length;i++){
+                if(handsPanel[i].getName().equals(playerdajogada.getUsername())){
+                   
+                    handsPanel[i].remove(0);
+                    handsPanel[i].validate();
+                    handsPanel[i].repaint();
+                }
+            } 
+           
+        }
+    }
     /**
      * Atualiza a área de chat com as mensagens que vão sendo introduzidas pelos
      * vários jogadores da sala.
