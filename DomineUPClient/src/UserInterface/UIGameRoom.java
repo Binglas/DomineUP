@@ -48,7 +48,7 @@ public class UIGameRoom extends javax.swing.JFrame {
     int lastX;
     int newY;
     int newX;
-    int DeckPieces = 28;
+    public int DeckPieces = 28;
     public User PlayerTime; //saber de quem é a vez
     private Hashtable<JLabel, Piece> piecesPosition = new Hashtable<JLabel, Piece>();
     GameRoom gameRoom;
@@ -607,10 +607,13 @@ public class UIGameRoom extends javax.swing.JFrame {
     private javax.swing.JTextField txtChat;
     // End of variables declaration//GEN-END:variables
 
-    public void updateUI(String estado, Piece pecaremovida, User playerdajogada) {
-
+    public void updateDeckLabel(){
 
         DeckPiecesNumberLabel.setText(Integer.toString(DeckPieces));
+    }
+    public void updateUI(String estado, Piece pecaremovida, User playerdajogada) {
+
+      
         Estado.setText("Estado:" + estado);
 
 
@@ -994,5 +997,86 @@ public class UIGameRoom extends javax.swing.JFrame {
         } else {
             return false;
         }
+    }
+
+    public void addDeckPiece(Piece peca,User activeUser,User OldUser) {
+        
+        if (OldUser.getUsername().equals(Player1.getText())){
+            JLabel j = new JLabel();
+
+            
+                Icon i = new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/" + peca.getImage()));
+                j.setIcon(new RotatedIcon(i, Rotate.NORMAL));
+                j.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        PieceCliked(evt);
+                    }
+
+                    /*
+                     * Função que verifica qual foi a peça clicada
+                     * @param evt evento da label
+                     */
+                    private void PieceCliked(MouseEvent evt) {
+
+                        //verifica de quem é a vez para desactivar botoes
+                        if (UIWelcomeScreen.player.getUsername().equals(PlayerTime.getUsername())) {
+
+
+                            com = ComCliente.getInstance();
+                            com.TryPlayPiece(UIWelcomeScreen.player, piecesPosition.get(((JLabel) evt.getComponent())), gameRoom);
+                        } else {
+                            UIError erro = new UIError();
+                            erro.setTextErrorLabel("Não é a sua vez!");
+                            erro.setVisible(true);
+                        }
+
+                    }
+                });
+           
+            switch (Rotate.NORMAL) {
+                case NORMAL:
+                    j.setPreferredSize(new Dimension(35, 75));
+                    break;
+                case UP:
+                case DOWN:
+                    j.setPreferredSize(new Dimension(75, 35));
+                    break;
+                default:
+                    break;
+
+            }
+            piecesPosition.put(j, peca);
+            hand1.add(j);
+            this.pack();
+            
+        }else{
+            for (int i=0;i<handsPanel.length;i++){
+                
+                if (handsPanel[i].getName().equals(OldUser.getUsername())){
+                        JLabel n = new JLabel();    
+                        Icon i2 = new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/costas.png"));
+                        n.setIcon(new RotatedIcon(i2, Rotate.NORMAL));
+
+
+                    switch (Rotate.NORMAL) {
+                        case NORMAL:
+                            n.setPreferredSize(new Dimension(35, 75));
+                            break;
+                        case UP:
+                        case DOWN:
+                            n.setPreferredSize(new Dimension(75, 35));
+                            break;
+                        default:
+                            break;
+
+                    }
+                    handsPanel[i].add(n);
+                    this.pack();
+
+                  
+                }
+            }
+        }
+        
     }
 }

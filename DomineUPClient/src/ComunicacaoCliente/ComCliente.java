@@ -480,7 +480,10 @@ public class ComCliente {
                             return "RequestPiecePlay:error";
                         }
                     case "RequestDeck:success":
-                        dsfdsfsfd
+                        ReaderThread.welcomescreen.uiGameRoom.DeckPieces--;
+                        ReaderThread.welcomescreen.uiGameRoom.updateDeckLabel();
+                        ReaderThread.welcomescreen.uiGameRoom.addDeckPiece((Piece) msg.getArguments().get(0),(User) msg.getArguments().get(1),(User) msg.getArguments().get(2));
+                        ReaderThread.welcomescreen.uiGameRoom.PlayerTime=(User) msg.getArguments().get(1);
                         return "RequestDeck:success";  
                         
                     case "RequestPiecePlay:error":
