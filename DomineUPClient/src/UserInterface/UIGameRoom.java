@@ -49,7 +49,6 @@ public class UIGameRoom extends javax.swing.JFrame {
     int newY;
     int newX;
     public int DeckPieces = 28;
-    int DeckPieces=28;
     public User PlayerTime; //saber de quem é a vez
     private Hashtable<JLabel, Piece> piecesPosition = new Hashtable<JLabel, Piece>();
     GameRoom gameRoom;
@@ -69,7 +68,6 @@ public class UIGameRoom extends javax.swing.JFrame {
         lastY = tabuleiro.getHeight() / 2;
         lastX = tabuleiro.getWidth() / 2;
         newX = (int) (lastX - 75);
-        newX = (int) (lastX-75);
         textAreaChatWindow.setLineWrap(true);
         textAreaChatWindow.setWrapStyleWord(true);
         this.pack();
@@ -662,296 +660,6 @@ public class UIGameRoom extends javax.swing.JFrame {
         if ((rightSide == 0 && leftSide == 0) && (newleftSide == newrightSide)) {
             Rotate r = Rotate.UPSIDE_DOWN;
             newY = (int) (lastY - 18.75);
-        
-        
-        if((rightSide == 0 && leftSide==0)&&(newleftSide==newrightSide)){
-        Rotate r = Rotate.UPSIDE_DOWN;
-        newY = (int) (lastY-18.75);
-        JLabel j = new JLabel();
-        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
-        j.setIcon(i);
-        j.setPreferredSize(new Dimension(y, x));
-        tabuleiro.add(j,new AbsoluteConstraints(lastX, newY, -1, -1));
-        switch(r){
-            case UP:
-                 lastX += 37.5;
-                 break;
-            case UPSIDE_DOWN:
-                lastX += 37.5;
-                break;
-            case DOWN:
-                lastX -= 37.5;
-                break;
-            default: break;
-                
-        }
-       
-        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
-            r = Rotate.NORMAL;
-           
-           // lastY -= 35/4;
-            x = 35;
-            y= 75;
-            
-        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
-             r = Rotate.DOWN;
-           
-            lastX = tabuleiro.getWidth() - 150;
-            x = 75;
-            y= 35;
-        }
-        this.pack();
-        leftSide=newleftSide;
-        rightSide=newrightSide;
-        return true;
-        
-        }else if((rightSide != 0 || leftSide!=0)&&(newleftSide==newrightSide)&&(rightSide == newleftSide)){
-        Rotate r = Rotate.UPSIDE_DOWN;  
-        newY = (int) (lastY-18.75);
-        JLabel j = new JLabel();
-        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
-        j.setIcon(i);
-        
-        j.setPreferredSize(new Dimension(y, x));
-        tabuleiro.add(j,new AbsoluteConstraints(lastX, newY, -1, -1));
-        switch(r){
-            case UP:
-                 lastX += 75;
-                 break;
-            case UPSIDE_DOWN:
-                lastX += 37.5;
-                break;
-            case DOWN:
-                lastX -= 75;
-                break;
-            default: break;
-                
-        }
-       
-        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
-            r = Rotate.NORMAL;
-           
-           // lastY -= 35/4;
-            x = 35;
-            y= 75;
-            
-        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
-             r = Rotate.DOWN;
-           
-            lastX = tabuleiro.getWidth() - 150;
-            x = 75;
-            y= 35;
-        }
-        this.pack();
-        rightSide=newrightSide;
-        return true;
-        
-        }else if((rightSide != 0 || leftSide!=0)&&(newleftSide==newrightSide)&&(rightSide == newleftSide)){
-        Rotate r = Rotate.UPSIDE_DOWN;  
-        newY = (int) (lastY-18.75);
-        JLabel j = new JLabel();
-        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
-        j.setIcon(i);
-        
-        j.setPreferredSize(new Dimension(y, x));
-        tabuleiro.add(j,new AbsoluteConstraints(lastX, newY, -1, -1));
-        switch(r){
-            case UP:
-                 lastX += 75;
-                 break;
-            case UPSIDE_DOWN:
-                lastX += 37.5;
-                break;
-            case DOWN:
-                lastX -= 75;
-                break;
-            default: break;
-                
-        }
-       
-        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
-            r = Rotate.NORMAL;
-           
-           // lastY -= 35/4;
-            x = 35;
-            y= 75;
-            
-        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
-             r = Rotate.DOWN;
-           
-            lastX = tabuleiro.getWidth() - 150;
-            x = 75;
-            y= 35;
-        }
-        this.pack();
-        rightSide=newrightSide;
-        return true;
-        
-        }
-        else if((rightSide != 0 || leftSide!=0)&&(newleftSide==newrightSide)&&(leftSide == newrightSide)){
-        Rotate r = Rotate.UPSIDE_DOWN;  
-        newY = (int) (lastY-18.75);
-        JLabel j = new JLabel();
-        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
-        j.setIcon(i);
-        
-        j.setPreferredSize(new Dimension(y, x));
-        tabuleiro.add(j,new AbsoluteConstraints(newX, newY, -1, -1));
-        switch(r){
-            case UP:
-                 lastX += 75;
-                 break;
-            case UPSIDE_DOWN:
-                newX += 37.5;
-                break;
-            case DOWN:
-                lastX -= 75;
-                break;
-            default: break;
-                
-        }
-       
-        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
-            r = Rotate.NORMAL;
-           
-           // lastY -= 35/4;
-            x = 35;
-            y= 75;
-            
-        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
-             r = Rotate.DOWN;
-           
-            lastX = tabuleiro.getWidth() - 150;
-            x = 75;
-            y= 35;
-        }
-        this.pack();
-        leftSide=newleftSide;
-        return true;
-        }else if((rightSide != 0 || leftSide!=0)&&(newleftSide==newrightSide)&&(leftSide == newleftSide)){
-        Rotate r = Rotate.UPSIDE_DOWN;  
-        newY = (int) (lastY-18.75);
-        JLabel j = new JLabel();
-        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
-        j.setIcon(i);
-        
-        j.setPreferredSize(new Dimension(y, x));
-        tabuleiro.add(j,new AbsoluteConstraints(newX, newY, -1, -1));
-        switch(r){
-            case UP:
-                 lastX += 75;
-                 break;
-            case UPSIDE_DOWN:
-                newX += 37.5;
-                break;
-            case DOWN:
-                lastX -= 75;
-                break;
-            default: break;
-                
-        }
-       
-        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
-            r = Rotate.NORMAL;
-           
-           // lastY -= 35/4;
-            x = 35;
-            y= 75;
-            
-        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
-             r = Rotate.DOWN;
-           
-            lastX = tabuleiro.getWidth() - 150;
-            x = 75;
-            y= 35;
-        }
-        this.pack();
-        leftSide=newleftSide;
-        return true;
-        }else if(rightSide == 0 && leftSide==0){
-        Rotate r = Rotate.UP;    
-        JLabel j = new JLabel();
-        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
-        j.setIcon(i);
-        
-        j.setPreferredSize(new Dimension(x, y));
-        tabuleiro.add(j,new AbsoluteConstraints(lastX, lastY, -1, -1));
-        switch(r){
-            case UP:
-                 lastX += 75;
-                 break;
-            case NORMAL:
-                lastY += 75;
-                break;
-            case DOWN:
-                lastX -= 75;
-                break;
-            default: break;
-                
-        }
-       
-        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
-            r = Rotate.NORMAL;
-           
-           // lastY -= 35/4;
-            x = 35;
-            y= 75;
-            
-        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
-             r = Rotate.DOWN;
-           
-            lastX = tabuleiro.getWidth() - 150;
-            x = 75;
-            y= 35;
-        }
-        this.pack();
-        leftSide=newleftSide;
-        rightSide=newrightSide;
-        return true;
-        
-        }else if(rightSide == newleftSide){
-        Rotate r = Rotate.UP;    
-        JLabel j = new JLabel();
-        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
-        j.setIcon(i);
-        
-        j.setPreferredSize(new Dimension(x, y));
-        tabuleiro.add(j,new AbsoluteConstraints(lastX, lastY, -1, -1));
-        switch(r){
-            case UP:
-                 lastX += 75;
-                 break;
-            case NORMAL:
-                lastY += 75;
-                break;
-            case DOWN:
-                lastX -= 75;
-                break;
-            default: break;
-                
-        }
-       
-        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
-            r = Rotate.NORMAL;
-           
-           // lastY -= 35/4;
-            x = 35;
-            y= 75;
-            
-        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
-             r = Rotate.DOWN;
-           
-            lastX = tabuleiro.getWidth() - 150;
-            x = 75;
-            y= 35;
-        }
-        this.pack();
-        rightSide=newrightSide;
-        return true;
-        
-        }else if(leftSide == newrightSide){
-            Rotate r = Rotate.UP; 
->>>>>>> 40686e27124da5052c4b4cfc36224ba0443fdfda
             JLabel j = new JLabel();
             Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/" + piece.getImage() + "")), r);
             j.setIcon(i);
@@ -1081,54 +789,10 @@ public class UIGameRoom extends javax.swing.JFrame {
             JLabel j = new JLabel();
             Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/" + piece.getImage() + "")), r);
             j.setIcon(i);
-            
-            j.setPreferredSize(new Dimension(x, y));
-            tabuleiro.add(j,new AbsoluteConstraints(newX, lastY, -1, -1));
-            switch(r){
-                case UP:
-                     newX -= 75;
-                     break;
-                case NORMAL:
-                    lastY += 75;
-                    break;
-                case ABOUT_CENTER:
-                    lastY += 75;
-                    break;    
-                case DOWN:
-                    lastX -= 75;
-                    break;
-                default: break;
 
-            }
-
-            if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
-                r = Rotate.NORMAL;
-
-               // lastY -= 35/4;
-                x = 35;
-                y= 75;
-
-            }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
-                 r = Rotate.DOWN;
-
-                lastX = tabuleiro.getWidth() - 150;
-                x = 75;
-                y= 35;
-            }
-            this.pack();
-            leftSide=newleftSide;
-            return true;
-        }else if(leftSide == newleftSide){
-            Rotate r = Rotate.DOWN; 
-            JLabel j = new JLabel();
-            Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
-            j.setIcon(i);
-            
             j.setPreferredSize(new Dimension(x, y));
             tabuleiro.add(j, new AbsoluteConstraints(lastX, lastY, -1, -1));
             switch (r) {
-            tabuleiro.add(j,new AbsoluteConstraints(newX, lastY, -1, -1));
-            switch(r){
                 case UP:
                     lastX += 75;
                     break;
@@ -1222,7 +886,7 @@ public class UIGameRoom extends javax.swing.JFrame {
                     lastY += 75;
                     break;
                 case DOWN:
-                    newX -= 75;
+                    lastX -= 75;
                     break;
                 default:
                     break;
@@ -1331,52 +995,6 @@ public class UIGameRoom extends javax.swing.JFrame {
             return true;
 
         } else {
-=======
-            leftSide=newrightSide;
-            return true;
-        }else if(leftSide == newrightSide){
-        Rotate r = Rotate.UP;    
-        JLabel j = new JLabel();
-        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
-        j.setIcon(i);
-        
-        j.setPreferredSize(new Dimension(x, y));
-        tabuleiro.add(j,new AbsoluteConstraints(lastX, lastY, -1, -1));
-        switch(r){
-            case UP:
-                 lastX += 75;
-                 break;
-            case NORMAL:
-                lastY += 75;
-                break;
-            case DOWN:
-                lastX -= 75;
-                break;
-            default: break;
-                
-        }
-       
-        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
-            r = Rotate.NORMAL;
-           
-           // lastY -= 35/4;
-            x = 35;
-            y= 75;
-            
-        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
-             r = Rotate.DOWN;
-           
-            lastX = tabuleiro.getWidth() - 150;
-            x = 75;
-            y= 35;
-        }
-        this.pack();
-        rightSide=newrightSide;
-        return true;
-        
-        }
-        else{
->>>>>>> 40686e27124da5052c4b4cfc36224ba0443fdfda
             return false;
         }
     }

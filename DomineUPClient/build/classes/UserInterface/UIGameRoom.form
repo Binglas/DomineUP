@@ -141,10 +141,8 @@
                               <Component id="VolumeLogoOn" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="VolumeLogoOff" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                              <Component id="pub" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
-                              <Component id="Estado" alignment="1" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="Estado" alignment="1" max="32767" attributes="0"/>
+                          <Component id="pub" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="hand2" min="-2" max="-2" attributes="0"/>
@@ -434,6 +432,9 @@
           <Image iconType="3" name="/resources/pecas/deck.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DeckLabelMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="DeckPiecesNumberLabel">
       <Properties>
