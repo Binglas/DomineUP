@@ -48,6 +48,7 @@ public class UIGameRoom extends javax.swing.JFrame {
     int lastY;
     int lastX;
     int newY;
+    int newX;
     int DeckPieces=28;
     public User PlayerTime; //saber de quem é a vez
     private Hashtable<JLabel, Piece> piecesPosition = new Hashtable<JLabel, Piece>();
@@ -67,6 +68,7 @@ public class UIGameRoom extends javax.swing.JFrame {
         initComponents();
         lastY = tabuleiro.getHeight() / 2;
         lastX = tabuleiro.getWidth() / 2;
+        newX = (int) (lastX-75);
         textAreaChatWindow.setLineWrap(true);
         textAreaChatWindow.setWrapStyleWord(true);
         this.pack();
@@ -84,6 +86,7 @@ public class UIGameRoom extends javax.swing.JFrame {
         }
         lastY = tabuleiro.getHeight() / 2;
         lastX = tabuleiro.getWidth() / 2;
+        newX = (int) (lastX-75);
         textAreaChatWindow.setLineWrap(true);
         textAreaChatWindow.setWrapStyleWord(true);
         
@@ -411,9 +414,9 @@ public class UIGameRoom extends javax.swing.JFrame {
                                     .addComponent(hand2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(pub, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(238, 238, 238)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addGap(60, 60, 60)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -715,7 +718,7 @@ public class UIGameRoom extends javax.swing.JFrame {
         rightSide=newrightSide;
         return true;
         
-        }else if((rightSide != 0 || leftSide!=0)&&(newleftSide==newrightSide)&&(rightSide == newrightSide)){
+        }else if((rightSide != 0 || leftSide!=0)&&(newleftSide==newrightSide)&&(rightSide == newleftSide)){
         Rotate r = Rotate.UPSIDE_DOWN;  
         newY = (int) (lastY-18.75);
         JLabel j = new JLabel();
@@ -753,7 +756,89 @@ public class UIGameRoom extends javax.swing.JFrame {
             y= 35;
         }
         this.pack();
-        rightSide=newleftSide;
+        rightSide=newrightSide;
+        return true;
+        
+        }
+        else if((rightSide != 0 || leftSide!=0)&&(newleftSide==newrightSide)&&(leftSide == newrightSide)){
+        Rotate r = Rotate.UPSIDE_DOWN;  
+        newY = (int) (lastY-18.75);
+        JLabel j = new JLabel();
+        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
+        j.setIcon(i);
+        
+        j.setPreferredSize(new Dimension(y, x));
+        tabuleiro.add(j,new AbsoluteConstraints(newX, newY, -1, -1));
+        switch(r){
+            case UP:
+                 lastX += 75;
+                 break;
+            case UPSIDE_DOWN:
+                newX += 37.5;
+                break;
+            case DOWN:
+                lastX -= 75;
+                break;
+            default: break;
+                
+        }
+       
+        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
+            r = Rotate.NORMAL;
+           
+           // lastY -= 35/4;
+            x = 35;
+            y= 75;
+            
+        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
+             r = Rotate.DOWN;
+           
+            lastX = tabuleiro.getWidth() - 150;
+            x = 75;
+            y= 35;
+        }
+        this.pack();
+        leftSide=newleftSide;
+        return true;
+        }else if((rightSide != 0 || leftSide!=0)&&(newleftSide==newrightSide)&&(leftSide == newleftSide)){
+        Rotate r = Rotate.UPSIDE_DOWN;  
+        newY = (int) (lastY-18.75);
+        JLabel j = new JLabel();
+        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
+        j.setIcon(i);
+        
+        j.setPreferredSize(new Dimension(y, x));
+        tabuleiro.add(j,new AbsoluteConstraints(newX, newY, -1, -1));
+        switch(r){
+            case UP:
+                 lastX += 75;
+                 break;
+            case UPSIDE_DOWN:
+                newX += 37.5;
+                break;
+            case DOWN:
+                lastX -= 75;
+                break;
+            default: break;
+                
+        }
+       
+        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
+            r = Rotate.NORMAL;
+           
+           // lastY -= 35/4;
+            x = 35;
+            y= 75;
+            
+        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
+             r = Rotate.DOWN;
+           
+            lastX = tabuleiro.getWidth() - 150;
+            x = 75;
+            y= 35;
+        }
+        this.pack();
+        leftSide=newleftSide;
         return true;
         }else if(rightSide == 0 && leftSide==0){
         Rotate r = Rotate.UP;    
@@ -836,17 +921,17 @@ public class UIGameRoom extends javax.swing.JFrame {
         rightSide=newrightSide;
         return true;
         
-        }else if(rightSide == newrightSide){
-            Rotate r = Rotate.DOWN; 
+        }else if(leftSide == newrightSide){
+            Rotate r = Rotate.UP; 
             JLabel j = new JLabel();
             Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
             j.setIcon(i);
-
+            
             j.setPreferredSize(new Dimension(x, y));
-            tabuleiro.add(j,new AbsoluteConstraints(lastX, lastY, -1, -1));
+            tabuleiro.add(j,new AbsoluteConstraints(newX, lastY, -1, -1));
             switch(r){
                 case UP:
-                     lastX += 75;
+                     newX -= 75;
                      break;
                 case NORMAL:
                     lastY += 75;
@@ -876,9 +961,92 @@ public class UIGameRoom extends javax.swing.JFrame {
                 y= 35;
             }
             this.pack();
-            rightSide=newleftSide;
+            leftSide=newleftSide;
             return true;
-        }else{
+        }else if(leftSide == newleftSide){
+            Rotate r = Rotate.DOWN; 
+            JLabel j = new JLabel();
+            Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
+            j.setIcon(i);
+            
+            j.setPreferredSize(new Dimension(x, y));
+            tabuleiro.add(j,new AbsoluteConstraints(newX, lastY, -1, -1));
+            switch(r){
+                case UP:
+                     lastX += 75;
+                     break;
+                case NORMAL:
+                    lastY += 75;
+                    break;
+                case ABOUT_CENTER:
+                    lastY += 75;
+                    break;    
+                case DOWN:
+                    newX -= 75;
+                    break;
+                default: break;
+
+            }
+
+            if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
+                r = Rotate.NORMAL;
+
+               // lastY -= 35/4;
+                x = 35;
+                y= 75;
+
+            }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
+                 r = Rotate.DOWN;
+
+                lastX = tabuleiro.getWidth() - 150;
+                x = 75;
+                y= 35;
+            }
+            this.pack();
+            leftSide=newrightSide;
+            return true;
+        }else if(leftSide == newrightSide){
+        Rotate r = Rotate.UP;    
+        JLabel j = new JLabel();
+        Icon i = new RotatedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/"+piece.getImage()+"")), r);
+        j.setIcon(i);
+        
+        j.setPreferredSize(new Dimension(x, y));
+        tabuleiro.add(j,new AbsoluteConstraints(lastX, lastY, -1, -1));
+        switch(r){
+            case UP:
+                 lastX += 75;
+                 break;
+            case NORMAL:
+                lastY += 75;
+                break;
+            case DOWN:
+                lastX -= 75;
+                break;
+            default: break;
+                
+        }
+       
+        if(lastX +75 > tabuleiro.getWidth()-35 && r == Rotate.UP){
+            r = Rotate.NORMAL;
+           
+           // lastY -= 35/4;
+            x = 35;
+            y= 75;
+            
+        }else if(lastY + 75 > tabuleiro.getHeight()-35 ){
+             r = Rotate.DOWN;
+           
+            lastX = tabuleiro.getWidth() - 150;
+            x = 75;
+            y= 35;
+        }
+        this.pack();
+        rightSide=newrightSide;
+        return true;
+        
+        }
+        else{
             return false;
         }
         

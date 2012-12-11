@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+				 
+<toc>
+  <tocitem text="Ajuda">
+    <tocitem text="Introdução"       target="help/1.introducao.html" home="true"/>
+
+	<tocitem text="Interface inícial">
+		<tocitem text="Conexão ao servidor"       target="help/2.connect.html" home="true"/>
+		<tocitem text="Registo"       target="help/3.registo.html" home="true"/>
+		<tocitem text="Login"       target="help/4.login.html" home="true"/>  
+		<tocitem text="Recuperar Palavra-chave"       target="help/5.recuperar.html" home="true"/>
+		<tocitem text="Mudar Linguagem"       target="help/6.linguagem.html" home="true"/>
+	</tocitem>		
+	<tocitem text="Interface Welcome Screen">	
+		<tocitem text="Welcome Screen"       target="help/7.welcome.html" home="true"/> 
+		<tocitem text="Criar uma Sala de Jogo"       target="help/8.criarSala.html" home="true"/> 
+	</tocitem>
+	
+  </tocitem>
+
+</toc>
