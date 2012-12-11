@@ -24,7 +24,8 @@ public class UIRegister extends javax.swing.JFrame {
         this.xPassword.setVisible(false);
         this.xName.setVisible(false);
         this.xEmail.setVisible(false);
-        this.ErrorLabel.setText("");        
+        this.ErrorLabel.setText(""); 
+        jPanel1.setOpaque(false);
     }
     /*
      * Set genérico
@@ -113,11 +114,13 @@ public class UIRegister extends javax.swing.JFrame {
         xPassword = new javax.swing.JLabel();
         xName = new javax.swing.JLabel();
         ErrorLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resources/Portugues_pt_PT_EURO"); // NOI18N
         setTitle(bundle.getString("AppTitle")); // NOI18N
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ConfirmButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ConfirmButton.setText(bundle.getString("ConfirmButton")); // NOI18N
@@ -126,6 +129,7 @@ public class UIRegister extends javax.swing.JFrame {
                 ConfirmButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(ConfirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 444, 171, 55));
 
         CancelButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         CancelButton.setText(bundle.getString("CancelButton")); // NOI18N
@@ -134,9 +138,11 @@ public class UIRegister extends javax.swing.JFrame {
                 CancelButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 444, 165, 55));
 
         RegisterUserLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         RegisterUserLabel.setText(bundle.getString("RegisterUserLabel")); // NOI18N
+        getContentPane().add(RegisterUserLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(318, 60, -1, -1));
 
         UsernameField.setAlignmentY(0.0F);
         UsernameField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -262,38 +268,10 @@ public class UIRegister extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(318, 318, 318)
-                .addComponent(RegisterUserLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(114, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(184, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(ConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(240, 240, 240))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(RegisterUserLabel)
-                .addGap(33, 33, 33)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 122, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -428,6 +406,7 @@ public class UIRegister extends javax.swing.JFrame {
     private javax.swing.JLabel RegisterUserLabel;
     private javax.swing.JTextField UsernameField;
     private javax.swing.JLabel UsernameLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel xEmail;
     private javax.swing.JLabel xName;

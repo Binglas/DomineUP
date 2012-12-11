@@ -57,6 +57,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
      */
     public UIWelcomeScreen(User Jogador) {
         initComponents();
+       
         player=Jogador;
         this.UsernameLabel.setText(Jogador.getUsername());
         setLocationRelativeTo(null);
@@ -190,6 +191,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         OptionsButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         pub = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -198,9 +200,11 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Tittle.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         Tittle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/final_logo.png"))); // NOI18N
+        getContentPane().add(Tittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 11, -1, -1));
 
         Leave.setText("Logout");
         Leave.addActionListener(new java.awt.event.ActionListener() {
@@ -208,9 +212,11 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 LeaveActionPerformed(evt);
             }
         });
+        getContentPane().add(Leave, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 580, 113, 56));
 
         UsernameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         UsernameLabel.setText("jLabel1");
+        getContentPane().add(UsernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 117, 171, -1));
 
         VolumeControl.setMaximum(0);
         VolumeControl.setMinimum(-40);
@@ -219,6 +225,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 VolumeControlStateChanged(evt);
             }
         });
+        getContentPane().add(VolumeControl, new org.netbeans.lib.awtextra.AbsoluteConstraints(836, 56, 101, -1));
 
         RankButton.setText("Rank Servidor");
         RankButton.addActionListener(new java.awt.event.ActionListener() {
@@ -226,34 +233,45 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 RankButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(RankButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 580, 122, 56));
 
         StatisticsLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         StatisticsLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         StatisticsLabel.setText("Estatísticas:");
+        getContentPane().add(StatisticsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 140, 139, -1));
 
         WelcomeLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         WelcomeLabel.setText("Bem Vindo,");
+        getContentPane().add(WelcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 117, -1, -1));
 
         VolumeLogoOn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/soundon.png"))); // NOI18N
+        getContentPane().add(VolumeLogoOn, new org.netbeans.lib.awtextra.AbsoluteConstraints(937, 48, -1, -1));
 
         VolumeLogoOff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/soundoff.png"))); // NOI18N
+        getContentPane().add(VolumeLogoOff, new org.netbeans.lib.awtextra.AbsoluteConstraints(805, 48, -1, -1));
 
         avatarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/avatar5.png"))); // NOI18N
+        getContentPane().add(avatarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 140, -1, 127));
 
         winGames.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         winGames.setText("Jogos Ganhos:");
+        getContentPane().add(winGames, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 213, 139, -1));
 
         lostGames.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lostGames.setText("Jogos Perdidos:");
+        getContentPane().add(lostGames, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 233, 139, -1));
 
         RankLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         RankLabel.setText("Rank:");
+        getContentPane().add(RankLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 173, 139, -1));
 
         ratio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ratio.setText("Rácio:");
+        getContentPane().add(ratio, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 253, 139, -1));
 
         gamesplayed.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         gamesplayed.setText("Jogos Realizados:");
+        getContentPane().add(gamesplayed, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 193, 139, -1));
 
         UserList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -295,9 +313,12 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         UserList.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(UserList);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 318, 212, 231));
+
         OnlinePlayersLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         OnlinePlayersLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         OnlinePlayersLabel.setText("Jogadores Online:");
+        getContentPane().add(OnlinePlayersLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 285, 262, -1));
 
         CreateRoomButton.setText("Criar Sala");
         CreateRoomButton.addActionListener(new java.awt.event.ActionListener() {
@@ -305,6 +326,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 CreateRoomButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(CreateRoomButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 338, 113, 54));
 
         textAreaChatWindow.setEditable(false);
         textAreaChatWindow.setColumns(20);
@@ -314,6 +336,8 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         textAreaChatWindow.setMaximumSize(new java.awt.Dimension(164, 94));
         textAreaChatWindow.setMinimumSize(new java.awt.Dimension(164, 94));
         jScrollPane1.setViewportView(textAreaChatWindow);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 450, 500, 97));
 
         txtChat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtChat.addActionListener(new java.awt.event.ActionListener() {
@@ -326,6 +350,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 txtChatEnterPressed(evt);
             }
         });
+        getContentPane().add(txtChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 550, 500, -1));
 
         LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/pt.png"))); // NOI18N
         LanguageButton.addActionListener(new java.awt.event.ActionListener() {
@@ -333,14 +358,17 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 LanguageButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(LanguageButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(701, 25, 58, 57));
 
         ChatLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         ChatLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ChatLabel.setText("Chat:");
+        getContentPane().add(ChatLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 262, -1));
 
         GameRoomsLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         GameRoomsLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         GameRoomsLabel.setText("Salas de Jogo:");
+        getContentPane().add(GameRoomsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 140, 262, -1));
 
         RoomList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -382,17 +410,23 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         RoomList.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(RoomList);
 
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 178, 504, 153));
+
         JoinRoomButton.setText("Juntar sala");
         JoinRoomButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JoinRoomButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(JoinRoomButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 338, 113, 54));
 
         RoomPasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         RoomPasswordLabel.setText("Inserir Password Sala:");
+        getContentPane().add(RoomPasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(689, 343, -1, -1));
 
         JoinRoomStatusLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        getContentPane().add(JoinRoomStatusLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 398, 262, 20));
+        getContentPane().add(RoomPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(689, 364, 242, 28));
 
         OptionsButton.setText("Opções");
         OptionsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -400,6 +434,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 OptionsButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(OptionsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 580, 113, 56));
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -407,158 +442,14 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 600, -1, -1));
 
         pub.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(pub, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 11, 291, 100));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(WelcomeLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(pub, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Tittle)
-                                .addGap(46, 46, 46)
-                                .addComponent(LanguageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)))
-                        .addComponent(VolumeLogoOff)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(avatarLabel)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(StatisticsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                            .addComponent(RankLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ratio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lostGames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(winGames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(gamesplayed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(OnlinePlayersLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(107, 107, 107)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtChat, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(ChatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(GameRoomsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(CreateRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(JoinRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(RoomPasswordLabel)
-                                            .addComponent(RoomPasswordField)))
-                                    .addComponent(JoinRoomStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(6, 6, 6)))
-                .addComponent(VolumeLogoOn)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(LanguageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(VolumeControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(VolumeLogoOn)
-                            .addComponent(VolumeLogoOff)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Tittle))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(WelcomeLabel)
-                    .addComponent(UsernameLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(StatisticsLabel)
-                            .addComponent(GameRoomsLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(5, 5, 5)
-                                        .addComponent(RoomPasswordLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(RoomPasswordField))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(CreateRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(JoinRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(JoinRoomStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ChatLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(RankLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(gamesplayed)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(winGames)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lostGames)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ratio)
-                                .addGap(18, 18, 18)
-                                .addComponent(OnlinePlayersLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(avatarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Leave, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(OptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -771,6 +662,7 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel avatarLabel;
     private javax.swing.JLabel gamesplayed;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

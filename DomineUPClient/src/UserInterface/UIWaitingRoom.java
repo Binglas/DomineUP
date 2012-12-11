@@ -125,14 +125,15 @@ public class UIWaitingRoom extends javax.swing.JFrame {
         LeaveRoom = new javax.swing.JButton();
         NameLabel = new javax.swing.JLabel();
         NumberLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -140,9 +141,11 @@ public class UIWaitingRoom extends javax.swing.JFrame {
                 formMouseMoved(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         WaitingRoomLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         WaitingRoomLabel.setText("Sala de Espera ");
+        getContentPane().add(WaitingRoomLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 32, -1, -1));
 
         PlayersList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -167,9 +170,13 @@ public class UIWaitingRoom extends javax.swing.JFrame {
         PlayersList.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(PlayersList);
 
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 187, 379, 91));
+
         RoomNameLabel.setText("_");
+        getContentPane().add(RoomNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 104, -1, -1));
 
         PlayersNumberLabel.setText("_");
+        getContentPane().add(PlayersNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 132, -1, -1));
 
         StartGame.setText("Iniciar Jogo");
         StartGame.addActionListener(new java.awt.event.ActionListener() {
@@ -177,6 +184,7 @@ public class UIWaitingRoom extends javax.swing.JFrame {
                 StartGameActionPerformed(evt);
             }
         });
+        getContentPane().add(StartGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 289, 110, 54));
 
         InvitePlayer.setText("Convidar Jogador");
         InvitePlayer.addActionListener(new java.awt.event.ActionListener() {
@@ -184,6 +192,7 @@ public class UIWaitingRoom extends javax.swing.JFrame {
                 InvitePlayerActionPerformed(evt);
             }
         });
+        getContentPane().add(InvitePlayer, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 140, 54));
 
         LeaveRoom.setText("Sair da Sala");
         LeaveRoom.addActionListener(new java.awt.event.ActionListener() {
@@ -191,68 +200,20 @@ public class UIWaitingRoom extends javax.swing.JFrame {
                 LeaveRoomActionPerformed(evt);
             }
         });
+        getContentPane().add(LeaveRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 290, 110, 54));
 
         NameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         NameLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         NameLabel.setText("Nome da Sala:");
+        getContentPane().add(NameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 101, 171, -1));
 
         NumberLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         NumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         NumberLabel.setText("Nº de Jogadores:");
+        getContentPane().add(NumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 129, 171, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(NameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RoomNameLabel)
-                            .addComponent(PlayersNumberLabel)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(StartGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(InvitePlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(LeaveRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(92, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(WaitingRoomLabel)
-                .addGap(199, 199, 199))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(WaitingRoomLabel)
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RoomNameLabel)
-                    .addComponent(NameLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PlayersNumberLabel)
-                    .addComponent(NumberLabel))
-                .addGap(41, 41, 41)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(InvitePlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(StartGame, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LeaveRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -350,6 +311,7 @@ public class UIWaitingRoom extends javax.swing.JFrame {
     private javax.swing.JLabel RoomNameLabel;
     private javax.swing.JButton StartGame;
     private javax.swing.JLabel WaitingRoomLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

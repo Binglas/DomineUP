@@ -7,6 +7,7 @@ import ComunicacaoCliente.ComCliente;
 import LogicaNegocioCliente.Language;
 import LogicaNegocioCliente.ReaderThread;
 import Share.MD5Pwd;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -25,6 +26,9 @@ public class UIInitial extends javax.swing.JFrame {
      */
     public UIInitial() {
         initComponents();
+        this.setIconImage(Toolkit.getDefaultToolkit() 
+        .getImage("/resources/ico.png"));
+         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         registerScreen = new UIRegister();
         recoverPassScreen = new UIRecoverPass();
         setLocationRelativeTo(null);
@@ -132,6 +136,7 @@ private class ConnectThread implements Runnable
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         ExitButton = new javax.swing.JButton();
         HelpButton = new javax.swing.JButton();
         Logo = new javax.swing.JLabel();
@@ -148,12 +153,16 @@ private class ConnectThread implements Runnable
         ServerStateQuery = new javax.swing.JLabel();
         LanguageButton = new javax.swing.JToggleButton();
         LoginGuestButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resources/Portugues_pt_PT_EURO"); // NOI18N
         setTitle(bundle.getString("AppTitle")); // NOI18N
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ExitButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         ExitButton.setText(bundle.getString("ExitGameButton")); // NOI18N
@@ -162,6 +171,7 @@ private class ConnectThread implements Runnable
                 ExitButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(ExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 422, 186, 65));
 
         HelpButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         HelpButton.setText(bundle.getString("HelpButton")); // NOI18N
@@ -170,8 +180,10 @@ private class ConnectThread implements Runnable
                 HelpButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(HelpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(423, 421, 186, 66));
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/final_logo.png"))); // NOI18N
+        getContentPane().add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 189, 341, 114));
 
         UsernameField.setEnabled(false);
         UsernameField.addActionListener(new java.awt.event.ActionListener() {
@@ -184,10 +196,12 @@ private class ConnectThread implements Runnable
                 UsernameFieldKeyPressed(evt);
             }
         });
+        getContentPane().add(UsernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 228, 31));
 
         UsernameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         UsernameLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         UsernameLabel.setText(bundle.getString("UsernameLabel")); // NOI18N
+        getContentPane().add(UsernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 186, -1));
 
         RegisterButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         RegisterButton.setText(bundle.getString("RegisterButton")); // NOI18N
@@ -197,6 +211,7 @@ private class ConnectThread implements Runnable
                 RegisterButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(RegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 90, 105, 32));
 
         LoginButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         LoginButton.setText(bundle.getString("LoginButton")); // NOI18N
@@ -206,6 +221,7 @@ private class ConnectThread implements Runnable
                 LoginButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(LoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 118, 32));
 
         RecoverPassButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         RecoverPassButton.setText(bundle.getString("RecoverPassButton")); // NOI18N
@@ -215,6 +231,7 @@ private class ConnectThread implements Runnable
                 RecoverPassButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(RecoverPassButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 130, 229, 32));
 
         PasswordField.setEnabled(false);
         PasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -222,12 +239,15 @@ private class ConnectThread implements Runnable
                 PasswordFieldKeyPressed(evt);
             }
         });
+        getContentPane().add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 228, 28));
 
         PasswordLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         PasswordLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         PasswordLabel.setText(bundle.getString("PasswordLabel")); // NOI18N
+        getContentPane().add(PasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 186, -1));
 
         jProgressBar.setIndeterminate(true);
+        getContentPane().add(jProgressBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 329, 341, -1));
 
         ReconnectButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ReconnectButton.setText(bundle.getString("ReconnectButton")); // NOI18N
@@ -236,10 +256,14 @@ private class ConnectThread implements Runnable
                 ReconnectButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(ReconnectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(356, 361, -1, 36));
 
+        ServerStateLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ServerStateLabel.setText("Estado do servidor:");
+        getContentPane().add(ServerStateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 130, -1));
 
         ServerStateQuery.setText("jLabel1");
+        getContentPane().add(ServerStateQuery, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 200, -1));
 
         LanguageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/uk.png"))); // NOI18N
         LanguageButton.addActionListener(new java.awt.event.ActionListener() {
@@ -247,6 +271,7 @@ private class ConnectThread implements Runnable
                 LanguageButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(LanguageButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 58, 57));
 
         LoginGuestButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         LoginGuestButton.setText("Entrar como visitante");
@@ -256,106 +281,10 @@ private class ConnectThread implements Runnable
                 LoginGuestButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(LoginGuestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, 230, 33));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(218, 218, 218)
-                                .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(219, 219, 219)
-                                .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(HelpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(356, 356, 356)
-                                .addComponent(ReconnectButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(222, 222, 222)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(ServerStateLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(ServerStateQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(LanguageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(302, 302, 302)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(PasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(UsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(698, 698, 698)
-                                    .addComponent(RegisterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGap(574, 574, 574)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(RecoverPassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(111, 111, 111))))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(574, 574, 574)
-                        .addComponent(LoginGuestButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(UsernameLabel))
-                            .addComponent(UsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PasswordLabel)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(LanguageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RegisterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RecoverPassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LoginGuestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ServerStateLabel)
-                    .addComponent(ServerStateQuery))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ReconnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(HelpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background.jpg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -585,6 +514,8 @@ private class ConnectThread implements Runnable
     private javax.swing.JLabel ServerStateQuery;
     private javax.swing.JTextField UsernameField;
     private javax.swing.JLabel UsernameLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jProgressBar;
     // End of variables declaration//GEN-END:variables
 }

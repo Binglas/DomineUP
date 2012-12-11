@@ -56,12 +56,15 @@ public class UIinvited extends javax.swing.JFrame {
         CreatorLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         NameRoomLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         WaitingRoomLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         WaitingRoomLabel.setText("Convite de Jogo");
+        getContentPane().add(WaitingRoomLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 29, -1, -1));
 
         CancelButton.setText("Recusar");
         CancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +72,7 @@ public class UIinvited extends javax.swing.JFrame {
                 CancelButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 190, 115, 54));
 
         AcceptInviteButton.setText("Aceitar");
         AcceptInviteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -76,66 +80,25 @@ public class UIinvited extends javax.swing.JFrame {
                 AcceptInviteButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(AcceptInviteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 190, 117, 54));
 
         jLabel1.setText("Foi convidado por ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 88, 96, -1));
 
         CreatorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         CreatorLabel.setText("jLabel2");
+        getContentPane().add(CreatorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 88, 110, -1));
 
         jLabel3.setText("para entar na sala");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 108, -1, -1));
 
         NameRoomLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         NameRoomLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         NameRoomLabel.setText("jLabel2");
+        getContentPane().add(NameRoomLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 138, 170, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(WaitingRoomLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(CreatorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(NameRoomLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(AcceptInviteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(WaitingRoomLabel)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CreatorLabel)
-                    .addComponent(jLabel1))
-                .addGap(6, 6, 6)
-                .addComponent(jLabel3)
-                .addGap(16, 16, 16)
-                .addComponent(NameRoomLabel)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AcceptInviteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/background.jpg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -211,6 +174,7 @@ public class UIinvited extends javax.swing.JFrame {
     private javax.swing.JLabel NameRoomLabel;
     private javax.swing.JLabel WaitingRoomLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }
