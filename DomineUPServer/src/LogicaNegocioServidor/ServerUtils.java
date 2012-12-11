@@ -126,6 +126,12 @@ public class ServerUtils implements Serializable {
         }
     }
 
+    /**
+     * Método que inicia um cliente como convidado
+     *
+     * @param clientThread
+     * @return o seu Guest se for bem sucedido, ou null se estiver errado.
+     */
     public User loginGuest(ClientThread clientThread) {
         synchronized (lockUserList) {
             String username = "Guest" + GetDate.time();
@@ -175,6 +181,15 @@ public class ServerUtils implements Serializable {
         }
     }
 
+    /**
+     * Este método é chamado quando um cliente fecha a janela inesperadamente,
+     * sem sinalizar ao Servidor uma mensagem de Logout. Este retira-o da lista
+     * de Users com o login efectuado, e verifica se a sala de onde o User
+     * potencialmente saiu estava a jogar, e se ficou com apenas 1 jogador. Se
+     * assim for o cliente é sinalizado com uma mensagem de erro.
+     *
+     * @param username
+     */
     public void forceLogout(String username) {
         synchronized (lockLoggedUsers) {
             for (int j = 0; j < loggedUsers.size(); ++j) {
@@ -461,6 +476,15 @@ public class ServerUtils implements Serializable {
         }
     }
 
+    /**
+     * Este método recebe uma mensagem que será broadcasted para todos os
+     * utilizadores da sala.
+     *
+     * @param sourceUser é o Utilizador de origem
+     * @param message é a mensagem que ele quer enviar aos outros jogadores
+     * @return true se o broadcast tiver tido sucesso, e false se tiver tido
+     * alguma exceção
+     */
     public boolean gameChat(User sourceUser, String message) {
         synchronized (lockRoomsOnline) {
             ArrayList<Object> arguments = new ArrayList<Object>();
@@ -508,6 +532,13 @@ public class ServerUtils implements Serializable {
         return true;
     }
 
+    /**
+     * Este método recebe a mensagem a enviar e o user para quem tem que enviar.
+     *
+     * @param msg a enviar
+     * @param users a receber a mensagem
+     * @return true se for bem sucedida, false se houver alguma exceção
+     */
     private boolean broadcastinvite(Message answrMsg, ArrayList<String> users) {
         for (int i = 0; i < (users.size()); ++i) {
             ClientThread clientThread = userConnections.get(users.get(i));
@@ -618,17 +649,17 @@ public class ServerUtils implements Serializable {
 
             Hashtable<String, Hand> userHand = new Hashtable<String, Hand>();
             roomState.DrawHand(players);
-          
+
             userHand = roomState.getPlayerHands();
-            
-            
+
+
             ArrayList<Object> arg = new ArrayList<>();
             ArrayList<User> toBroadcast = new ArrayList<>();
-           
 
-            for ( i = 0; i < startingRoom.getCurPlayers(); i++) {
 
-              
+            for (i = 0; i < startingRoom.getCurPlayers(); i++) {
+
+
                 toBroadcast.clear();
                 arg.clear();
                 Hand h = userHand.get(startingRoom.getPlayer(i).getUsername());
@@ -642,15 +673,23 @@ public class ServerUtils implements Serializable {
             }
             roomState.setLeftSide(null);
             roomState.setRightSide(null);
-            roomState.activePlayer=roomsOnline.get(roomIndex).getPlayerbyUsername(roomsOnline.get(roomIndex).getCreator());
+            roomState.activePlayer = roomsOnline.get(roomIndex).getPlayerbyUsername(roomsOnline.get(roomIndex).getCreator());
             runningGames.add(roomState);
             roomsOnline.set(roomIndex, startingRoom);
-            
+
             gameStats.put(roomName, roomState);
             return true;
         }
     }
 
+    /**
+     * Método envia a um user escolhido, um convite para uma dada sala de
+     * espera.
+     *
+     * @param nome_sala
+     * @param newUser
+     * @return true, se for bem sucedido.
+     */
     public boolean Invite(String nome_sala, String newUser) {
         synchronized (locktoBroadcastUsers) {
             ArrayList<Object> arguments = new ArrayList<>();
@@ -672,6 +711,11 @@ public class ServerUtils implements Serializable {
         }
     }
 
+    /**
+     * Get default que retorna a lista de ranks de todos os Users
+     *
+     * @return lista de objectos rank
+     */
     public ArrayList<Object> getUserRank() throws SQLException {
         DataRead DBreader = new DataRead();
         try {
@@ -685,59 +729,67 @@ public class ServerUtils implements Serializable {
         return null;
     }
 
-            
-    public boolean tryPlayPiece(User user,Piece piece,GameRoom sala) {
+    /**
+     * Metodo que tenta mover uma peça da mao de um jogador para o tabulero
+     *
+     * @param user
+     * @param piece
+     * @param sala
+     * @return lista de objectos User online
+     */
+    public boolean tryPlayPiece(User user, Piece piece, GameRoom sala) {
         synchronized (lockRoomsOnline) {
             ArrayList<Object> arguments = new ArrayList<>();
             ArrayList<User> toBroadcast = new ArrayList<>();
             GameRoom myRoom;
-           
-            
-            for (GameState g: runningGames){
-                
-                if(g.getName().equals(sala.getName())) {
+
+
+            for (GameState g : runningGames) {
+
+                if (g.getName().equals(sala.getName())) {
                     User OldUser = g.activePlayer;
-                    if (g.getLeftSide()==null && g.getRightSide()==null){
-                       // g.getPlayerHands().get(user).removePiece(piece);
+                    if (g.getLeftSide() == null && g.getRightSide() == null) {
+                        // g.getPlayerHands().get(user).removePiece(piece);
                         System.out.println("entrou no ciclo");
-                        
+
                         //g.removePiece(user,piece);
                         Hand mao = g.getPlayerHands().get(user.getUsername());
                         ArrayList<Piece> pieces = mao.getPieces();
                         pieces.remove(piece);
-                        
+
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setLeftSide(piece);
                         g.setRightSide(piece);
                         return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
-                        
-                    }
-                    else if(g.getLeftSide().getLeftN()== piece.getLeftN()) {
+
+                    } else if (g.getLeftSide().getLeftN() == piece.getLeftN()) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setLeftSide(piece);
                         return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
-                    }
-                    else if(g.getRightSide().getRightN() == piece.getRightN()) {
+                    } else if (g.getRightSide().getRightN() == piece.getRightN()) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setRightSide(piece);
                         return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
-                    }
-                    else {
+                    } else {
                         return false; // mandar mensagem apenas ao utilizador que tentou jogar a dizer que a jogada n é valida.
                     }
                 }
             }
-            
+
         }
         return false;
     }
 
-    public ArrayList<Object> getPub() throws SQLException  {
+    /**
+     * Get default que retorna a lista de publicidades
+     * @return lista de objectos publink
+     */
+    public ArrayList<Object> getPub() throws SQLException {
         DataRead DBreader = new DataRead();
         try {
             ArrayList<Object> publink = DBreader.getPub();
@@ -750,6 +802,18 @@ public class ServerUtils implements Serializable {
         return null;
     }
 
+    /**
+     * Metodo que envia mensagem para todos os utlizadores que estejam numa dada
+     * sala, com o movimento de uma peças da mão de um jogador para o tabuleiro
+     *
+     * @param sala
+     * @param toBroadcast
+     * @param arguments
+     * @param piece
+     * @param g
+     * @param OldUser
+     * @return true, se a mensagem for enviada, ou false, caso nao seja
+     */
     private boolean SendMessagePlayers(GameRoom sala, ArrayList<User> toBroadcast, ArrayList<Object> arguments, Piece piece, GameState g, User OldUser) {
         GameRoom myRoom;
         //enviar a todos os jogadores da sala

@@ -15,11 +15,14 @@ import javax.swing.SwingUtilities;
 
 /**
  * Interface do Servidor, permite ligar e desligar o servidor.
+ *
  * @author Luciano, Andre
  */
 public class Interface extends javax.swing.JFrame {
+
     FileOutputStream log;
     DataFile saveLog;
+
     /**
      * Creates new form Interface
      */
@@ -32,10 +35,10 @@ public class Interface extends javax.swing.JFrame {
             System.out.println("Error starting log file... Exception: " + ex);
         }
         saveLog = new DataFile();
-        
+
     }
     private ServerThread serverThread;
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,6 +58,10 @@ public class Interface extends javax.swing.JFrame {
         PubNameTextField = new javax.swing.JTextField();
         removePubButton = new javax.swing.JButton();
         estadoLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        BanusernameTextField = new javax.swing.JTextField();
+        BanPlayerButton = new javax.swing.JButton();
+        UnbanPlayerButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,62 +111,109 @@ public class Interface extends javax.swing.JFrame {
         estadoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         estadoLabel.setText("jLabel1");
 
+        jLabel1.setText("Username:");
+
+        BanusernameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BanusernameTextFieldActionPerformed(evt);
+            }
+        });
+
+        BanPlayerButton.setText("Ban Player");
+        BanPlayerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BanPlayerButtonActionPerformed(evt);
+            }
+        });
+
+        UnbanPlayerButton.setText("Unban Player");
+        UnbanPlayerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UnbanPlayerButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(estadoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(estadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(BanusernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap(36, Short.MAX_VALUE)
                             .addComponent(PubNameLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(PubNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(8, 8, 8)
-                            .addComponent(PubLinkLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(PubLinkTextField))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(addPubButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(removePubButton))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(StartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(51, 51, 51))
+                            .addGap(10, 10, 10)
+                            .addComponent(PubNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(37, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(StartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(PubLinkLabel)
+                                .addGap(10, 10, 10)
+                                .addComponent(PubLinkTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(37, 37, 37))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(removePubButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addPubButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(UnbanPlayerButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BanPlayerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(11, 11, 11)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(StartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PubLinkLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(PubLinkLabel))
                     .addComponent(PubLinkTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PubNameLabel)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(PubNameLabel))
                     .addComponent(PubNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(estadoLabel)
-                .addGap(18, 21, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addPubButton)
-                    .addComponent(removePubButton))
-                .addContainerGap())
+                    .addComponent(BanusernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(estadoLabel)
+                .addGap(18, 18, 18)
+                .addComponent(addPubButton)
+                .addGap(6, 6, 6)
+                .addComponent(removePubButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(UnbanPlayerButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BanPlayerButton)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,28 +226,29 @@ public class Interface extends javax.swing.JFrame {
 
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
         // TODO add your handling code here:
-        
+
         this.serverThread = new ServerThread(4444);
         this.serverThread.start();
         this.StartButton.setEnabled(false);
         //redirectSystemStreams();
-        System.out.println(GetDate.now()+": Server Started.");
-       
-        
+        System.out.println(GetDate.now() + ": Server Started.");
+
+
     }//GEN-LAST:event_StartButtonActionPerformed
 
     private void addPubButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPubButtonActionPerformed
         // TODO add your handling code here:
-        DataWrite DBwrite = new DataWrite();
-        
-        String pubLink = PubLinkTextField.getText();
-        String pubName = PubNameTextField.getText();
-        
-        PubLinkTextField.setText("");
-        PubNameTextField.setText("");
-        estadoLabel.setText("");
-        
-        //inserir utilizador na DB (tratar das estatisticas e etc... apenas insere na tabela user)
+        if (!(PubLinkTextField.getText().equals("") && PubNameTextField.getText().equals(""))) {
+            DataWrite DBwrite = new DataWrite();
+
+            String pubLink = PubLinkTextField.getText();
+            String pubName = PubNameTextField.getText();
+
+            PubLinkTextField.setText("");
+            PubNameTextField.setText("");
+            estadoLabel.setText("");
+
+            //inserir utilizador na DB (tratar das estatisticas e etc... apenas insere na tabela user)
 
             try {
                 DBwrite.InsertPub(pubLink, pubName);
@@ -202,6 +257,10 @@ public class Interface extends javax.swing.JFrame {
                 System.out.println("Exception: DBwrite.InsertUser() " + ex);
                 estadoLabel.setText("Publicidade Nao Inserida");
             }
+        } else {
+            estadoLabel.setText("Nao escolheu publicidade");
+        }
+
     }//GEN-LAST:event_addPubButtonActionPerformed
 
     private void PubLinkTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PubLinkTextFieldActionPerformed
@@ -210,12 +269,13 @@ public class Interface extends javax.swing.JFrame {
 
     private void removePubButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePubButtonActionPerformed
         // TODO add your handling code here:
-        DataWrite DBwrite = new DataWrite();
-        
-        String pubLink = PubLinkTextField.toString();
-        String pubName = PubNameTextField.toString();
-        
-        //inserir utilizador na DB (tratar das estatisticas e etc... apenas insere na tabela user)
+        if (!(PubLinkTextField.getText().equals("") && PubNameTextField.getText().equals(""))) {
+            DataWrite DBwrite = new DataWrite();
+
+            String pubLink = PubLinkTextField.getText();
+            String pubName = PubNameTextField.getText();
+
+            //inserir utilizador na DB (tratar das estatisticas e etc... apenas insere na tabela user)
 
             try {
                 DBwrite.DeletePub(pubName);
@@ -224,30 +284,84 @@ public class Interface extends javax.swing.JFrame {
                 System.out.println("Exception: DBwrite.InsertUser() " + ex);
                 estadoLabel.setText("Publicidade Nao Removida");
             }
+        } else {
+            estadoLabel.setText("Nao escolheu publicidade");
+        }
+
     }//GEN-LAST:event_removePubButtonActionPerformed
+
+    private void BanPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BanPlayerButtonActionPerformed
+        // TODO add your handling code here:
+        if (!BanusernameTextField.getText().equals("")) {
+            DataWrite DBwrite = new DataWrite();
+
+            String username = BanusernameTextField.getText();
+
+            //inserir utilizador na DB (tratar das estatisticas e etc... apenas insere na tabela user)
+
+            try {
+                DBwrite.BanPlayer(username);
+                estadoLabel.setText("Utilizador Banido");
+            } catch (SQLException ex) {
+                System.out.println("Exception: DBwrite.InsertUser() " + ex);
+                estadoLabel.setText("Utilizador Nao Banido");
+            }
+        } else {
+            estadoLabel.setText("Nao escolhe utilizador");
+        }
+
+    }//GEN-LAST:event_BanPlayerButtonActionPerformed
+
+    private void UnbanPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnbanPlayerButtonActionPerformed
+        // TODO add your handling code here:
+
+        if (!BanusernameTextField.getText().equals("")) {
+            DataWrite DBwrite = new DataWrite();
+
+            String username = BanusernameTextField.getText();
+
+            //inserir utilizador na DB (tratar das estatisticas e etc... apenas insere na tabela user)
+
+            try {
+                DBwrite.UnbanPlayer(username);
+                estadoLabel.setText("Utilizador Aceite");
+            } catch (SQLException ex) {
+                System.out.println("Exception: DBwrite.InsertUser() " + ex);
+                estadoLabel.setText("Utilizador Banido");
+            }
+        } else {
+            estadoLabel.setText("Nao escolhe utilizador");
+        }
+
+
+    }//GEN-LAST:event_UnbanPlayerButtonActionPerformed
+
+    private void BanusernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BanusernameTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BanusernameTextFieldActionPerformed
     private void updateTextArea(final String text) {
-        
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 saveLog.saveLogs(text, log);
             }
         });
-        }
+    }
+
     private void redirectSystemStreams() {
-        
+
         OutputStream out = new OutputStream() {
-        
             @Override
             public void write(int b) throws IOException {
                 updateTextArea(String.valueOf((char) b));
             }
 
             @Override
-
             public void write(byte[] b, int off, int len) throws IOException {
                 updateTextArea(new String(b, off, len));
             }
+
             @Override
             public void write(byte[] b) throws IOException {
                 write(b, 0, b.length);
@@ -256,6 +370,7 @@ public class Interface extends javax.swing.JFrame {
         System.setOut(new PrintStream(out, true));
         System.setErr(new PrintStream(out, true));
     }
+
     /**
      * @param args the command line arguments
      */
@@ -291,14 +406,18 @@ public class Interface extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BanPlayerButton;
+    private javax.swing.JTextField BanusernameTextField;
     private javax.swing.JButton ExitButton;
     private javax.swing.JLabel PubLinkLabel;
     private javax.swing.JTextField PubLinkTextField;
     private javax.swing.JLabel PubNameLabel;
     private javax.swing.JTextField PubNameTextField;
     private javax.swing.JButton StartButton;
+    private javax.swing.JButton UnbanPlayerButton;
     private javax.swing.JButton addPubButton;
     private javax.swing.JLabel estadoLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton removePubButton;
     // End of variables declaration//GEN-END:variables
