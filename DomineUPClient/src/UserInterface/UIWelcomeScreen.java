@@ -331,7 +331,6 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         textAreaChatWindow.setEditable(false);
         textAreaChatWindow.setColumns(20);
         textAreaChatWindow.setRows(5);
-        textAreaChatWindow.setAutoscrolls(false);
         textAreaChatWindow.setBorder(null);
         textAreaChatWindow.setMaximumSize(new java.awt.Dimension(164, 94));
         textAreaChatWindow.setMinimumSize(new java.awt.Dimension(164, 94));

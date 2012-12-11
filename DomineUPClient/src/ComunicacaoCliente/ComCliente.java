@@ -479,8 +479,10 @@ public class ComCliente {
                         }else{
                             return "RequestPiecePlay:error";
                         }
-
-                                
+                    case "RequestDeck:success":
+                        dsfdsfsfd
+                        return "RequestDeck:success";  
+                        
                     case "RequestPiecePlay:error":
                         return "RequestPiecePlay:error";
                     case "runtimeError:error":
@@ -617,10 +619,34 @@ public class ComCliente {
             System.err.println("chatGame: error writing object");
         }
     }
+    
+      /*
+     *Envia uma mensagem para o servidor a solicitar uma peça no deck
+     * @param player jogador que faz a jogada
+     * @param GameRoom peça a ser jogada
+     */
+    public void RequestDeck(User player,GameRoom sala){
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(player);
+        arguments.add(sala);
+
+
+        Message messageToServer = new Message("RequestDeck", arguments);
+
+        try {
+            escritor.reset();
+            escritor.writeObject(messageToServer);
+            escritor.flush();
+
+        } catch (Exception ex) {
+            System.err.println("RequestPiecePlay: error writing object");
+        }
+    }
     /*
      *Envia uma mensagem para o servidor a solicitar uma jogada de uma peça
      * @param player jogador que faz a jogada
      * @param piece peça a ser jogada
+     * @param sala sala de jogo
      */
     public void TryPlayPiece(User player,Piece piece,GameRoom sala){
         ArrayList<Object> arguments = new ArrayList<Object>();

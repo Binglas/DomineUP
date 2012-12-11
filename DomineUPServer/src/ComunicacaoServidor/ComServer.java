@@ -220,6 +220,15 @@ public class ComServer {
                         System.out.println(GetDate.now() + ": " + thisClient + ": Failed to play a piece!");
                         return true;
                     }
+                case "RequestDeck":
+                    System.out.println(GetDate.now() + ": " + thisClient + ": Requested a Deck piece!");
+                    if (RequestDeck(msg)) {
+                        System.out.println(GetDate.now() + ": " + thisClient + ": Request a Deck piece accepted");
+                        return true;
+                    } else {
+                        System.out.println(GetDate.now() + ": " + thisClient + ": Failed to request a Deck piece!");
+                        return true;
+                    }
 
 
                 case "requestRooms":
@@ -762,11 +771,35 @@ public class ComServer {
         }
 
     }
+     /**
+     * Este metodo envia para o cliente uma peça do baralho.
+     * @return true caso seja efetuada a jogada, False se nao for.
+     */
+    private boolean RequestDeck(Message msg) {
+        User user = (User) msg.getArguments().get(0);
+        GameRoom sala = (GameRoom) msg.getArguments().get(2);
+        ArrayList<Object> arg = null;
 
+        if (!state.PickDeckPiece(user, sala)) {
+            try {
+                //erro
+                Message answrMsg = new Message("RequestDeck:error", arg);
+                clientThread.writeMessage(answrMsg);
+                return true;
+            } catch (Exception ex) {
+                System.out.println(GetDate.now() + ": " + thisClient + ": EXCEPTION! Comunicacao.requestStartTurn(): 1!");
+                System.out.println(GetDate.now() + ": " + thisClient + ": EXCEPTION: " + ex);
+                return false;
+            }
+        } else {
+            //mandou broadcast
+            return true;
+        }
+
+    }
     /**
      * Este metodo envia para o cliente a informação se a sua jogada é valida ou
-     * nao
-     *
+     * nao.
      * @return true caso seja efetuada a jogada, False se nao for.
      */
     private boolean startTurn(Message msg) {

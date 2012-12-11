@@ -612,9 +612,9 @@ public class ServerUtils implements Serializable {
 
     /**
      * Este método inicia o jogo em si, fazendo broadcast para todos os seus
-     * jogadores (que neste momento já se encontram todos em estado Ready) para
-     * iniciarem a UI da sala de jogo. Modifica o objecto GameRoom e atualiza-o
-     * nos Arrays em que ele aparece, criando também um objeto da classe
+     * jogadores para iniciarem a UI da sala de jogo. 
+     * Modifica o objecto GameRoom e atualiza-o nos Arrays em que ele aparece,
+     * criando também um objeto da classe
      * GameState e inserindo-o num array de salas em jogo, porque para que as
      * informações do jogo possam ser modificadas.
      *
@@ -671,8 +671,9 @@ public class ServerUtils implements Serializable {
                     return false;
                 }
             }
-            roomState.setLeftSide(null);
-            roomState.setRightSide(null);
+            //99 define o inicio jogo
+            roomState.setLeftSide(99);
+            roomState.setRightSide(99);
             roomState.activePlayer = roomsOnline.get(roomIndex).getPlayerbyUsername(roomsOnline.get(roomIndex).getCreator());
             runningGames.add(roomState);
             roomsOnline.set(roomIndex, startingRoom);
@@ -728,9 +729,65 @@ public class ServerUtils implements Serializable {
         }
         return null;
     }
+     /**
+     * Metodo que verifica se é possível efetuar a jogada solicitada pelo
+     * jogador, verifica também se alguém venceu o jogo. Envia em broadcast
+     * mensagens sobre a peça jogada para todos os utilizadores da sala.
+     *
+     * @param user
+     * @param piece
+     * @param sala
+     * @return lista de objectos User online
+     */
+    public boolean PickDeckPiece(User user, GameRoom sala) {
+        synchronized (lockRoomsOnline) {
+            ArrayList<Object> arguments = new ArrayList<>();
+            ArrayList<User> toBroadcast = new ArrayList<>();
+            GameRoom myRoom;
 
+            
+            for (GameState g : runningGames) {
+
+                if (g.getName().equals(sala.getName())) {
+                    User OldUser = g.activePlayer;
+                    Piece peca = new Piece();
+                    
+                    for (int i=0;i<28;i++){
+                        if(g.deck[i]!=null){
+                            peca=g.deck[i];
+                            g.deck[i]=null;
+                            break;
+                        }
+                    }
+                    
+                    int nextPlayer = sala.nextPlayer(user);
+                    g.setActivePlayer(sala.getPlayer(nextPlayer));
+                    g.addPiece(user, peca);           
+                    
+                    //enviar a todos os jogadores da sala
+                    myRoom = sala;
+                    for (int i = 0; i < myRoom.getCurPlayers(); i++) {
+                        toBroadcast.add(myRoom.getPlayer(i));
+                    }
+                    arguments.add(peca);
+                    arguments.add(g.activePlayer);
+                    arguments.add(OldUser);
+                    Message msg = new Message("RequestDeck:success", arguments);
+                    
+                    if (broadcast(msg, toBroadcast)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            } 
+        }
+        return false;
+    }
     /**
-     * Metodo que tenta mover uma peça da mao de um jogador para o tabulero
+     * Metodo que verifica se é possível efetuar a jogada solicitada pelo
+     * jogador, verifica também se alguém venceu o jogo. Envia em broadcast
+     * mensagens sobre a peça jogada para todos os utilizadores da sala.
      *
      * @param user
      * @param piece
@@ -748,10 +805,9 @@ public class ServerUtils implements Serializable {
 
                 if (g.getName().equals(sala.getName())) {
                     User OldUser = g.activePlayer;
-                    if (g.getLeftSide() == null && g.getRightSide() == null) {
-                        // g.getPlayerHands().get(user).removePiece(piece);
-                        System.out.println("entrou no ciclo");
-
+                    //99... é quando comeca
+                    if (g.getLeftSide() == 99 && g.getRightSide() == 99) {
+                        // g.getPlayerHands().get(user).removePiece(piece);                      
                         //g.removePiece(user,piece);
                         Hand mao = g.getPlayerHands().get(user.getUsername());
                         ArrayList<Piece> pieces = mao.getPieces();
@@ -759,25 +815,41 @@ public class ServerUtils implements Serializable {
 
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
-                        g.setLeftSide(piece);
-                        g.setRightSide(piece);
+                        g.setLeftSide(piece.getLeftN());
+                        g.setRightSide(piece.getRightN());
                         return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
 
-                    } else if (g.getLeftSide().getLeftN() == piece.getLeftN()) {
+                    } else if (g.getLeftSide() == piece.getLeftN()) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
-                        g.setLeftSide(piece);
+                        g.setLeftSide(piece.getRightN());
                         return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
-                    } else if (g.getRightSide().getRightN() == piece.getRightN()) {
+                        
+                    }else if (g.getRightSide() == piece.getLeftN()){
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
-                        g.setRightSide(piece);
+                        g.setRightSide(piece.getRightN());
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                    } 
+                    else if (g.getLeftSide() == piece.getRightN()){
+                        g.getPlayerHands().get(user.getUsername()).removePiece(piece);
+                        int nextPlayer = sala.nextPlayer(user);
+                        g.setActivePlayer(sala.getPlayer(nextPlayer));
+                        g.setLeftSide(piece.getLeftN());
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                    }
+                    else if (g.getRightSide() == piece.getRightN()) {
+                        g.getPlayerHands().get(user.getUsername()).removePiece(piece);
+                        int nextPlayer = sala.nextPlayer(user);
+                        g.setActivePlayer(sala.getPlayer(nextPlayer));
+                        g.setRightSide(piece.getLeftN());
                         return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
                     } else {
                         return false; // mandar mensagem apenas ao utilizador que tentou jogar a dizer que a jogada n é valida.
                     }
+                    
                 }
             }
 

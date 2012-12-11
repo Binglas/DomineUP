@@ -21,15 +21,14 @@ class GameState {
     private int DECKSIZE = 28;
     private String name;
     Piece[] deck;
-    Piece[] board;
     Hand[] hands;
-    Hand[] handstemp;
+    
     Random rand;
     private Hashtable<String, Hand> playerHands;
    
     User activePlayer;
-    private Piece leftside;
-    private Piece rightside;
+    private int leftside;
+    private int rightside;
 
     /**
      * Contrutor da classe GameState. Este inicializa todas as variáveis que vão
@@ -43,14 +42,14 @@ class GameState {
         deck = new Piece[DECKSIZE];
         playerHands = new Hashtable<String, Hand>();
         hands = new Hand[startingRoom.getCurPlayers()];
-        handstemp = new Hand[startingRoom.getCurPlayers()];
+   
         rand = new Random();
         
         name = startingRoom.getName();
 
         for (int j = 0; j < startingRoom.getCurPlayers(); j++) {
             hands[j] = new Hand();
-            handstemp[j]=new Hand();
+      
         }
         int c = 0;
         for (int i = 0; i <= 6; i++) {
@@ -87,25 +86,6 @@ class GameState {
     public void setName(String name) {
         this.name = name;
     }
-
-    /**
-     * Get default.
-     *
-     * @return Retorna o tabuleiro de jogo.
-     */
-    public Piece[] getBoard() {
-        return board;
-    }
-
-    /**
-     * Set comum.
-     *
-     * @param board é o novo tabuleiro a ser guardado.
-     */
-    public void setBoard(Piece[] board) {
-        this.board = board;
-    }
-
 
     /**
      * Este método implementa um gerador aleatório de inteiros de 0 a 28, com o
@@ -166,27 +146,39 @@ class GameState {
         this.activePlayer = user;
     }
     
-    public Piece getLeftSide() {
+    public int getLeftSide() {
         return this.leftside;
     }
     
-    public Piece getRightSide() {
+    public int getRightSide() {
         return this.rightside;
     }
     
-    public void setLeftSide(Piece leftSide) {
+    public void setLeftSide(int leftSide) {
         this.leftside = leftSide;
     }
     
-    public void setRightSide(Piece rightSide) {
+    public void setRightSide(int rightSide) {
         this.rightside = rightSide;
     }
-
+    
+    /* Remove peça da mão de um jogador
+     * @param player classe jogador
+     * @param piece classe peça
+     */
     void removePiece(User player,Piece piece) {
         
-       // SystemplayerHands.get(player)
+       
         playerHands.get(player).removePiece(piece);
         
        
+    }
+    /* Adiciona peça a mão de um jogador
+     * @param player classe jogador
+     * @param piece classe peça
+     */
+    void addPiece(User player,Piece piece){
+        
+        playerHands.get(player).setOnePiece(playerHands.get(player).getSize(), piece);
     }
 }
