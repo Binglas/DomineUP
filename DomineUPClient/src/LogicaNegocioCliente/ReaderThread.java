@@ -203,6 +203,8 @@ public class ReaderThread extends Thread {
                         errorFrame4.setTextErrorLabel("Leave Room Error!");
                         errorFrame4.setVisible(true);
                         break;
+                    case "RequestDeck:success":
+                        break;
                         
                     case "joinRoom:success":
                         welcomescreen.waitingRoomScreen = new UIWaitingRoom();
