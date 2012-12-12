@@ -777,7 +777,7 @@ public class ComServer {
      */
     private boolean RequestDeck(Message msg) {
         User user = (User) msg.getArguments().get(0);
-        GameRoom sala = (GameRoom) msg.getArguments().get(1);
+        GameRoom sala = (GameRoom) msg.getArguments().get(2);
         ArrayList<Object> arg = null;
 
         if (!state.PickDeckPiece(user, sala)) {

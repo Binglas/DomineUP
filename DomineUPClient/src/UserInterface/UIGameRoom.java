@@ -96,7 +96,7 @@ public class UIGameRoom extends javax.swing.JFrame {
         Player1.setText(UIWelcomeScreen.player.getUsername());
         this.avatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_" + UIWelcomeScreen.player.getAvatar())));
         gameRoom = gr;
-
+        DeckPieces=DeckPieces-7;
         ArrayList<User> players = (ArrayList<User>) gr.getPlayers();
         ArrayList<Hand> hands = null;
 
@@ -113,7 +113,9 @@ public class UIGameRoom extends javax.swing.JFrame {
         avatarsLbl[1] = avatar3;
         avatarsLbl[2] = avatar4;
 
-
+        hand2.setName(Player2.getText());
+        hand3.setName(Player3.getText());
+        hand4.setName(Player4.getText());
 
         handsPanel[0] = hand2;
         handsPanel[1] = hand3;
@@ -126,9 +128,8 @@ public class UIGameRoom extends javax.swing.JFrame {
                 continue;
             }
             playersLbl[i].setText(u.getUsername());
-            handsPanel[i].setName(u.getUsername());
             avatarsLbl[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_" + u.getAvatar())));
-            DeckPieces -= 7;
+            handsPanel[i].setName(u.getPassword());
             if (i == 3 || i == 4) {
                 populateHand(handsPanel[i++], hand, Rotate.UP);
             } else {
@@ -140,23 +141,15 @@ public class UIGameRoom extends javax.swing.JFrame {
         for (; i < 3; i++) {
             playersLbl[i].setVisible(false);
             avatarsLbl[i].setVisible(false);
-
+            DeckPieces = DeckPieces - 7;
 
         }
-        /*
-         handsPanel[0].setName(Player2.getText());
-         handsPanel[1].setName(Player3.getText());
-         handsPanel[2].setName(Player4.getText());
-         * */
+
         PlayerTime = gameRoom.getPlayerbyUsername(gameRoom.getCreator());
         DeckPiecesNumberLabel.setText(Integer.toString(DeckPieces));
         populateHand(hand1, hand, Rotate.NORMAL);
         Estado.setText("Vez do jogador " + PlayerTime.getUsername());
-
     }
-    /*
-     * Metodo que desenha as peças no tabuleiro
-     */
 
     private void populateHand(JPanel panel, Hand hand, Rotate r) {
 
@@ -249,6 +242,7 @@ public class UIGameRoom extends javax.swing.JFrame {
         VolumeLogoOn = new javax.swing.JLabel();
         pub = new javax.swing.JLabel();
         VolumeLogoOff = new javax.swing.JLabel();
+        jToggleButton2 = new javax.swing.JToggleButton();
         hand3 = new javax.swing.JPanel();
         hand1 = new javax.swing.JPanel();
         hand4 = new javax.swing.JPanel();
@@ -333,6 +327,13 @@ public class UIGameRoom extends javax.swing.JFrame {
         pub.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         VolumeLogoOff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/soundoff.png"))); // NOI18N
+
+        jToggleButton2.setText("jToggleButton2");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
 
         hand3.setPreferredSize(new java.awt.Dimension(75, 0));
         hand3.setLayout(new java.awt.GridLayout(0, 3));
@@ -433,7 +434,8 @@ public class UIGameRoom extends javax.swing.JFrame {
                                     .addComponent(avatar4)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                                     .addComponent(txtChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jToggleButton2))
                             .addComponent(ChatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(26, 26, 26))
         );
@@ -487,7 +489,9 @@ public class UIGameRoom extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(txtChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton2))
                     .addComponent(hand1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(DeckLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -537,13 +541,15 @@ public class UIGameRoom extends javax.swing.JFrame {
 
     }//GEN-LAST:event_VolumeControlStateChanged
 
-    private void DeckLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeckLabelMouseClicked
-        //verifica de quem é a vez para desactivar botoes
-        if (UIWelcomeScreen.player.getUsername().equals(PlayerTime.getUsername())) {
-            com = ComCliente.getInstance();
-            com.RequestDeck(UIWelcomeScreen.player, gameRoom);
-        }
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        // TODO add your handling code here:
+        //addPeca();
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
 
+    private void DeckLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeckLabelMouseClicked
+        com = ComCliente.getInstance();
+        com.RequestDeck(UIWelcomeScreen.player,gameRoom);
+        
     }//GEN-LAST:event_DeckLabelMouseClicked
     /**
      * Atualiza a área de chat com as mensagens que vão sendo introduzidas pelos
@@ -594,22 +600,21 @@ public class UIGameRoom extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JLabel piecesTextLabel;
     private javax.swing.JLabel pub;
     private javax.swing.JPanel tabuleiro;
     private javax.swing.JTextArea textAreaChatWindow;
     private javax.swing.JTextField txtChat;
     // End of variables declaration//GEN-END:variables
-
-    public void updateDeckLabel() {
-
+    public void UpdateDeckLabel(){
         DeckPiecesNumberLabel.setText(Integer.toString(DeckPieces));
     }
-
     public void updateUI(String estado, Piece pecaremovida, User playerdajogada) {
 
 
-        Estado.setText("Vez do jogador:" + estado);
+        
+        Estado.setText("Estado:" + estado);
 
 
 
@@ -617,16 +622,15 @@ public class UIGameRoom extends javax.swing.JFrame {
             //limpar uma peca hand do jogador que fez a jogada
             Set set = piecesPosition.entrySet();
             Iterator it = set.iterator();
-
             while (it.hasNext()) {
                 Map.Entry entry = (Map.Entry) it.next();
                 if (entry.getValue().equals(pecaremovida)) {
                     JLabel label = (JLabel) entry.getKey();
                     piecesPosition.remove(entry.getKey());
                     Container parent = label.getParent();
-                    hand1.remove(label);
-                    hand1.validate();
-                    hand1.repaint();
+                    parent.remove(label);
+                    parent.validate();
+                    parent.repaint();
                     break;
                 }
 
@@ -634,9 +638,7 @@ public class UIGameRoom extends javax.swing.JFrame {
         } else {//limpar uma peca costas do jogador que fez a jogada
 
             for (int i = 1; i < handsPanel.length; i++) {
-                String x = handsPanel[i].getName();
-                String y = playerdajogada.getUsername();
-                if (x.equals(y)) {
+                if (handsPanel[i].getName().equals(playerdajogada.getUsername())) {
 
                     handsPanel[i].remove(0);
                     handsPanel[i].validate();
@@ -648,6 +650,12 @@ public class UIGameRoom extends javax.swing.JFrame {
     }
 
     /**
+     * Metodo que adiciona uma peca ao tabuleiro
+     *
+     * @param piece
+     * @return true, se conseguir adicionar, ou false se nao conseguir.
+     */
+   /**
      * Metodo que adiciona uma peca ao tabuleiro
      *
      * @param piece

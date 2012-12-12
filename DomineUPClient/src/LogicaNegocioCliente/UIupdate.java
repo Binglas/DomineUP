@@ -4,7 +4,6 @@
  */
 package LogicaNegocioCliente;
 import ComunicacaoCliente.ComCliente;
-import UserInterface.UIWaitingRoom;
 import UserInterface.UIWelcomeScreen;
 
 /**
@@ -28,7 +27,8 @@ public class UIupdate extends Thread{
     @Override
     public void run() {
         
-        
+        //WelcomeScreenUI.roomsList = new ArrayList<GameRoom>();
+        //WelcomeScreenUI.usersOnlineList = new ArrayList<User>();
         ComCliente com;
   
         
@@ -42,7 +42,7 @@ public class UIupdate extends Thread{
                 com.requestUsers();
                 com.requestRooms();
                 com.requestRank(); 
-                
+                com.requestPub();
                 screen.updateScreen();
                               
                 try {

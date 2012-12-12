@@ -612,10 +612,11 @@ public class ServerUtils implements Serializable {
 
     /**
      * Este método inicia o jogo em si, fazendo broadcast para todos os seus
-     * jogadores para iniciarem a UI da sala de jogo. Modifica o objecto
-     * GameRoom e atualiza-o nos Arrays em que ele aparece, criando também um
-     * objeto da classe GameState e inserindo-o num array de salas em jogo,
-     * porque para que as informações do jogo possam ser modificadas.
+     * jogadores para iniciarem a UI da sala de jogo. 
+     * Modifica o objecto GameRoom e atualiza-o nos Arrays em que ele aparece,
+     * criando também um objeto da classe
+     * GameState e inserindo-o num array de salas em jogo, porque para que as
+     * informações do jogo possam ser modificadas.
      *
      * @param roomName é o nome do objecto da classe GameRoom a iniciar
      * @return true se for bem sucedido, ou false se já estiver Playing
@@ -728,7 +729,6 @@ public class ServerUtils implements Serializable {
         }
         return null;
     }
-
     /**
      * Metodo que verifica se é possível efetuar a jogada solicitada pelo
      * jogador, verifica também se alguém venceu o jogo. Envia em broadcast
@@ -784,7 +784,6 @@ public class ServerUtils implements Serializable {
         }
         return false;
     }
-
     /**
      * Metodo que verifica se é possível efetuar a jogada solicitada pelo
      * jogador, verifica também se alguém venceu o jogo. Envia em broadcast
@@ -878,7 +877,6 @@ public class ServerUtils implements Serializable {
 
     /**
      * Get default que retorna a lista de publicidades
-     *
      * @return lista de objectos publink
      */
     public ArrayList<Object> getPub() throws SQLException {

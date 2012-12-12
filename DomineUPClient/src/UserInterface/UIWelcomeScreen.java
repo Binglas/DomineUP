@@ -71,9 +71,6 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         this.avatarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/"+Jogador.getAvatar())));
 
         optionScreen = new UIConfiguracoes(Jogador);
-        ComCliente com;
-        com = ComCliente.getInstance();
-        com.requestPub();
     }
     
      /**

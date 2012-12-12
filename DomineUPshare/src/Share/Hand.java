@@ -60,17 +60,6 @@ public class Hand implements Serializable{
      */
     public void setOnePiece(int index, Piece piece) {
         this.pieces.add(index, piece);
-        
-    }
-    /**
-     * Este método introduz o objeto piece
-     * @param index
-     * @param piece 
-     */
-    public void setOnePieceNoIndex(Piece piece){
-        
-         pieces.add(pieces.size(), piece);
-        
     }
 
     /**
@@ -79,10 +68,7 @@ public class Hand implements Serializable{
     public ArrayList<Piece> getPieces() {
         return this.pieces;
     }
-    /*
-     * Remove peca.
-     * @param piece peça a ser removida
-     */
+    
     public boolean removePiece(Piece piece) {
         
         if(this.pieces.contains(piece)) {

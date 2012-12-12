@@ -481,10 +481,11 @@ public class ComCliente {
                         }
                     case "RequestDeck:success":
                         ReaderThread.welcomescreen.uiGameRoom.DeckPieces--;
-                        ReaderThread.welcomescreen.uiGameRoom.updateDeckLabel();
+                        ReaderThread.welcomescreen.uiGameRoom.UpdateDeckLabel();
                         ReaderThread.welcomescreen.uiGameRoom.PlayerTime=(User) msg.getArguments().get(1);
                         ReaderThread.welcomescreen.uiGameRoom.addDeckPiece((Piece) msg.getArguments().get(0),(User) msg.getArguments().get(1),(User) msg.getArguments().get(2));
                         
+                         
                         return "RequestDeck:success";  
                         
                     case "RequestPiecePlay:error":
