@@ -189,7 +189,6 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         JoinRoomStatusLabel = new javax.swing.JLabel();
         RoomPasswordField = new javax.swing.JPasswordField();
         OptionsButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         pub = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -435,14 +434,6 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         });
         getContentPane().add(OptionsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 580, 113, 56));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 600, -1, -1));
-
         pub.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         getContentPane().add(pub, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 11, 291, 100));
 
@@ -594,12 +585,6 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_OptionsButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        uiGameRoom = new UIGameRoom();
-        uiGameRoom.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -660,7 +645,6 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JLabel avatarLabel;
     private javax.swing.JLabel gamesplayed;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

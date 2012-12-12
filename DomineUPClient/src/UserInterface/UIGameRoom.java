@@ -631,6 +631,7 @@ public class UIGameRoom extends javax.swing.JFrame {
                     parent.remove(label);
                     parent.validate();
                     parent.repaint();
+                    piecesPosition.remove(label);
                     break;
                 }
 
@@ -965,7 +966,7 @@ public class UIGameRoom extends javax.swing.JFrame {
         if (OldUser.getUsername().equals(Player1.getText())) {
             JLabel j = new JLabel();
 
-
+            
             Icon i = new javax.swing.ImageIcon(getClass().getResource("/resources/pecas/" + peca.getImage()));
             j.setIcon(new RotatedIcon(i, Rotate.NORMAL));
             j.addMouseListener(new java.awt.event.MouseAdapter() {
