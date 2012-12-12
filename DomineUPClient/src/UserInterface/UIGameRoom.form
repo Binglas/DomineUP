@@ -112,7 +112,6 @@
                                   <Component id="txtChat" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jToggleButton1" min="-2" pref="88" max="-2" attributes="0"/>
-                              <Component id="jToggleButton2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="ChatLabel" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
                       </Group>
@@ -182,8 +181,6 @@
                       <Component id="txtChat" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jToggleButton1" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jToggleButton2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="hand1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -369,14 +366,6 @@
           <Image iconType="3" name="/resources/soundoff.png"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jToggleButton2"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton2ActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="hand3">
       <Properties>

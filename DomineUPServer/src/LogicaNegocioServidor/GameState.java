@@ -179,6 +179,9 @@ class GameState {
      */
     void addPiece(User player,Piece piece){
         
-        playerHands.get(player).setOnePiece(playerHands.get(player).getSize(), piece);
+        ArrayList<Piece> hand = new ArrayList<Piece>();
+        hand=playerHands.get(player.getUsername()).getPieces();
+        hand.add(piece);
+        
     }
 }

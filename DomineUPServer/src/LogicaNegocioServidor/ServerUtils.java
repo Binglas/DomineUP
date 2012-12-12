@@ -18,6 +18,7 @@ import java.util.Hashtable;
 import Share.GameRoom;
 import Share.Hand;
 import Share.Piece;
+import Share.Side;
 
 /**
  * Classe que suporta todas as operações do servidor.
@@ -759,7 +760,7 @@ public class ServerUtils implements Serializable {
                             break;
                         }
                     }
-
+                    System.out.println("asdsadsadsdasad: "+peca.getImage());
                     int nextPlayer = sala.nextPlayer(user);
                     g.setActivePlayer(sala.getPlayer(nextPlayer));
                     g.addPiece(user, peca);
@@ -784,6 +785,8 @@ public class ServerUtils implements Serializable {
         }
         return false;
     }
+    
+   
     /**
      * Metodo que verifica se é possível efetuar a jogada solicitada pelo
      * jogador, verifica também se alguém venceu o jogo. Envia em broadcast
@@ -798,7 +801,8 @@ public class ServerUtils implements Serializable {
         synchronized (lockRoomsOnline) {
             ArrayList<Object> arguments = new ArrayList<>();
             ArrayList<User> toBroadcast = new ArrayList<>();
-            GameRoom myRoom;
+           
+            Side s;
 
 
             for (GameState g : runningGames) {
@@ -816,55 +820,65 @@ public class ServerUtils implements Serializable {
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setLeftSide(piece.getLeftN());
                         g.setRightSide(piece.getRightN());
-                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                        s = Side.Left;
+                                
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser, s);
                     } else if ((g.getRightSide() == piece.getLeftN()) && (g.getLeftSide() == piece.getRightN())) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setLeftSide(piece.getLeftN());
-                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                        s = Side.Left;
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser,s);
                     } else if ((g.getRightSide() == piece.getLeftN()) && (g.getLeftSide() == piece.getLeftN())) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setLeftSide(piece.getLeftN());
-                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                         s = Side.Left;
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser,s);
                     } else if ((g.getRightSide() == piece.getRightN()) && (g.getLeftSide() == piece.getLeftN())) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setRightSide(piece.getLeftN());
-                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                        s = Side.Right;
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser, s);
                     } else if ((g.getRightSide() == piece.getRightN()) && (g.getLeftSide() == piece.getRightN())) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setRightSide(piece.getLeftN());
-                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                         s = Side.Right;
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser,s);
                     } else if (g.getRightSide() == piece.getLeftN()) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setRightSide(piece.getRightN());
-                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                        s = Side.Right;
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser,s);
                     } else if (g.getLeftSide() == piece.getRightN()) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setLeftSide(piece.getLeftN());
-                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                        s = Side.Left;
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser,s);
                     } else if (g.getLeftSide() == piece.getLeftN()) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setLeftSide(piece.getRightN());
-                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                        s = Side.Left;
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser,s);
                     } else if (g.getRightSide() == piece.getRightN()) {
                         g.getPlayerHands().get(user.getUsername()).removePiece(piece);
                         int nextPlayer = sala.nextPlayer(user);
                         g.setActivePlayer(sala.getPlayer(nextPlayer));
                         g.setRightSide(piece.getLeftN());
-                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser);
+                        s = Side.Left;
+                        return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser,s);
                     } else {
                         return false; // mandar mensagem apenas ao utilizador que tentou jogar a dizer que a jogada n é valida.
                     }
@@ -902,9 +916,10 @@ public class ServerUtils implements Serializable {
      * @param piece
      * @param g
      * @param OldUser
+     * @param s
      * @return true, se a mensagem for enviada, ou false, caso nao seja
      */
-    private boolean SendMessagePlayers(GameRoom sala, ArrayList<User> toBroadcast, ArrayList<Object> arguments, Piece piece, GameState g, User OldUser) {
+    private boolean SendMessagePlayers(GameRoom sala, ArrayList<User> toBroadcast, ArrayList<Object> arguments, Piece piece, GameState g, User OldUser, Side s) {
         GameRoom myRoom;
         //enviar a todos os jogadores da sala
         myRoom = sala;
@@ -914,6 +929,7 @@ public class ServerUtils implements Serializable {
         arguments.add(piece);
         arguments.add(g.activePlayer);
         arguments.add(OldUser);
+        arguments.add(s);
         Message msg = new Message("RequestPiecePlay:success", arguments);
         if (broadcast(msg, toBroadcast)) {
             return true;

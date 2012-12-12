@@ -48,7 +48,7 @@ public class UIGameRoom extends javax.swing.JFrame {
     int lastX;
     int newY;
     int newX;
-    public int DeckPieces = 28;
+    public int DeckPieces = 0;
     public User PlayerTime; //saber de quem é a vez
     private Hashtable<JLabel, Piece> piecesPosition = new Hashtable<JLabel, Piece>();
     GameRoom gameRoom;
@@ -96,7 +96,7 @@ public class UIGameRoom extends javax.swing.JFrame {
         Player1.setText(UIWelcomeScreen.player.getUsername());
         this.avatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/min_" + UIWelcomeScreen.player.getAvatar())));
         gameRoom = gr;
-        DeckPieces=DeckPieces-7;
+        
         ArrayList<User> players = (ArrayList<User>) gr.getPlayers();
         ArrayList<Hand> hands = null;
 
@@ -141,7 +141,7 @@ public class UIGameRoom extends javax.swing.JFrame {
         for (; i < 3; i++) {
             playersLbl[i].setVisible(false);
             avatarsLbl[i].setVisible(false);
-            DeckPieces = DeckPieces - 7;
+            DeckPieces = DeckPieces + 7;
 
         }
 
@@ -242,7 +242,6 @@ public class UIGameRoom extends javax.swing.JFrame {
         VolumeLogoOn = new javax.swing.JLabel();
         pub = new javax.swing.JLabel();
         VolumeLogoOff = new javax.swing.JLabel();
-        jToggleButton2 = new javax.swing.JToggleButton();
         hand3 = new javax.swing.JPanel();
         hand1 = new javax.swing.JPanel();
         hand4 = new javax.swing.JPanel();
@@ -327,13 +326,6 @@ public class UIGameRoom extends javax.swing.JFrame {
         pub.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         VolumeLogoOff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/soundoff.png"))); // NOI18N
-
-        jToggleButton2.setText("jToggleButton2");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
-            }
-        });
 
         hand3.setPreferredSize(new java.awt.Dimension(75, 0));
         hand3.setLayout(new java.awt.GridLayout(0, 3));
@@ -434,8 +426,7 @@ public class UIGameRoom extends javax.swing.JFrame {
                                     .addComponent(avatar4)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                                     .addComponent(txtChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jToggleButton2))
+                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(ChatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(26, 26, 26))
         );
@@ -489,9 +480,7 @@ public class UIGameRoom extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(txtChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton2))
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(hand1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(DeckLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -541,14 +530,15 @@ public class UIGameRoom extends javax.swing.JFrame {
 
     }//GEN-LAST:event_VolumeControlStateChanged
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        // TODO add your handling code here:
-        //addPeca();
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
-
     private void DeckLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeckLabelMouseClicked
-        com = ComCliente.getInstance();
-        com.RequestDeck(UIWelcomeScreen.player,gameRoom);
+        
+        try{
+            com = ComCliente.getInstance();
+            com.RequestDeck(UIWelcomeScreen.player,gameRoom);
+        }catch (Exception ex){
+            System.out.println("Erro Deck: " + ex);
+        }
+        
         
     }//GEN-LAST:event_DeckLabelMouseClicked
     /**
@@ -600,7 +590,6 @@ public class UIGameRoom extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JLabel piecesTextLabel;
     private javax.swing.JLabel pub;
     private javax.swing.JPanel tabuleiro;
@@ -626,7 +615,7 @@ public class UIGameRoom extends javax.swing.JFrame {
                 Map.Entry entry = (Map.Entry) it.next();
                 if (entry.getValue().equals(pecaremovida)) {
                     JLabel label = (JLabel) entry.getKey();
-                    piecesPosition.remove(entry.getKey());
+                    piecesPosition.remove(label);
                     Container parent = label.getParent();
                     parent.remove(label);
                     parent.validate();
@@ -648,6 +637,7 @@ public class UIGameRoom extends javax.swing.JFrame {
             }
 
         }
+       
     }
 
     /**

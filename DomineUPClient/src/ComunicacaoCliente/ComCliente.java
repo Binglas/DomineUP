@@ -9,6 +9,7 @@ import Share.GameRoom;
 import Share.Hand;
 import Share.Message;
 import Share.Piece;
+import Share.Side;
 import Share.User;
 import UserInterface.UIGameRoom;
 import UserInterface.UIWaitingRoom;
@@ -460,15 +461,24 @@ public class ComCliente {
                         
                     case "startGame:success":
                         ReaderThread.hand = (Hand) msg.getArguments().get(0);
+                        ReaderThread.welcomescreen.waitingRoomScreen.dispose();
+                        
                         return "gameStart:success";
                     case "RequestPiecePlay:success":
+                        System.out.println(msg.getArguments());
                         User Oldplayer = (User) msg.getArguments().get(2);
                         ReaderThread.welcomescreen.uiGameRoom.PlayerTime = (User) msg.getArguments().get(1);
                         Piece pecaremovida = (Piece) msg.getArguments().get(0);
-                        ReaderThread.welcomescreen.uiGameRoom.newleftSide = pecaremovida.getRightN();
-                        ReaderThread.welcomescreen.uiGameRoom.newrightSide = pecaremovida.getLeftN();
+                        Side s = (Side)  msg.getArguments().get(3);
+                        if(s == Side.Left){
+                              ReaderThread.welcomescreen.uiGameRoom.newleftSide = pecaremovida.getRightN();
+                        } else {
+                             ReaderThread.welcomescreen.uiGameRoom.newrightSide = pecaremovida.getLeftN();
+                        }
+                      
+                       
                         if (ReaderThread.welcomescreen.uiGameRoom.addPeca(pecaremovida)==true){
-                            if (ReaderThread.welcomescreen.player.getUsername().equals(Oldplayer.getUsername())){
+                            if (ReaderThread.welcomescreen.player.equals(Oldplayer)){
                              ReaderThread.hand.removePiece(pecaremovida);
                              ReaderThread.welcomescreen.uiGameRoom.updateUI(ReaderThread.welcomescreen.uiGameRoom.PlayerTime.getUsername(),pecaremovida,Oldplayer);
                         }else{
