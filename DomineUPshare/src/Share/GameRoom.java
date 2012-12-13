@@ -54,6 +54,10 @@ public class GameRoom implements Serializable{
     public int getCurPlayers(){
         return getPlayers().size();
     }
+    /*
+     * Get Player pelo nome
+     * @return User 
+     */
     public User getPlayerbyUsername(String Username){
         
         for(User u:players){
@@ -158,6 +162,17 @@ public class GameRoom implements Serializable{
             }
         }
         return false;
+    }
+    /*
+     * Remover todos os jogadores da sala
+     * @return true se remover todos, caso contário retorna false.
+     */
+    public boolean removeAllPlayers(){
+        for(int i = 0;i<this.getPlayers().size();++i){
+            
+                this.getPlayers().remove(i);     
+        }
+        return true;
     }
     
     public boolean existsUser(String username){

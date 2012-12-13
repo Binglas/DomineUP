@@ -229,7 +229,15 @@ public class ComServer {
                         System.out.println(GetDate.now() + ": " + thisClient + ": Failed to request a Deck piece!");
                         return true;
                     }
-
+                case "ExitGame":
+                     System.out.println(GetDate.now() + ": " + thisClient + ": Requested a GameExit");
+                    if (ExitGame(msg)) {
+                        System.out.println(GetDate.now() + ": " + thisClient + ": Request a Deck piece accepted");
+                        return true;
+                    } else {
+                        System.out.println(GetDate.now() + ": " + thisClient + ": Failed to request a Deck piece!");
+                        return true;
+                    }
 
                 case "requestRooms":
                     System.out.println(GetDate.now() + "+" + thisClient + " Request looged users");
@@ -721,7 +729,19 @@ public class ComServer {
         String newUser = (String) msg.getArguments().get(1);
         return state.Invite(nome_sala, newUser);
     }
-
+    /**
+     * Este método descodifica os argumentos enviados pelo cliente e chama o
+     * método ExitGame da classe ServerUtils para terminar o jogo.
+     *
+     * @param msg é a mensagem recebida do cliente
+     * @return Retorna true se for for bem sucedido, caso contrário falso.
+     */
+    private boolean ExitGame(Message msg) {
+        ArrayList<Object> arguments = new ArrayList<>();
+        arguments.clear();
+        GameRoom gameRoom= (GameRoom) msg.getArguments().get(0);
+        return state.ExitGame(gameRoom);
+    }
     /**
      * Este método descodifica os argumentos enviados pelo cliente e chama o
      * método startGame da classe ServerState. É enviada uma mensagem ao cliente

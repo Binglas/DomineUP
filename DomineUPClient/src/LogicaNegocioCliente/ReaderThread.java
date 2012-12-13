@@ -214,7 +214,8 @@ public class ReaderThread extends Thread {
                        errorFrame5.setTextErrorLabel("Não é possível juntar à sala.");
                        errorFrame5.setVisible(true); 
                        break; 
-                          
+                    case "ExitGame:success":
+                        break;
                     case "receivedmessage":
                         welcomescreen.updateChat(chatMessage);
                         break;
@@ -232,6 +233,8 @@ public class ReaderThread extends Thread {
                         break;
                     case "RequestPiecePlay:success":
                         
+                        break;
+                    case "RequestDeck:success":
                         break;
                     case "RequestPiecePlay:error":
                         UIError errorFrame8 = new UIError();

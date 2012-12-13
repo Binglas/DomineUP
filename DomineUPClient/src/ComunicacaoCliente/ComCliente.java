@@ -470,12 +470,10 @@ public class ComCliente {
                         ReaderThread.welcomescreen.uiGameRoom.PlayerTime = (User) msg.getArguments().get(1);
                         Piece pecaremovida = (Piece) msg.getArguments().get(0);
                         Side s = (Side)  msg.getArguments().get(3);
-                        if(s == Side.Left){
-                              ReaderThread.welcomescreen.uiGameRoom.newleftSide = pecaremovida.getRightN();
-                        } else {
-                             ReaderThread.welcomescreen.uiGameRoom.newrightSide = pecaremovida.getLeftN();
-                        }
-                      
+                        
+                        ReaderThread.welcomescreen.uiGameRoom.newleftSide = pecaremovida.getRightN();
+                        ReaderThread.welcomescreen.uiGameRoom.newrightSide = pecaremovida.getLeftN();
+                                              
                        
                         if (ReaderThread.welcomescreen.uiGameRoom.addPeca(pecaremovida)==true){
                             if (ReaderThread.welcomescreen.player.equals(Oldplayer)){
@@ -493,10 +491,18 @@ public class ComCliente {
                         ReaderThread.welcomescreen.uiGameRoom.DeckPieces--;
                         ReaderThread.welcomescreen.uiGameRoom.UpdateDeckLabel();
                         ReaderThread.welcomescreen.uiGameRoom.PlayerTime=(User) msg.getArguments().get(1);
-                        ReaderThread.welcomescreen.uiGameRoom.addDeckPiece((Piece) msg.getArguments().get(0),(User) msg.getArguments().get(1),(User) msg.getArguments().get(2));
+                        Piece peca = (Piece) msg.getArguments().get(0);
+                        User user = (User) msg.getArguments().get(1);
+                        User user2 = (User) msg.getArguments().get(2);
+                        ReaderThread.welcomescreen.uiGameRoom.addDeckPiece(peca,user,user2);
                         
                          
                         return "RequestDeck:success";  
+                    case "ExitGame:success":
+                        ReaderThread.welcomescreen.uiGameRoom.dispose();
+                        ReaderThread.welcomescreen.setCreateRoomButton();
+                        ReaderThread.welcomescreen.setEnableJoinRoom();
+                        return "ExitGame:success";
                         
                     case "RequestPiecePlay:error":
                         return "RequestPiecePlay:error";
@@ -716,6 +722,21 @@ public class ComCliente {
             escritor.flush();
         } catch (Exception ex) {
             System.out.println("requestPub: error writing object");
+            System.out.println("Exception Message:" + ex);
+        }
+    }
+
+    public void ExitGame(GameRoom gameRoom) {
+        ArrayList<Object> arguments = new ArrayList<Object>();
+        arguments.add(gameRoom);
+        Message messageToServer = new Message("ExitGame", arguments);
+
+        try {
+            escritor.writeObject(messageToServer);
+            escritor.reset();
+            escritor.flush();
+        } catch (Exception ex) {
+            System.out.println("requestGameExit: error writing object");
             System.out.println("Exception Message:" + ex);
         }
     }

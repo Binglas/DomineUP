@@ -122,6 +122,12 @@ public class UIWelcomeScreen extends javax.swing.JFrame {
     public void setDisableRoomButton(){
         CreateRoomButton.setEnabled(false);
     }
+     /**
+     * Set genérico
+     */
+    public void setEnableJoinRoom(){
+        JoinRoomButton.setEnabled(true);
+    }
     /**
      * Set genérico
      */

@@ -810,6 +810,7 @@ public class ServerUtils implements Serializable {
                 if (g.getName().equals(sala.getName())) {
                     User OldUser = g.activePlayer;
                     //99... é quando comeca
+                   
                     if (g.getLeftSide() == 99 && g.getRightSide() == 99) {
                         // g.getPlayerHands().get(user).removePiece(piece); 
                         //g.removePiece(user,piece);
@@ -879,6 +880,8 @@ public class ServerUtils implements Serializable {
                         g.setRightSide(piece.getLeftN());
                         s = Side.Left;
                         return SendMessagePlayers(sala, toBroadcast, arguments, piece, g, OldUser,s);
+                    
+                        
                     } else {
                         return false; // mandar mensagem apenas ao utilizador que tentou jogar a dizer que a jogada n é valida.
                     }
@@ -926,15 +929,42 @@ public class ServerUtils implements Serializable {
         for (int i = 0; i < myRoom.getCurPlayers(); i++) {
             toBroadcast.add(myRoom.getPlayer(i));
         }
-        arguments.add(piece);
-        arguments.add(g.activePlayer);
-        arguments.add(OldUser);
-        arguments.add(s);
-        Message msg = new Message("RequestPiecePlay:success", arguments);
-        if (broadcast(msg, toBroadcast)) {
+        
+        if (piece==null){
+                    Message msg = new Message("ExitGame:success", arguments);
+                     if (broadcast(msg, toBroadcast)) {
+                        return true;
+                     } else {
+                        return false;
+                     }
+        }else{
+                    arguments.add(piece);
+                    arguments.add(g.activePlayer);
+                    arguments.add(OldUser);
+                    arguments.add(s);
+                    Message msg = new Message("RequestPiecePlay:success", arguments);
+                    if (broadcast(msg, toBroadcast)) {
+                        return true;
+                     } else {
+                        return false;
+
+                     }
+       
+        }
+}
+    public boolean ExitGame(GameRoom gameRoom) {
+        synchronized (lockRoomsOnline) {
+            boolean exists = false;
+            ArrayList<User> toBroadcast = new ArrayList<>();
+            ArrayList<Object> arguments = new ArrayList<>();
+            String roomName=gameRoom.getName();
+            SendMessagePlayers(gameRoom, toBroadcast, null, null, null, null, null);
+            for (int i = 0; i < roomsOnline.size(); ++i) {
+                if (roomsOnline.get(i).getName().equals(roomName)) {
+                    roomsOnline.remove(i);
+                }
+            }
             return true;
-        } else {
-            return false;
         }
     }
 }
