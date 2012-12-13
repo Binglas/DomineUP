@@ -699,7 +699,7 @@ public class ServerUtils implements Serializable {
             for (int i = 0; i < loggedUsers.size(); i++) {
                 if (loggedUsers.get(i).getUsername().equals(newUser)) {
                     toBroadcast.add(newUser);
-                    System.out.println("Boradcast to: \n" + toBroadcast.get(i));
+                    break;
                 }
             }
             arguments.add(nome_sala);
